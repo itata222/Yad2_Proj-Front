@@ -1,0 +1,23 @@
+.resultsLength{
+    color: #ccc;
+    font-size: 0.85rem;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+@media (max-width:1000px) {
+    .home-page{
+        background-color: $main-color-grey;
+        height: 100%;
+    }
+}
+
+@media (min-width:1000px) {
+    .home-page{
+        background-color: $main-color-grey;
+        height: 100%;
+        width: 50%;
+        margin:0.5rem auto;
+        z-index: -21;
+    }
+}
