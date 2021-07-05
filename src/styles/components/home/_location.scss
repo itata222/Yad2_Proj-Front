@@ -1,0 +1,49 @@
+.location{
+    display: flex;
+
+    ul{
+        display: flex;
+        padding-right: 1rem;
+    }
+    li{
+        list-style-type: none;
+        margin: auto 0.3rem;
+        color: #ccc;
+
+        &:first-of-type{
+        color: black;
+
+        }
+    }
+}
+.locationHeadline{
+    font-size: 1.2rem;
+    margin-right: 1rem;
+}
+
+.sort{
+    margin: 1rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    .sort-results,.filter-results{
+        padding: 0.5rem;
+        background-color: white;
+        border: 1px solid #ccc;
+        display: flex;
+        align-items: center;
+        font-size: 0.95rem;
+
+        &:hover{
+            cursor: pointer;
+            background-color:darken($color:  $main-color-grey, $amount: 10%);
+            // background-color:$main-color-grey;
+        }
+
+        img{
+            margin-left: 0.5rem;
+            width: 22px;
+        }
+    }
+}
