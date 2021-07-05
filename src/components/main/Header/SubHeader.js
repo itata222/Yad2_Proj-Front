@@ -1,9 +1,10 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 const SubHeader = () => {
-
+    const history = useHistory();
     const openSearch = () => {
-
+        history.push('/search-form')
     }
     return (
         <div className="subHeader">
