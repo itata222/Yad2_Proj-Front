@@ -1,11 +1,13 @@
 import moment from "moment";
 import React from "react";
+import SubHeader from "../Header/SubHeader";
 import Posts from "../posts/Posts";
 import Search from "../search/Search";
 import LocationDiv from "./LocationDiv";
 import LocationHeadline from "./LocationHeadline";
 import NumberOfResults from "./NumberOfResults";
 import Sort from "./Sort";
+
 
 const Home = () => {
   const location = ["ראשי", 'נדל"ן למכירה'];
@@ -42,14 +44,17 @@ const Home = () => {
     },
   ];
   return (
-    <div className="home-page">
-      <LocationDiv location={location} />
-      <Search />
-      <LocationHeadline headline={location[location.length - 1]} />
-      <Sort />
-      <NumberOfResults resultsLength={results.length} />
-      <Posts posts={results} />
-    </div>
+    <>
+      <SubHeader />
+      <div className="home-page">
+        <LocationDiv location={location} />
+        <Search />
+        <LocationHeadline headline={location[location.length - 1]} />
+        <Sort />
+        <NumberOfResults resultsLength={results.length} />
+        <Posts posts={results} />
+      </div>
+    </>
   );
 };
 
