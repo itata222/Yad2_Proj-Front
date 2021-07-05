@@ -9,19 +9,19 @@ import Header from '../components/main/Header/Header';
 import LoginPage from '../components/main/LoginPage';
 import PageNotFound from '../components/main/PageNotFound';
 import LoginContextProvider from '../contexts/loginContext';
-import SubHeader from '../components/main/Header/SubHeader';
+import SearchFormPhone from '../components/main/search/SearchFormPhone';
 
 const AppRoute = () => {
     return (
         <BrowserRouter>
             <LoginContextProvider>
                 <Header />
-                <SubHeader />
                 <Switch>
                     <Route path="/" exact>
                         <Redirect to="/home" />
                     </Route>
                     <Route path="/home" component={Home} />
+                    <Route path="/search-form" component={SearchFormPhone} />
                     <NonAdminRoute path='/login' component={LoginPage} />
                     <AdminRoute path='/admin/home' component={AdminPage} />
                     <Route path='*' component={PageNotFound} />
