@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
-import AdvancedSearchForm from './AdvancedSearchForm';
+import AdvancedSearchPhone from './AdvancedSearchPhone';
 
 const SearchFormPhone = () => {
     const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
 
     const isFormModified = () => {
+        return true
+    }
+    const isCityChosen = () => {
         return true
     }
 
@@ -24,21 +27,21 @@ const SearchFormPhone = () => {
                 </button>
                 <div className="searchBy">
                     <div>חפשו לפי</div>
-                    <ul>
-                        <li>עיר ושכונה</li>
-                        <li>אזור</li>
-                        <li>קרוב אלי</li>
-                    </ul>
+                    <div className="searchByButtons">
+                        <button className="selected">עיר ושכונה</button>
+                        <button>אזור</button>
+                        <button>קרוב אלי</button>
+                    </div>
                 </div>
                 <div className="searchCity">
-                    <div>חפשו עיר</div>
+                    <span>חפשו עיר</span>
                     <input type="text" placeholder="לדוגמא: נתניה" />
                     <div className="dropdown none">
 
                     </div>
                 </div>
-                <div className="searchNeighborhood">
-                    <div>חפשו שכונה</div>
+                <div className="searchNeighborhood" disabled={isCityChosen()}>
+                    <span>חפשו שכונה</span>
                     <input type="text" placeholder="הזינו שם של שכונה" />
                     <div className="dropdown none">
 
@@ -46,51 +49,110 @@ const SearchFormPhone = () => {
                 </div>
                 <div className="type">
                     <div>סוג נכס</div>
-                    <ul>
-                        <li>
+                    <div className="types">
+                        <button className="selected">
                             <img src="https://img.icons8.com/material-outlined/48/000000/building.png" alt="building" />
                             <span>דירות</span>
                             <span>9 סוגי נכסים</span>
-                        </li>
-                        <li>
+                        </button>
+                        <button>
                             <img src="https://img.icons8.com/material-outlined/48/000000/home--v2.png" alt="home" />
                             <span>בתים</span>
                             <span>4 סוגי נכסים</span>
-                        </li>
-                        <li>
+                        </button>
+                        <button>
                             <img src="https://img.icons8.com/ios-glyphs/48/000000/defensive-wood-wall.png" alt="fence" />
                             <span>סוגים נוספים</span>
                             <span>7 סוגי נכסים</span>
-                        </li>
-                    </ul>
+                        </button>
+                    </div>
                     <div className="showAllTypes">
                         <span>להצגת כל סוגי הנכסים</span>
                     </div>
                 </div>
                 <div className="rooms">
                     <span>חדרים</span>
-                    <div className="pricesBoxes">
-                        <button>
-                            <span>חדרים</span>
-                            <img src="https://img.icons8.com/material-outlined/24/000000/expand-arrow--v1.png" alt="arrow down" />
-                        </button>
-                        <div className="dropdown none">
-
-                        </div>
+                    <div className="roomsBoxes">
+                        <select className="rooms-from">
+                            <option value="-1"> הכל </option>
+                            <option value="1">‏1</option>
+                            <option value="1.5">‏1.5</option>
+                            <option value="2">‏2</option>
+                            <option value="2.5">‏2.5</option>
+                            <option value="3">‏3</option>
+                            <option value="3.5">‏3.5</option>
+                            <option value="4">‏4</option>
+                            <option value="4.5">‏4.5</option>
+                            <option value="5">‏5</option>
+                            <option value="5.5">‏5.5</option>
+                            <option value="6">‏6</option>
+                            <option value="6.5">‏6.5</option>
+                            <option value="7">‏7</option>
+                            <option value="7.5">‏7.5</option>
+                            <option value="8">‏8</option>
+                            <option value="8.5">‏8.5</option>
+                            <option value="9">‏9</option>
+                            <option value="9.5">‏9.5</option>
+                            <option value="10">‏10</option>
+                            <option value="10.5">‏10.5</option>
+                            <option value="11">‏11</option>
+                            <option value="11.5">‏11.5</option>
+                            <option value="12">‏12</option>
+                        </select>
+                        <span className="seperator"></span>
+                        <select className="rooms-to">
+                            <option value="-1"> הכל </option>
+                            <option value="1">‏1</option>
+                            <option value="1.5">‏1.5</option>
+                            <option value="2">‏2</option>
+                            <option value="2.5">‏2.5</option>
+                            <option value="3">‏3</option>
+                            <option value="3.5">‏3.5</option>
+                            <option value="4">‏4</option>
+                            <option value="4.5">‏4.5</option>
+                            <option value="5">‏5</option>
+                            <option value="5.5">‏5.5</option>
+                            <option value="6">‏6</option>
+                            <option value="6.5">‏6.5</option>
+                            <option value="7">‏7</option>
+                            <option value="7.5">‏7.5</option>
+                            <option value="8">‏8</option>
+                            <option value="8.5">‏8.5</option>
+                            <option value="9">‏9</option>
+                            <option value="9.5">‏9.5</option>
+                            <option value="10">‏10</option>
+                            <option value="10.5">‏10.5</option>
+                            <option value="11">‏11</option>
+                            <option value="11.5">‏11.5</option>
+                            <option value="12">‏12</option>
+                        </select>
+                    </div>
+                    <div className="rooms-suggestions">
+                        <button>2 - 3 חדרים</button>
+                        <button>3 - 4 חדרים</button>
+                        <button>4 - 5 חדרים</button>
+                        <button>5 - 6 חדרים</button>
                     </div>
                 </div>
                 <div className="price">
                     <span>מחיר</span>
-                    <div className="pricesBoxes">
+                    <div className="priceBoxes">
                         <input type="number" placeholder="ממחיר" />
+                        <span className="seperator"></span>
                         <input type="number" placeholder="עד מחיר" />
+                    </div>
+                    <div className="price-suggestions">
+                        <button>עד 1,500,000 ₪</button>
+                        <button>1.5 - 2 מיליון ₪</button>
+                        <button>2 - 3.5 מיליון ₪</button>
+                        <button>3.5 - 5 מיליון ₪</button>
                     </div>
                 </div>
 
                 <div className="advancedSearchButton">
                     <button onClick={openAdvancedSearch}>
-                        <img src="https://img.icons8.com/material-outlined/24/000000/plus--v1.png" alt="plus" />
-                        <span>חיפוש מתקדם</span>
+                        <span> {!showAdvancedSearch ? '+' : '-'} </span>
+                        <span>{!showAdvancedSearch ? 'חיפוש מתקדם' : 'סגור חיפוש מתקדם'}</span>
                     </button>
                 </div>
                 <div className="searchButton">
@@ -98,7 +160,7 @@ const SearchFormPhone = () => {
                         חיפוש
                     </button>
                 </div>
-                {showAdvancedSearch && <AdvancedSearchForm />}
+                {showAdvancedSearch && <AdvancedSearchPhone />}
             </form>
         </div>
     )

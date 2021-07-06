@@ -1,10 +1,29 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import { LoginContext } from '../../../contexts/loginContext';
+import LoginModal from '../modal/LoginModal';
 
 const HeaderContent = () => {
-
+    const { userData } = useContext(LoginContext);
+    const [showLoginModal, setShowLoginModal] = useState(false);
+    const history = useHistory()
+    const clickedProfile = () => {
+        if (!userData.token) {
+            setShowLoginModal(true)
+        }
+        else
+            history.push('/my-profile')
+    }
+    const clickedNewPost = () => {
+        if (!!userData.token) {
+            setShowLoginModal(true)
+        }
+        else
+            history.push('/create-post')
+    }
     return (
         <div className="headerContent">
+            {showLoginModal && <LoginModal setShowLoginModal={setShowLoginModal} />}
             {/* ----------------------------------------------- */}
             {/* ----------------------------------------------- */}
             {/* ----------------------------------------------- */}
@@ -51,10 +70,10 @@ const HeaderContent = () => {
                 <div className="heart">
                     <img src="https://img.icons8.com/material-outlined/25/000000/like--v1.png" alt="heart" />
                 </div>
-                <div className="profile-icon">
+                <div className="profile-icon" onClick={clickedProfile}>
                     <img src="https://img.icons8.com/small/25/000000/gender-neutral-user.png" alt="profile" />
                 </div>
-                <button className="add-post-button">פרסום מודעה חדשה +</button>
+                <button className="add-post-button" onClick={clickedNewPost}>פרסום מודעה חדשה +</button>
             </div>
 
         </div>

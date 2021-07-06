@@ -11,12 +11,19 @@
     .search-phone{
         display:none;
     }
+     .search-desktop{
+        background-color: white;
+        padding: 1rem;
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+    }
     
     .searchHeadline{
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
+        padding-bottom: 1.5rem;
     }
     
     .searchHeadlineText{
@@ -206,7 +213,7 @@
             display: flex;
             min-width: 200px;
             input{
-            width: 48%;
+            width: 50%;
             border:1px solid #ccc ;
             padding: 0.8rem;
             display: block;
@@ -220,6 +227,7 @@
         font-size: .875rem;
         line-height: 1.0625rem;
         padding: .8em 1em;
+         padding-bottom: 0;
         position: relative;
         border-radius: 2px;
         direction: rtl;
@@ -235,7 +243,7 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            padding: 11px 5px;
+            padding: 11px 1rem;
             font-weight: 500;
             background-color: $main-color-orange;
             border: none;
@@ -258,6 +266,7 @@
         font-size: .875rem;
         line-height: 1.0625rem;
         padding: .8em 1em;
+        padding-bottom: 0;
         position: relative;
         border-radius: 2px;
         direction: rtl;
@@ -265,6 +274,7 @@
         display: flex;
         justify-content: center;
         align-items: flex-end;
+        min-width: 9rem;
         button{
             display: flex;
             align-items: center;

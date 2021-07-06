@@ -1,0 +1,231 @@
+.modal{
+    overflow: auto;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: rgba(0,0,0,0.4);
+    will-change: opacity;
+    transition: opacity .4s cubic-bezier(.25,.8,.25,1);
+}
+
+.modal-content{
+    min-width: 740px;
+    display: flex;
+    align-items: stretch;
+    background-color: #fff;
+    border-radius: 5px;
+    z-index: 20;
+    text-align: right;
+    max-height: 100%;
+    max-width: 100%;
+    position: relative;
+    opacity: 1;
+    min-height: 450px;
+}
+
+.welcome{
+    width: 39%;
+    background: linear-gradient(229.5deg,#fa0,#ff7100);
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+
+    .welcome-text,.welcome-img{
+        color: #fff;
+        text-shadow: 0 1px 2px rgba(0, 0, 0 ,.2);
+        overflow: hidden;
+
+        h1{
+            padding: 0;
+            margin: 0;
+            font-size: 2.4rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+        h4{
+            font-size: 1.286rem;
+            padding: 0;
+            font-weight: 400;
+            margin: 0;
+        }
+    }
+}
+.form-div{
+    flex-basis: auto;
+    flex: 2;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    padding: 15px 0 0;
+
+    .login-form,.register-form{
+        height: 100%;
+        padding: 1rem;
+        padding-top: 0;
+    }
+
+    .form-header{
+        width: 300px;
+        align-self: center;
+        margin: 0 auto 25px;
+     
+        h3{
+             font-size: 1.5rem;
+            padding: 0;
+            margin: 0;
+            margin-bottom: -.8rem;
+        }
+        p{
+            font-size: 14px;
+            color: #999;
+        }
+    }
+
+    .form-container{
+        margin-right: 75px;
+        flex: 1;
+        display: flex;
+        flex-flow: column;
+        justify-content: space-between; 
+        padding-bottom: 15px;
+        width: 80%;height: 80%;
+
+        form{
+            height: 100%;
+            display: flex;
+            flex-flow: column;
+            justify-content: space-between;
+
+            .div1{
+                display: flex;
+                flex-direction: column;
+                .email,.password{
+                    display: flex;
+                    justify-content: center;
+                    align-items: flex-end;
+                    margin-bottom: 1.5rem;
+                    flex-flow: column;
+                    
+                    .form-label{
+                        width: 100%;
+                        text-align: start;
+                        font-size: 1rem;
+                        font-family: Rubik,sans-serif;
+                        margin-bottom: .5rem;
+                    }
+                    
+                    input{
+                        height: 40px;
+                        width: 100%;
+                        text-align: right;
+                        border: 1px solid #ccc;
+                        padding: 0 15px;
+                        font-size: 1rem;
+                        font-weight: 300;
+                        font-family: Rubik,sans-serif;
+                        border-radius: 4px;
+                        outline: none;
+                    }
+                    .invalid-input{
+                        border: 1px solid red;
+                    }
+                }
+            }
+            .div2{
+                display: flex;
+                flex-direction: column;
+                margin-bottom: -1rem;
+                .suggestion{
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    text-align: center;
+                    width:10rem;
+                    align-self: center;
+                }
+                button{
+                    height: 40px;
+                    width: 100%;
+                    text-align: right;
+                    border: 1px solid $main-color-orange;
+                    padding: 0 15px;
+                    font-size: 1rem;
+                    font-weight: 300;
+                    text-align: center;
+                    font-family: Rubik,sans-serif;
+                    border-radius: 4px;
+                    // margin-bottom: 1.5rem;
+
+                   
+                    &[disabled]{
+                        cursor: not-allowed;
+                        background-color: #eee;
+                        border: 1px solid #ccc;
+                    }
+                    
+                    &:not([disabled]){
+                        color: #fff;
+                        background-color: #ff7100;
+                        &:hover{
+                            background-color: darken($color: #ff7100, $amount: 5%);
+                            cursor: pointer;
+                    }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.exitButton{
+    position: absolute;
+    left: 10px;
+    z-index: 1001;
+    cursor: pointer;
+    width: 20px;
+    height: 18px;
+    top: 10px;
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.invalid-message{
+    color: red;
+    font-size: 0.95rem;
+    width: 100%;
+    margin-top: 5px;
+    padding-right: 5px;
+    text-align: right;
+}
+.forgotPassword{
+    color: $main-color-orange;
+    font-size: .95rem;
+    text-align: left;
+    width: 100%;
+    display: block;
+    // margin-top: -1.4rem;
+
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.switchMode{
+    color: $main-color-orange;
+    cursor: pointer;
+}
+
+.repeatedPassword{
+    margin-top: 0.5rem;
+}
