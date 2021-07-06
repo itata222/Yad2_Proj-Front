@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { loginAction } from '../../../actions/userActions';
 import { LoginContext } from '../../../contexts/loginContext';
 import { saveUserOnCookie } from '../../../cookies/cookies';
-import { loginToDB } from '../../../services/userService';
+import { registerToDB } from '../../../services/userService';
 
 const RegisterForm = (props) => {
     const { dispatchUserData } = useContext(LoginContext);
@@ -20,7 +20,7 @@ const RegisterForm = (props) => {
     };
     const onSubmitform = (event) => {
         event.preventDefault();
-        loginToDB(email, password).then(
+        registerToDB(email, password).then(
             (response) => {
                 if (response.data) {
                     const userData = response.data;
@@ -75,9 +75,9 @@ const RegisterForm = (props) => {
                         </div>
                         <div className="password">
                             <div className="form-label">סיסמה</div>
-                            <input type="password" placeholder="6 תווים, אותיות באנגלית וספרה" onBlur={onBlurPasswordInput} className={!isEmailinputValid ? 'invalid-input' : ''} />
+                            <input type="password" placeholder="6 תווים, אותיות באנגלית וספרה" onBlur={onBlurPasswordInput} className={!isPasswordInputValid ? 'invalid-input' : ''} />
                             {!isPasswordInputValid && <div className="invalid-message">שדה חובה</div>}
-                            <input type="password" placeholder="חזור על הסיסמה שהקלדת" onBlur={onBlurPasswordRepeated} className={!isEmailinputValid ? 'invalid-input' : 'repeatedPassword'} />
+                            <input type="password" placeholder="חזור על הסיסמה שהקלדת" onBlur={onBlurPasswordRepeated} className={!passwordRepeatedValid ? 'invalid-input' : 'repeatedPassword'} />
                             {!passwordRepeatedValid && <div className="invalid-message">סיסמא לא תואמת</div>}
                         </div>
                     </div>

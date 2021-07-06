@@ -10,6 +10,14 @@ export const loginToDB = async (email, password) => {
         return err.response.data.message;
     }
 };
+export const registerToDB = async (email, password) => {
+    try {
+        const res = await Axios.post(developmentDB + "/register", { email, password });
+        return res;
+    } catch (err) {
+        return err.response.data.message;
+    }
+};
 
 export const logoutFromDB = async (token) => {
     try {

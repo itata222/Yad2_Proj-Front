@@ -159,7 +159,8 @@
 
         button{
             height: 40px;
-            width: 193px;
+            // width: 193px;
+            min-width: 100px;
             border-radius: 20px;
             background-color: #0fca80;
             margin: 15px 15px 15px 0;

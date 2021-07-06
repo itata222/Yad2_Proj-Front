@@ -69,7 +69,7 @@ const LoginForm = (props) => {
                         </div>
                         <div className="password">
                             <div className="form-label">סיסמה</div>
-                            <input type="password" placeholder="Password" onBlur={onBlurPasswordInput} className={!isEmailinputValid ? 'invalid-input' : ''} />
+                            <input type="password" placeholder="Password" onBlur={onBlurPasswordInput} className={!isPasswordInputValid ? 'invalid-input' : ''} />
                             {!isPasswordInputValid && <div className="invalid-message">שדה חובה</div>}
                             <span className="forgotPassword">שכחתי סיסמה</span>
                         </div>

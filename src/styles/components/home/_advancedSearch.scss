@@ -1,13 +1,13 @@
 .advancedSearch{
     display: flex;
     flex-direction: column;
-    width: 65%;
+    width: 100%;
     border-top: 1px solid #ccc;
     margin: 0 auto;
     background-color: white;
-    position: absolute;
-    top: 21.9rem;
-    left:16rem
+    position: relative;
+    top: 1rem;
+
 }
 
 .properties-checkbox{
