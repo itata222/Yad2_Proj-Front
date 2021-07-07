@@ -4,7 +4,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { LoginContext } from '../contexts/loginContext'
 
 
-const NonAdminRoute = ({ component: Component, ...rest }) => {
+const UserRoute = ({ component: Component, ...rest }) => {
     const { userData } = useContext(LoginContext);
 
     return (
@@ -12,11 +12,10 @@ const NonAdminRoute = ({ component: Component, ...rest }) => {
             {...rest}
             component={(props) => (
                 !!userData.token ?
-                    <Redirect to={{ pathname: "/admin/home" }} /> :
                     <Component {...props} />
-
+                    : <Redirect to={{ pathname: "/home" }} />
             )}
         />);
 };
 
-export default NonAdminRoute;
+export default UserRoute;

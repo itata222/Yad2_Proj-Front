@@ -12,6 +12,7 @@ const LoginForm = (props) => {
     const [password, setPassword] = useState("");
     const [isEmailinputValid, setIsEmailInputValid] = useState(true);
     const [isPasswordInputValid, setIsPasswordInputValid] = useState(true);
+    const [showPassowrd, setShowPassowrd] = useState(false)
 
     const history = useHistory();
 
@@ -20,17 +21,17 @@ const LoginForm = (props) => {
     };
     const onSubmitform = (event) => {
         event.preventDefault();
-        loginToDB(email, password).then(
-            (response) => {
-                if (response.data) {
-                    const userData = response.data;
-                    saveUserOnCookie(userData)
-                    dispatchUserData(loginAction(userData));
-                    history.push('/home')
-                }
-            }).catch((err) => {
-                console.log(err)
-            })
+        loginToDB(email, password).then((response) => {
+            console.log(response.data)
+            if (response.data) {
+                const userData = response.data;
+                saveUserOnCookie(userData)
+                dispatchUserData(loginAction(userData));
+                history.push('/home')
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
     };
 
     const onClickSubscribe = () => {
@@ -69,7 +70,13 @@ const LoginForm = (props) => {
                         </div>
                         <div className="password">
                             <div className="form-label">סיסמה</div>
-                            <input type="password" placeholder="Password" onBlur={onBlurPasswordInput} className={!isPasswordInputValid ? 'invalid-input' : ''} />
+                            <div className="passwordDiv">
+                                {showPassowrd ?
+                                    <img src="https://img.icons8.com/material-outlined/24/000000/visible--v1.png" alt="eye" onClick={() => setShowPassowrd(false)} /> :
+                                    <img src="https://img.icons8.com/material-outlined/24/000000/hide.png" alt="eye closed" onClick={() => setShowPassowrd(true)} />
+                                }
+                                <input type={!showPassowrd ? "password" : 'text'} placeholder="Password" onBlur={onBlurPasswordInput} className={!isPasswordInputValid ? 'invalid-input' : ''} />
+                            </div>
                             {!isPasswordInputValid && <div className="invalid-message">שדה חובה</div>}
                             <span className="forgotPassword">שכחתי סיסמה</span>
                         </div>

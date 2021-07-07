@@ -26,7 +26,6 @@
     max-height: 100%;
     max-width: 100%;
     position: relative;
-    opacity: 0;
     min-height: 450px;
     transition: all .4s cubic-bezier(.25,.8,.25,1);
     transition-property: opacity,transform;
@@ -235,4 +234,25 @@
 
 .repeatedPassword{
     margin-top: 0.5rem;
+}
+
+.passwordDiv{
+    width: 100%;
+     margin-top: -2rem;
+
+    img{
+           top: 2.2rem;
+    right: 20rem;
+    position: relative;
+    }
+}
+.repeatedPasswordDiv{
+     width: 100%;
+     margin-top: -1rem;
+
+    img{
+            top: 2.2rem;
+    right: 20rem;
+    position: relative;
+    }
 }

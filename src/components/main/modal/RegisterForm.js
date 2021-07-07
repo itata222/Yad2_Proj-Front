@@ -12,25 +12,28 @@ const RegisterForm = (props) => {
     const [isEmailinputValid, setIsEmailInputValid] = useState(true);
     const [isPasswordInputValid, setIsPasswordInputValid] = useState(true);
     const [passwordRepeatedValid, setPasswordRepeatedValid] = useState(true);
+    const [showPassword, setShowPassword] = useState(false)
+    const [showRepeatedPassword, setShowRepeatedPassword] = useState(false)
 
     const history = useHistory();
 
     const isFormInavlid = () => {
-        return email === "" || password === "" || !passwordRepeatedValid;
+        return email === "" || password === "" || passwordRepeatedValid === false;
     };
     const onSubmitform = (event) => {
         event.preventDefault();
-        registerToDB(email, password).then(
-            (response) => {
-                if (response.data) {
-                    const userData = response.data;
-                    saveUserOnCookie(userData)
-                    dispatchUserData(loginAction(userData));
-                    history.push('/home')
-                }
-            }).catch((err) => {
-                console.log(err)
-            })
+        console.log(email, password)
+        registerToDB(email, password).then((response) => {
+            console.log(response.data)
+            if (response.data) {
+                const userData = response.data;
+                saveUserOnCookie(userData)
+                dispatchUserData(loginAction(userData));
+                history.push('/home')
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
     };
 
     const onClickSubscribe = () => {
@@ -75,9 +78,21 @@ const RegisterForm = (props) => {
                         </div>
                         <div className="password">
                             <div className="form-label">סיסמה</div>
-                            <input type="password" placeholder="6 תווים, אותיות באנגלית וספרה" onBlur={onBlurPasswordInput} className={!isPasswordInputValid ? 'invalid-input' : ''} />
+                            <div className="passwordDiv">
+                                {showPassword ?
+                                    <img src="https://img.icons8.com/material-outlined/24/000000/visible--v1.png" alt="eye" onClick={() => setShowPassword(false)} /> :
+                                    <img src="https://img.icons8.com/material-outlined/24/000000/hide.png" alt="eye closed" onClick={() => setShowPassword(true)} />
+                                }
+                                <input type={!showPassword ? "password" : 'text'} placeholder="6 תווים, אותיות באנגלית וספרה" onBlur={onBlurPasswordInput} className={!isPasswordInputValid ? 'invalid-input' : ''} />
+                            </div>
                             {!isPasswordInputValid && <div className="invalid-message">שדה חובה</div>}
-                            <input type="password" placeholder="חזור על הסיסמה שהקלדת" onBlur={onBlurPasswordRepeated} className={!passwordRepeatedValid ? 'invalid-input' : 'repeatedPassword'} />
+                            <div className="repeatedPasswordDiv">
+                                {showRepeatedPassword ?
+                                    <img src="https://img.icons8.com/material-outlined/24/000000/visible--v1.png" alt="eye" onClick={() => setShowRepeatedPassword(false)} /> :
+                                    <img src="https://img.icons8.com/material-outlined/24/000000/hide.png" alt="eye closed" onClick={() => setShowRepeatedPassword(true)} />
+                                }
+                                <input type={!showRepeatedPassword ? "password" : 'text'} placeholder="חזור על הסיסמה שהקלדת" onBlur={onBlurPasswordRepeated} className={!passwordRepeatedValid ? 'invalid-input' : ''} />
+                            </div>
                             {!passwordRepeatedValid && <div className="invalid-message">סיסמא לא תואמת</div>}
                         </div>
                     </div>

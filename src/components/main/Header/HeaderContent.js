@@ -5,21 +5,23 @@ import LoginModal from '../modal/LoginModal';
 
 const HeaderContent = () => {
     const { userData } = useContext(LoginContext);
+    console.log(userData)
     const [showLoginModal, setShowLoginModal] = useState(false);
-    const history = useHistory()
+    const history = useHistory();
+
     const clickedProfile = () => {
         if (!userData.token) {
             setShowLoginModal(true)
         }
         else
-            history.push('/my-profile')
+            history.push('/user/profile')
     }
     const clickedNewPost = () => {
-        if (!!userData.token) {
+        if (!userData.token) {
             setShowLoginModal(true)
         }
         else
-            history.push('/create-post')
+            history.push('/user/create-post')
     }
     return (
         <div className="headerContent">
