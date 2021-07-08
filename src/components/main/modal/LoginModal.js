@@ -20,8 +20,8 @@ const LoginModal = ({ setShowLoginModal }) => {
                 </div>
                 <div className="form-div">
                     {isLoginMode ?
-                        <LoginForm setIsLoginMode={setIsLoginMode} /> :
-                        <RegisterForm setIsLoginMode={setIsLoginMode} />
+                        <LoginForm setIsLoginMode={setIsLoginMode} setShowLoginModal={setShowLoginModal} /> :
+                        <RegisterForm setIsLoginMode={setIsLoginMode} setShowLoginModal={setShowLoginModal} />
                     }
 
                 </div>

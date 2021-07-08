@@ -32,3 +32,15 @@ export const logoutFromDB = async (token) => {
         console.log(err);
     }
 }
+export const updateUserInfoDB = async (token, newUser) => {
+    try {
+        const res = await Axios.patch(developmentDB + "/update-user", { token, newUser }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return res.data
+    } catch (err) {
+        console.log(err);
+    }
+}

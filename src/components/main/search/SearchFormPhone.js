@@ -1,13 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { NavLink } from 'react-router-dom';
 import AdvancedSearchPhone from './AdvancedSearchPhone';
+import SearchByArea from './SearchByArea';
+import SearchByCityAndNeigh from './SearchByCityAndNeigh';
 
-const SearchFormPhone = () => {
+const SearchFormPhone = (props) => {
     const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+    const [byCity, setByCity] = useState(true);
+
+    useEffect(() => {
+        switch (props.location.hash) {
+            case "#byCity":
+                setByCity(true)
+                break;
+            default:
+                setByCity(false)
+        }
+    }, [props.location.hash]);
 
     const isFormModified = () => {
-        return true
-    }
-    const isCityChosen = () => {
         return true
     }
 
@@ -28,25 +39,14 @@ const SearchFormPhone = () => {
                 <div className="searchBy">
                     <div>חפשו לפי</div>
                     <div className="searchByButtons">
-                        <button className="selected">עיר ושכונה</button>
-                        <button>אזור</button>
-                        <button>קרוב אלי</button>
+                        <NavLink to="#byCity" activeClassName="selected" isActive={() => byCity}>עיר ושכונה</NavLink>
+                        <NavLink to="#byArea" activeClassName="selected" isActive={() => !byCity}>אזור</NavLink>
+                        <NavLink to="#">קרוב אלי</NavLink>
                     </div>
                 </div>
-                <div className="searchCity">
-                    <span>חפשו עיר</span>
-                    <input type="text" placeholder="לדוגמא: נתניה" />
-                    <div className="dropdown none">
-
-                    </div>
-                </div>
-                <div className="searchNeighborhood" disabled={isCityChosen()}>
-                    <span>חפשו שכונה</span>
-                    <input type="text" placeholder="הזינו שם של שכונה" />
-                    <div className="dropdown none">
-
-                    </div>
-                </div>
+                {
+                    byCity ? <SearchByCityAndNeigh /> : <SearchByArea />
+                }
                 <div className="type">
                     <div>סוג נכס</div>
                     <div className="types">

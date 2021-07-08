@@ -25,6 +25,7 @@ const LoginForm = (props) => {
             console.log(response.data)
             if (response.data) {
                 const userData = response.data;
+                props.setShowLoginModal(false)
                 saveUserOnCookie(userData)
                 dispatchUserData(loginAction(userData));
                 history.push('/home')

@@ -2,11 +2,12 @@ import React, { useContext, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { LoginContext } from '../../../contexts/loginContext';
 import LoginModal from '../modal/LoginModal';
+import NavSideBar from '../sidebar/NavSideBar';
 
 const HeaderContent = () => {
     const { userData } = useContext(LoginContext);
-    console.log(userData)
     const [showLoginModal, setShowLoginModal] = useState(false);
+    const [showSideBar, setShowSideBar] = useState(false);
     const history = useHistory();
 
     const clickedProfile = () => {
@@ -23,8 +24,10 @@ const HeaderContent = () => {
         else
             history.push('/user/create-post')
     }
+
     return (
         <div className="headerContent">
+            {showSideBar && <NavSideBar setShowSideBar={setShowSideBar} />}
             {showLoginModal && <LoginModal setShowLoginModal={setShowLoginModal} />}
             {/* ----------------------------------------------- */}
             {/* ----------------------------------------------- */}
@@ -36,7 +39,7 @@ const HeaderContent = () => {
                     <img className="desktop-logo" src="//assets.yad2.co.il/yad2site/y2assets/images/header/yad2Logo.png" alt="לוגו יד2 yad2 logo" />
                 </Link>
             </div>
-            <div className="logo-container">
+            <div className="logo-container" onClick={() => setShowSideBar(true)}>
                 <i className="fas fa-bars"></i>
                 {/* <img src="https://img.icons8.com/material-outlined/20/000000/menu--v1.png" alt="menu" /> */}
             </div>
@@ -73,7 +76,9 @@ const HeaderContent = () => {
                     <img src="https://img.icons8.com/material-outlined/25/000000/like--v1.png" alt="heart" />
                 </div>
                 <div className="profile-icon" onClick={clickedProfile}>
-                    <img src="https://img.icons8.com/small/25/000000/gender-neutral-user.png" alt="profile" />
+                    {!!userData.token ? userData.user.email.substring(0, 1) :
+                        <img src="https://img.icons8.com/small/25/000000/gender-neutral-user.png" alt="profile" />
+                    }
                 </div>
                 <button className="add-post-button" onClick={clickedNewPost}>פרסום מודעה חדשה +</button>
             </div>
