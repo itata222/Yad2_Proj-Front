@@ -37,6 +37,7 @@ const NavSidebar = ({ setShowSideBar }) => {
         }
         else {
             history.push('/login-page')
+
         }
     }
 
