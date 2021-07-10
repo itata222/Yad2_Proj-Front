@@ -14,7 +14,11 @@
        transform: translateX(0);
     }
 }
-
+@media (min-width:1000px) {
+    .navBar{
+        position: none;
+    }
+}
 @media (max-width:1000px) {
     .navBar{
         z-index: 999;
@@ -86,6 +90,12 @@
         margin: 2rem auto;
         background-color: white;
 
+        .notConnected{
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            // margin-bottom: 1rem;
+        }
         .profileSection{
             display: grid;
             direction: ltr;
@@ -96,6 +106,15 @@
             "userName img"
             "sentance img";
 
+            .profile-icon{
+                background-color: $main-color-grey;
+                border-radius: 50%;
+                height: 100%;
+                padding: .5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
             .circleName{
                 border-radius: 50%;
                 padding: 15px 0;
@@ -115,7 +134,7 @@
                 font-weight: 500;
                 align-self: flex-end;
             }
-            &>a{
+           .profileLink{
                 grid-area:sentance;
                 text-decoration: underline;
                 font-size: .9rem;

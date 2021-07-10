@@ -128,6 +128,17 @@
                         font-family: Rubik,sans-serif;
                         margin-bottom: .5rem;
                     }
+                    .repeatedPasswordDiv{
+                        width: 100%;
+                        margin-top: -1rem;
+
+                        img{
+                            top: 2.2rem;
+                            right: 90% ;
+                            position: relative;
+                        }
+                    }
+
                     
                     input{
                         height: 40px;
@@ -241,18 +252,9 @@
      margin-top: -2rem;
 
     img{
-           top: 2.2rem;
-    right: 20rem;
-    position: relative;
+        top: 2.2rem;
+        right: 90%;
+        position: relative;
     }
 }
-.repeatedPasswordDiv{
-     width: 100%;
-     margin-top: -1rem;
 
-    img{
-            top: 2.2rem;
-    right: 20rem;
-    position: relative;
-    }
-}

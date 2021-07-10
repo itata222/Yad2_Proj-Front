@@ -5,6 +5,10 @@
     background-color: $main-color-orange;
 }
 
+.header{
+    display: block;
+}
+
 
 @media (max-width:1000px) {
     .orange-line{
@@ -53,6 +57,7 @@
         }
     }
     .logo-container{
+        cursor: pointer;
         margin-right: 1rem;
         .fas{
             color: white;
@@ -147,6 +152,10 @@
             background-color: $main-color-grey;
             border-radius: 50%;
             height: 70%;
+            width: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
              &:hover{
                  height: 100%;

@@ -22,6 +22,7 @@ export const registerToDB = async (email, password) => {
 
 export const logoutFromDB = async (token) => {
     try {
+        console.log(token)
         const res = await Axios.post(developmentDB + "/logout-user", { token }, {
             headers: {
                 'Authorization': `Bearer ${token}`

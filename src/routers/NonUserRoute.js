@@ -4,7 +4,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { LoginContext } from '../contexts/loginContext'
 
 
-const NonAdminRoute = ({ component: Component, ...rest }) => {
+const NonUserRoute = ({ component: Component, ...rest }) => {
     const { userData } = useContext(LoginContext);
 
     return (
@@ -19,4 +19,4 @@ const NonAdminRoute = ({ component: Component, ...rest }) => {
         />);
 };
 
-export default NonAdminRoute;
+export default NonUserRoute;

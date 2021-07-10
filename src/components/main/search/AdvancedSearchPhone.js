@@ -116,7 +116,7 @@ const AdvancedSearchPhone = () => {
                     <input type="number" placeholder="עד מחיר" />
                 </div>
             </div>
-            <div ref={(component) => reactDom.findDOMNode(component)?.focus()} tabindex="0" className="entryDate">
+            <div ref={(component) => reactDom.findDOMNode(component)?.focus()} tabIndex="0" className="entryDate">
                 <span>תאריך כניסה</span>
                 <input placeholder="החל מ- הזינו תאריך" className="textbox-n" type="date" />
             </div>

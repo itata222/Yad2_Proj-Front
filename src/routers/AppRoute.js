@@ -9,6 +9,8 @@ import LoginContextProvider from '../contexts/loginContext';
 import SearchFormPhone from '../components/main/search/SearchFormPhone';
 import UserPage from '../components/user/UserPage'
 import UserRoute from './UserRoute'
+import LoginPhone from '../components/main/LoginPhone';
+import NonUserRoute from './NonUserRoute'
 
 const AppRoute = () => {
     return (
@@ -21,6 +23,7 @@ const AppRoute = () => {
                     </Route>
                     <Route path="/home" component={Home} />
                     <Route path="/search-form" component={SearchFormPhone} />
+                    <NonUserRoute path='/login-page' component={LoginPhone} />
                     <UserRoute path='/user/profile' component={UserPage} />
                     <Route path='*' component={PageNotFound} />
                 </Switch>

@@ -1,30 +1,83 @@
 
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { logoutAction } from "../../../actions/userActions";
 import { LoginContext } from '../../../contexts/loginContext'
+import { deleteUserFromCookie } from "../../../cookies/cookies";
+import { logoutFromDB } from "../../../services/userService";
+import Spinner from '../Spinner'
 
 
 const NavSidebar = ({ setShowSideBar }) => {
-    const { userData } = useContext(LoginContext)
+    const { userData, dispatchUserData } = useContext(LoginContext)
+    console.log(userData)
+    const [showSpinner, setShowSpinner] = useState(false)
+    const history = useHistory();
+
+
     const exitSideBar = (e) => {
         e.stopPropagation();
-        console.log(1)
         setShowSideBar(false)
     }
+
+    const logoutUser = () => {
+        setShowSpinner(true);
+        logoutFromDB(userData.token).then((response) => {
+            deleteUserFromCookie();
+            dispatchUserData(logoutAction());
+            setShowSpinner(false)
+            history.push('/home')
+        })
+    }
+
+    const loginFunc = () => {
+        setShowSideBar(false)
+        if (!!userData.token) {
+            history.push('/user/create-post')
+        }
+        else {
+            history.push('/login-page')
+        }
+    }
+
+    const userInfo = () => {
+        setShowSideBar(false)
+        if (!!userData.token) {
+            history.push('/user/profile')
+        }
+        else {
+            history.push('/login-page')
+        }
+    }
+
     return (
         <div className="navBar">
+            {showSpinner && <Spinner />}
             <div className="navBarContent">
                 <img onClick={exitSideBar} className="exitButton" src="https://img.icons8.com/fluent-systems-filled/48/000000/x.png" alt="x" />
-                <span className="logoutPhone">התנתקות</span>
+                {
+                    !!userData.token &&
+                    <span className="logoutPhone" onClick={logoutUser}>התנתקות</span>
+                }
                 <div className="sideBarHeader">
-                    <div className="profileSection">
-                        <div className="circleName">
-                            <span>B</span> {/*user first char of email*/}
-                        </div>
-                        <span>{userData.user?.email.substring(0, 5) || 'איתמר'}</span>
-                        <Link to='/user/profile'>לאזור האישי</Link>
+                    <div className={!userData.token ? 'profileSection notConnected' : "profileSection"}>
+                        {!!userData.token ?
+                            <>
+                                <div className="circleName">
+                                    <span>{userData.user.email.substring(0, 1)}</span> {/*user first char of email*/}
+                                </div>
+                                <span>{userData.user?.email.substring(0, 3) || 'איתמר'}</span>
+                                <div className="profileLink" onClick={userInfo}>לאזור האישי</div>
+                            </> :
+                            <div onClick={loginFunc}>
+                                <div className="profile-icon">
+                                    <img src="https://img.icons8.com/small/38/000000/gender-neutral-user.png" alt="profile" />
+                                </div>
+                                <div>התחברות</div>
+                            </div>
+                        }
                     </div>
-                    <div className="newPostSection">
+                    <div className="newPostSection" onClick={loginFunc}>
                         <button>פרסום הודעה</button>
                     </div>
                     <div className="icons">
