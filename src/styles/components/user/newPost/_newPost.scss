@@ -145,9 +145,14 @@
         border-radius: 17.5px;
         background-color: #fff;
         cursor: pointer;
-        &:hover{
+        &:hover:not([disabled]){
             background-color: $main-color-orange;
             color: white;
+        }
+        &:hover[disabled]{
+            background-color: $main-color-grey;
+            cursor: not-allowed;
+            // color: white;
         }
     }
 

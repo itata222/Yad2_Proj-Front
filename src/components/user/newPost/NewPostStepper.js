@@ -20,6 +20,17 @@ const NewPostStepper = ({ setShowSpinner }) => {
         <Step5 stepsDone={stepsDone} activeStep={activeStep} setStepsDone={setStepsDone} setActiveStep={setActiveStep} />,
         <Step6 stepsDone={stepsDone} activeStep={activeStep} setStepsDone={setStepsDone} setActiveStep={setActiveStep} />,
     ]
+
+    const stepEdit = (index) => {
+        setActiveStep(index);
+        const dup = [...stepsDone];
+        const numberOfStepsToChange = activeStep - index;
+        for (let i = 0; i <= numberOfStepsToChange; i++) {
+            dup[activeStep - i] = false
+        }
+        setStepsDone(dup)
+    }
+
     return (
         <div className="allSteps">
             {stepsHeaders.map((label, index) => {
@@ -34,7 +45,7 @@ const NewPostStepper = ({ setShowSpinner }) => {
                             </div> : index === activeStep ? <div className="active-numberCircle">{activeStep + 1}</div> : <div className="disactive-numberCircle">{index + 1}</div>}
                             <h2 className={index === activeStep ? 'activeText' : 'disactiveText'}>{label}</h2>
                             {stepsDone[index] === true &&
-                                <div className="stepEdit">
+                                <div className="stepEdit" onClick={() => stepEdit(index)}>
                                     <img src="https://img.icons8.com/fluent-systems-regular/20/000000/pencil--v1.png" alt="pencil" />
                                     <span>עריכה</span>
                                 </div>
