@@ -1,0 +1,91 @@
+.step2{
+    width: 90%;
+    margin: 2rem auto;
+
+    .header{
+        color: #000;
+        font-size: 1.1em;
+        font-weight: 500;
+        margin-bottom: 20px;
+        margin-top: 0;
+        line-height: 22px;
+    }
+
+    .property-buttons{
+        display: flex;
+        width: 50%;
+        margin-bottom: 2.2rem;
+        justify-content: flex-start;
+        button{
+            position: relative;
+            cursor: pointer;
+            box-sizing: border-box;
+            height: 36px;
+            width: 140px;
+            border: 1px solid #ccc;
+            border-radius: 17px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-left: 1rem;
+
+            img{
+                margin-right: 1rem;
+            }
+            span{
+                margin-right: .2rem;
+            }
+        }
+        .buttonSelected{
+            background-color: #eee;
+        }
+    }
+
+    .description{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+        text-align: right;
+
+       
+
+        .descriptionContainer{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            &>div{
+                display: flex;
+                justify-content: space-between;
+                width: 50%;
+                margin-bottom: .3rem;
+
+                span{
+                    color: #ccc;
+                }
+                span:first-of-type{
+                    font-size: .9rem;
+                    color: grey;
+                }
+            }
+
+            textarea{
+                outline: none;
+                padding: 16px 10px 20px 70px;
+                overflow: auto;
+                font-family: Rubik,sans-serif;
+                font-size: 16px;
+                height: 170px;
+                width: 50%;
+                resize: none;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                background-color: #fff;
+            }
+        }
+    }
+    
+}

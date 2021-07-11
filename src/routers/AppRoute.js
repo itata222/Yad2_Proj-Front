@@ -11,6 +11,7 @@ import UserPage from '../components/user/UserPage'
 import UserRoute from './UserRoute'
 import LoginPhone from '../components/main/LoginPhone';
 import NonUserRoute from './NonUserRoute'
+import NewPost from '../components/user/newPost/NewPost';
 
 const AppRoute = () => {
     return (
@@ -25,6 +26,7 @@ const AppRoute = () => {
                     <Route path="/search-form" component={SearchFormPhone} />
                     <NonUserRoute path='/login-page' component={LoginPhone} />
                     <UserRoute path='/user/profile' component={UserPage} />
+                    <UserRoute path='/user/create-post' component={NewPost} />
                     <Route path='*' component={PageNotFound} />
                 </Switch>
             </LoginContextProvider>

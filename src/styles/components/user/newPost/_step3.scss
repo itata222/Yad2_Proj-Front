@@ -1,0 +1,44 @@
+.step3{
+    width: 90%;
+    margin: 2rem auto;
+
+    .step3-form{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+
+        label{
+            font-size: .85rem;
+            margin-bottom: .3rem;
+        }
+
+      
+
+        select,input{
+            width: 100%;
+            cursor: pointer;
+            height: 40px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 14px;
+            text-indent: 8px;
+
+        }
+
+        &>div{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            margin-top: 1rem ;    
+            width: 33%;
+
+            &:last-of-type{
+                margin-bottom: 1rem;
+            }
+        }
+        
+    }
+}

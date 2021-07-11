@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { loginAction } from '../../../actions/userActions';
 import { LoginContext } from '../../../contexts/loginContext';
 import { saveUserOnCookie } from '../../../cookies/cookies';
+import Spinner from '../Spinner';
 import { registerToDB } from '../../../services/userService';
 
 const RegisterForm = (props) => {
@@ -13,6 +14,7 @@ const RegisterForm = (props) => {
     const [isPasswordInputValid, setIsPasswordInputValid] = useState(true);
     const [passwordRepeatedValid, setPasswordRepeatedValid] = useState(true);
     const [showPassword, setShowPassword] = useState(false)
+    const [showSpinner, setShowSpinner] = useState(false)
     const [showRepeatedPassword, setShowRepeatedPassword] = useState(false)
 
     const history = useHistory();
@@ -22,12 +24,15 @@ const RegisterForm = (props) => {
     };
     const onSubmitform = (event) => {
         event.preventDefault();
+        setShowSpinner(true)
         console.log(email, password)
         registerToDB(email, password).then((response) => {
             console.log(response.data)
             if (response.data) {
                 const userData = response.data;
-                props.setShowLoginModal(false)
+                setShowSpinner(false)
+                if (props.setShowLoginModal)
+                    props.setShowLoginModal(false)
                 saveUserOnCookie(userData)
                 dispatchUserData(loginAction(userData));
                 history.push('/home')
@@ -65,6 +70,7 @@ const RegisterForm = (props) => {
 
     return (
         <div className="login-form">
+            {showSpinner && <Spinner />}
             <div className="form-header">
                 <h3>הרשמה</h3>
                 <p>הזן את הפרטים כדי להירשם</p>

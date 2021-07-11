@@ -4,6 +4,7 @@ import { loginAction } from '../../../actions/userActions';
 import { LoginContext } from '../../../contexts/loginContext';
 import { saveUserOnCookie } from '../../../cookies/cookies';
 import { loginToDB } from '../../../services/userService';
+import Spinner from '../Spinner';
 
 const LoginForm = (props) => {
 
@@ -12,7 +13,8 @@ const LoginForm = (props) => {
     const [password, setPassword] = useState("");
     const [isEmailinputValid, setIsEmailInputValid] = useState(true);
     const [isPasswordInputValid, setIsPasswordInputValid] = useState(true);
-    const [showPassowrd, setShowPassowrd] = useState(false)
+    const [showPassowrd, setShowPassowrd] = useState(false);
+    const [showSpinner, setShowSpinner] = useState(false)
 
     const history = useHistory();
 
@@ -21,15 +23,20 @@ const LoginForm = (props) => {
     };
     const onSubmitform = (event) => {
         event.preventDefault();
+        setShowSpinner(true)
         loginToDB(email, password).then((response) => {
-            console.log(response.data)
+            console.log(response)
+            setShowSpinner(false)
             if (response.data) {
                 const userData = response.data;
-                props.setShowLoginModal(false)
+                if (props.setShowLoginModal)
+                    props.setShowLoginModal(false)
                 saveUserOnCookie(userData)
                 dispatchUserData(loginAction(userData));
                 history.push('/home')
             }
+            else
+                alert('שגיאה')
         }).catch((err) => {
             console.log(err)
         })
@@ -57,6 +64,7 @@ const LoginForm = (props) => {
     };
     return (
         <div className="login-form">
+            {showSpinner && <Spinner />}
             <div className="form-header">
                 <h3>התחברות</h3>
                 <p>הזן את הפרטים כדי להתחבר</p>
