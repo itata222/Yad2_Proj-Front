@@ -17,7 +17,6 @@ const AppRoute = () => {
     return (
         <BrowserRouter>
             <LoginContextProvider>
-                <Header />
                 <Switch>
                     <Route path="/" exact>
                         <Redirect to="/home" />

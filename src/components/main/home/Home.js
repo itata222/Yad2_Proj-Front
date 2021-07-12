@@ -1,5 +1,6 @@
 import moment from "moment";
 import React from "react";
+import Header from "../Header/Header";
 import SubHeader from "../Header/SubHeader";
 import Posts from "../posts/Posts";
 import Search from "../search/Search";
@@ -45,6 +46,7 @@ const Home = () => {
   ];
   return (
     <>
+      <Header />
       <SubHeader />
       <div className="home-page">
         <LocationDiv location={location} />

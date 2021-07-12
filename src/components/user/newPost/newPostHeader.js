@@ -9,7 +9,7 @@ const NewPostHeader = ({ }) => {
     return (
         <div className="newPostHeader">
             <div className="right">
-                <img src="https://assets.yad2.co.il/personal/images/general/new_logo_orange.png" alt="yad2 icon" />
+                <img src="https://assets.yad2.co.il/personal/images/general/new_logo_orange.png" alt="yad2 icon" onClick={() => history.push('/home')} />
                 <span>פרסום מודעה חדשה</span>
             </div>
             <div className="left">

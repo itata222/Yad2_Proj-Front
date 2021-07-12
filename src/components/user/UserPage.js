@@ -5,6 +5,7 @@ import { logoutAction } from '../../actions/userActions';
 import { LoginContext } from '../../contexts/loginContext';
 import { deleteUserFromCookie } from '../../cookies/cookies';
 import { logoutFromDB } from '../../services/userService';
+import Header from '../main/Header/Header';
 import Spinner from '../main/Spinner'
 import UpdateInfo from './UpdateInfo';
 import UpdatePosts from './UpdatePosts';
@@ -43,6 +44,7 @@ const UserPage = (props) => {
     return (
         <div className="userPage">
             {showSpinner && <Spinner />}
+            <Header />
             <div className="profileHeader">
                 <div className="iconAndTitle">
                     <Link to="/home">
