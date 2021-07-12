@@ -1,7 +1,8 @@
 import StepButtons from '../StepButtons'
-import React from 'react'
+import React, { useState } from 'react'
 
 const Step3 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
+    const [enterImidiatlly, setEnterImidiatlly] = useState(false);
     return (
         <div className="step3">
             <div className="step3-form">
@@ -19,7 +20,11 @@ const Step3 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                 </div>
                 <div className="city">
                     <label>תאריך כניסה*</label>
-                    <input type="date" className='cityInput' placeholder='איפה נמצא הנכס' />
+                    <div>
+                        <input type="date" className='cityInput' placeholder='איפה נמצא הנכס' disabled={enterImidiatlly} />
+                        <label>מיידי</label>
+                        <input type="checkbox" onClick={() => setEnterImidiatlly(!enterImidiatlly)} />
+                    </div>
                 </div>
             </div>
             <StepButtons setStepsDone={setStepsDone} setActiveStep={setActiveStep} stepsDone={stepsDone} activeStep={activeStep} />

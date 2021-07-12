@@ -77,6 +77,97 @@
         height: 100%;
     }
     
+    .dropdown{
+        position: absolute;
+        top: 20.9rem;
+        min-width: 100px;
+        background-color: white;
+        padding: 15px;
+        box-shadow: 1px 1px 12px 1px rgba(1 ,1 ,1,0.1);
+        min-height: 80px;
+        z-index: 99999;
+    }
+
+    .ddRooms{
+        display: flex;
+        div{
+            width: 100%;
+            font-size: 14px;
+            color: #363636; 
+            select{
+                height: 100%;
+                border: 1px solid #ccc;
+                padding-left: 1rem;
+            }
+        }
+    }
+
+    .ddTypes{
+        display: flex;
+        flex-direction: column;
+        width: 15rem;
+
+        .headerSelect{
+            span{
+                padding-right: 4px;
+                font-size: .875rem;
+                line-height: 1.0625rem;
+                color: #999;
+            }
+        }
+        
+        &>div:not(:last-of-type){
+            width: 100%;
+            font-size: 1.05rem;
+            color: #363636; 
+            margin-bottom: 1rem;
+            background-color: #F9F9F9;
+            padding: .5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-between;
+            cursor: pointer;
+
+            select{
+                height: 100%;
+                border: 1px solid #ccc;
+                padding-left: 1rem;
+            } 
+           
+            .checkBoxDDarray{
+                width: 100%;
+                margin-top: .5rem;
+                padding-top: .5rem;
+                padding-bottom: 1rem;
+                background-color: white;
+                position: relative;
+                div{
+                    padding: .5rem;
+                    border-bottom: 1px solid #eee;
+
+                    &:last-of-type{
+                        border-bottom: none;
+                    }
+                }
+            }
+            
+        }
+         .headerSelect,.all{
+                width: 100%;
+                display: flex;
+                flex-direction: row !important;
+                align-items: center;
+            justify-content: space-between;
+            }
+        &>div:last-of-type{
+                text-align: left;
+                color: $main-color-orange;
+                cursor: pointer;
+            }
+
+    }
+
     .area{
         grid-area: area;
         display:flex;
@@ -136,6 +227,7 @@
             background-color: #fff;
             margin-top: 5px;
             padding: 0 10px 0 5px;
+            cursor: pointer;
     
             span{
                 width: fit-content;
@@ -164,6 +256,9 @@
             font-size: .875rem;
             // margin-bottom: 0.3rem;
         }
+        .roomsSelected{
+            color: black;
+        }
     
           button{
             min-width: 100px;
@@ -172,6 +267,7 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
+            cursor: pointer;
             height: 43px;
             border: 1px solid #ccc;
             border-radius: 2px;

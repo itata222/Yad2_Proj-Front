@@ -39,6 +39,17 @@
                 margin-bottom: 1rem;
             }
         }
-        
+        .city{
+            &>div{
+                display: flex;
+                align-items: center;
+                 &>input:first-of-type{
+                    margin-left: .5rem;
+                }
+                &>input:last-of-type{
+                    width: 1rem;
+                }
+            }
+        }
     }
 }

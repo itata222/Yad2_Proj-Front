@@ -1,37 +1,36 @@
 import StepButtons from '../StepButtons'
 import React, { useState } from 'react'
+import PropertyButton from '../PropertyButton';
+import { nanoid } from 'nanoid';
+import SelectDropDown from '../../../main/SelectDropDown';
+import Step2Buttons from '../Step2Buttons';
+
 
 const Step2 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
 
     const [descriptionLength, setDescriptionLength] = useState(0);
-    const [button1Selected, setButton1Selected] = useState(false);
-    const [button2Selected, setButton2Selected] = useState(false);
-    const buttonClicked = (buttonNumber) => {
-        switch (buttonNumber) {
-            case 1:
-                setButton1Selected(!button1Selected)
-                break;
-            default:
-                setButton2Selected(!button2Selected)
-                break;
-        }
-    }
+    const propertiesText = ['מיזוג', 'ממ"ד', 'מחסן', 'דלתות פנדור', "ריהוט", 'גישה לנכים', "מעלית", "מזגן תדיראן", "משופצת", "מטבח כשר", "דוד שמש", "סורגים"];
+    const roomsArray = ['בחירת מספר חדרים', '0', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '8', '9', '10', '11', '12']
+
     const countChars = (e) => {
         setDescriptionLength(e.target.value.length)
     }
     return (
         <div className='step2'>
+            <div className="rooms">
+                <label>מספר חדרים*</label>
+                <SelectDropDown array={roomsArray} className='roomsSelect' hideFirst={true} />
+            </div>
+            <Step2Buttons className="parking" label="חניה" />
+            <Step2Buttons className="balcony" label="מרפסת" />
             <div className="properties">
                 <div className="header">מאפייני הנכס</div>
                 <div className="property-buttons">
-                    <button onClick={() => buttonClicked(1)} className={button1Selected ? "buttonSelected" : ''}>
-                        <img src="https://img.icons8.com/ios/24/000000/garage-closed.png" alt="warehouse" />
-                        <span>מחסן</span>
-                    </button>
-                    <button onClick={() => buttonClicked(2)} className={button2Selected ? "buttonSelected" : ''}>
-                        <img src="https://img.icons8.com/material-rounded/24/000000/accessibility1.png" alt="accessiblity" />
-                        <span>גישה לנכים</span>
-                    </button>
+                    {
+                        propertiesText.map((property, i) => (
+                            <PropertyButton key={nanoid()} text={property} index={i} />
+                        ))
+                    }
                 </div>
                 <div className="description">
                     <div className="header">

@@ -1,11 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import SelectDropDown from "../SelectDropDown";
 import AdvancedSearchForm from "./AdvancedSearchForm";
+import DropDownCheckBox from "./DropDownCheckBox";
 
 const Search = () => {
-    const [showAdvancedSearch, setShowAdvancedSearch] = useState(false)
+    const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+    const [showDDrooms, setShowDDrooms] = useState(false);
+    const [showDDtypes, setShowDDtypes] = useState(false);
+    const roomsFromArray = ['מ-', '0', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '8', '9', '10', '11', '12']
+    const roomsToArray = ['עד-', '0', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '8', '9', '10', '11', '12']
+    const [roomsText, setRoomsText] = useState('חדרים');
+    const [roomsFromVal, setRoomsFromVal] = useState('')
+    const [roomsToVal, setRoomsToVal] = useState('');
+    const appartsArray = ['דירה', "דירת גן", " גג/פנטהאוז", " דופלקס", " דירת נופש", ' דו משפחתי', ' מרתף/פרטר', ' טריפלקס', ' יחידת דיור', ' סטודיו/לופט']
+    const housesArray = [" בית פרטי/קוטג'", ' דו משפחתי', ' משק חקלאי/נחלה', ' משק עזר']
+    const othersArray = [' מגרשים', ' דיור מוגן', ' בניין מגורים', ' מחסן', ' חניה', " קב' רכישה/ זכות לנכס", ' כללי']
+
+
+    useEffect(() => {
+        let text;
+        if (roomsFromVal.length > 0 && roomsToVal.length > 0)
+            text = `${roomsFromVal} - ${roomsToVal}`
+        else if (roomsFromVal.length > 0 && roomsToVal.length === 0)
+            text = `מ-${roomsFromVal}`
+        else if (roomsFromVal.length === 0 && roomsToVal.length > 0)
+            text = `עד-${roomsToVal}`
+        else
+            text = `חדרים`;
+        setRoomsText(text || roomsText);
+
+
+    }, [roomsFromVal, roomsToVal]);
+
     const openAdvancedSearch = () => {
         setShowAdvancedSearch(!showAdvancedSearch)
     }
+
     const submitSearch = (e) => {
         e.preventDefault();
     }
@@ -33,23 +63,42 @@ const Search = () => {
                     </div>
                     <div className="type">
                         <span>סוג נכס</span>
-                        <button>
+                        <button onClick={() => setShowDDtypes(!showDDtypes)}>
                             <span>בחרו סוגי נכסים</span>
                             <img src="https://img.icons8.com/material-outlined/24/000000/expand-arrow--v1.png" alt="arrow down" />
                         </button>
-                        <div className="dropdown none">
-
-                        </div>
+                        {
+                            showDDtypes &&
+                            <div className="dropdown ddTypes">
+                                <div className="all">
+                                    <label >כל סוגי הנכסים</label>
+                                    <input type="checkbox" />
+                                </div>
+                                <DropDownCheckBox className="aparts" label='דירות' array={appartsArray} />
+                                <DropDownCheckBox className="houses" label='בתים' array={housesArray} />
+                                <DropDownCheckBox className="others" label='סוגים נוספים' array={othersArray} />
+                                <div> <span>בחירה</span>  </div>
+                            </div>
+                        }
                     </div>
                     <div className="rooms">
                         <span>חדרים</span>
-                        <button>
-                            <span>חדרים</span>
+                        <button onClick={() => setShowDDrooms(!showDDrooms)}>
+                            <span className={roomsText !== 'חדרים' ? 'roomsSelected' : ''}>{roomsText}</span>
                             <img src="https://img.icons8.com/material-outlined/24/000000/expand-arrow--v1.png" alt="arrow down" />
                         </button>
-                        <div className="dropdown none">
+                        {
+                            showDDrooms &&
+                            <div className="dropdown ddRooms">
+                                <div className="roomsFrom">
+                                    <SelectDropDown setRoomsFromVal={setRoomsFromVal} array={roomsFromArray} className='roomsFromSelect' hideFirst={true} />
+                                </div>
+                                <div className="roomsTo">
+                                    <SelectDropDown setRoomsToVal={setRoomsToVal} array={roomsToArray} className='roomsToSelect' hideFirst={true} />
+                                </div>
+                            </div>
+                        }
 
-                        </div>
                     </div>
                     <div className="price">
                         <span>מחיר</span>
