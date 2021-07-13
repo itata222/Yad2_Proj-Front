@@ -1,12 +1,30 @@
 import StepButtons from '../StepButtons'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import SelectDropDown from '../../../main/SelectDropDown'
+import CheckBox from '../../../CheckBox';
+import { PostContext } from '../../../../contexts/postContext';
+import { updateContactNameAction, updateContactPhoneAction } from '../../../../actions/postActions';
 
 const Step5 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
 
+    const { postData, dispatchPostData } = useContext(PostContext);
     const selectArray = ['050', '051', '052', '053', '054', '055', '058'];
-    const [addOtherPerson, setAddOtherPerson] = useState(false)
+    const [addOtherPerson, setAddOtherPerson] = useState(false);
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [prePhoneNumber, setPrePhoneNumber] = useState('');
+    const [readContract, setReadContract] = useState(false);
+    console.log(postData)
 
+    useEffect(() => {
+        if (prePhoneNumber.length > 0 && phoneNumber.length > 0) {
+            dispatchPostData(updateContactPhoneAction(prePhoneNumber + phoneNumber))
+        }
+    }, [prePhoneNumber, phoneNumber]);
+
+    const isStepInValidToContinue = () => {
+        console.log(readContract)
+        return postData.contactName === '' || postData.contactPhone === "" || !readContract;
+    }
     return (
         <div className="step5">
             <h4>רגע לפני שמפרסמים את המודעה, נבדוק שפרטי הקשר נכונים</h4>
@@ -14,15 +32,15 @@ const Step5 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                 <div>
                     <div>
                         <label>שם איש קשר*</label>
-                        <input type="text" />
+                        <input type="text" onBlur={(e) => dispatchPostData(updateContactNameAction(e.target.value.trim()))} />
                     </div>
                     <div>
                         <label>טלפון ראשי*</label>
-                        <input type="number" />
+                        <input type="number" onBlur={(e) => setPhoneNumber(e.target.value)} />
                     </div>
                     <div>
                         <label></label>
-                        <SelectDropDown array={selectArray} className="phoneSelect" hideFirst={false} />
+                        <SelectDropDown array={selectArray} className="phoneSelect" hideFirst={false} onChange={(e) => setPrePhoneNumber(e.target.value.trim())} />
                     </div>
                 </div>
                 {addOtherPerson && <div>
@@ -52,29 +70,31 @@ const Step5 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                     <span>הוספת איש קשר נוסף</span>
                 </button>}
                 <div>
-                    <input type='checkbox' />
+                    <CheckBox onClick={() => console.log('great')} />
                     <label>אני רוצה שיופיע מספר וירטואלי במודעה שלי</label>
                     <img src="https://my.yad2.co.il/newOrder/images/publish/siman.png" alt="?" />
                 </div>
                 <div>
-                    <input type='checkbox' />
+                    <CheckBox onClick={() => console.log('great')} />
                     <label>אני רוצה לקבל שיחות מגולשי האתר גם בסופ"ש</label>
                     <img src="https://my.yad2.co.il/newOrder/images/publish/siman.png" alt="?" />
                 </div>
                 <div className="email">
                     <label>אימייל</label>
-                    <input className='emailInput' />
+                    <input className='emailInput' onBlur={(e) => dispatchPostData(updateContactEmailAction(e.target.value.trim()))} />
                 </div>
                 <div className="readContract">
-                    <input type='checkbox' />
+                    <CheckBox onClick={(isActive) => {
+                        setReadContract(!isActive)
+                    }} />
                     <label>קראתי ואישרתי את התקנון, זה חשוב*</label>
                 </div>
                 <div>
-                    <input type='checkbox' />
+                    <CheckBox onClick={() => console.log('great')} />
                     <label>אני רוצה שתשלחו לי עדכונים למייל</label>
                 </div>
             </div>
-            <StepButtons setStepsDone={setStepsDone} setActiveStep={setActiveStep} stepsDone={stepsDone} activeStep={activeStep} />
+            <StepButtons isStepInValidToContinue={isStepInValidToContinue} setStepsDone={setStepsDone} setActiveStep={setActiveStep} stepsDone={stepsDone} activeStep={activeStep} />
         </div>
     )
 }

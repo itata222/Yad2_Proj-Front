@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { loginAction } from '../../../actions/userActions';
 import { LoginContext } from '../../../contexts/loginContext';
-import { saveUserOnCookie } from '../../../cookies/cookies';
+import { saveUserOnCookie } from '../../../cookies/userCookie';
 import Spinner from '../Spinner';
 import { registerToDB } from '../../../services/userService';
 

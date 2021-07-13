@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { logoutAction } from "../../../actions/userActions";
 import { LoginContext } from '../../../contexts/loginContext'
-import { deleteUserFromCookie } from "../../../cookies/cookies";
+import { deleteUserFromCookie } from "../../../cookies/userCookie";
 import { logoutFromDB } from "../../../services/userService";
 import Spinner from '../Spinner'
 

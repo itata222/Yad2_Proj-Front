@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid';
 import React, { useState } from 'react'
+import CheckBox from '../../CheckBox';
 
 const DropDownCheckBox = ({ className, label, array }) => {
     const [ddOpened, setDdOpened] = useState(false);
@@ -19,7 +20,7 @@ const DropDownCheckBox = ({ className, label, array }) => {
         <div className={className}>
             <div className="headerSelect">
                 <div>
-                    <input type="checkbox" />
+                    <CheckBox onClick={() => console.log('great')} />
                     <label>{label}</label>
                     <span>{selections.length > 0 ? `נבחרו ${selections.length} סוגים` : ''}</span>
                 </div>
@@ -28,9 +29,9 @@ const DropDownCheckBox = ({ className, label, array }) => {
             {
                 ddOpened &&
                 <div className="checkBoxDDarray">
-                    {array.map((option) => (
-                        <div key={nanoid()} className="checkBoxOption">
-                            <input type="checkbox" value={option} onClick={() => optionClicked(option)} />
+                    {array.map((option, i) => (
+                        <div key={i} className="checkBoxOption">
+                            <CheckBox onClick={() => console.log('great')} />
                             <label>{option}</label>
                         </div>
                     ))}

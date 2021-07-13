@@ -1,4 +1,5 @@
 import React from 'react'
+import CheckBox from '../../CheckBox'
 
 const AdvancedSearchForm = () => {
 
@@ -13,51 +14,51 @@ const AdvancedSearchForm = () => {
                     <h1>מאפייני דירה</h1>
                     <div className="properties">
                         <div>
-                            <input type="checkbox" value="pandor" onChange={changeSort} />
+                            <CheckBox onClick={() => console.log('great')} />
                             <label htmlFor="pandor">דלתות פנדור</label>
                         </div>
                         <div>
-                            <input type="checkbox" value="parking" onChange={changeSort} />
+                            <CheckBox onClick={() => console.log('great')} />
                             <label htmlFor="parking">חניה</label>
                         </div>
                         <div>
-                            <input type="checkbox" value="elevator" onChange={changeSort} />
+                            <CheckBox onClick={() => console.log('great')} />
                             <label htmlFor="elevator">מעלית</label>
                         </div>
                         <div>
-                            <input type="checkbox" value="climate" onChange={changeSort} />
+                            <CheckBox onClick={() => console.log('great')} />
                             <label htmlFor="climate">מיזוג</label>
                         </div>
                         <div>
-                            <input type="checkbox" value="balcony" onChange={changeSort} />
+                            <CheckBox onClick={() => console.log('great')} />
                             <label htmlFor="balcony">מרפסת</label>
                         </div>
                         <div>
-                            <input type="checkbox" value="mamad" onChange={changeSort} />
+                            <CheckBox onClick={() => console.log('great')} />
                             <label htmlFor="mamad">ממ"ד</label>
                         </div>
                         <div>
-                            <input type="checkbox" value="grate" onChange={changeSort} />
+                            <CheckBox onClick={() => console.log('great')} />
                             <label htmlFor="grate">סורגים</label>
                         </div>
                         <div>
-                            <input type="checkbox" value="warehouse" onChange={changeSort} />
+                            <CheckBox onClick={() => console.log('great')} />
                             <label htmlFor="warehouse">מחסן</label>
                         </div>
                         <div>
-                            <input type="checkbox" value="access" onChange={changeSort} />
+                            <CheckBox onClick={() => console.log('great')} />
                             <label htmlFor="access">גישה לנכים</label>
                         </div>
                         <div>
-                            <input type="checkbox" value="renovated" onChange={changeSort} />
+                            <CheckBox onClick={() => console.log('great')} />
                             <label htmlFor="renovated">משופצת</label>
                         </div>
                         <div>
-                            <input type="checkbox" value="furnished" onChange={changeSort} />
+                            <CheckBox onClick={() => console.log('great')} />
                             <label htmlFor="furnished">מרוהטת</label>
                         </div>
                         <div>
-                            <input type="checkbox" value="exclusive" onChange={changeSort} />
+                            <CheckBox onClick={() => console.log('great')} />
                             <label htmlFor="exclusive">בבלעדיות</label>
                         </div>
                     </div>
@@ -97,7 +98,7 @@ const AdvancedSearchForm = () => {
                         </div>
                     </div>
                     <div className="imidiateEntry">
-                        <input type="checkbox" value="imidiateEntry" onChange={changeSort} />
+                        <CheckBox onClick={() => console.log('great')} />
                         <label htmlFor="imidiateEntry">כניסה מיידית</label>
                     </div>
                 </div>
@@ -107,7 +108,7 @@ const AdvancedSearchForm = () => {
                         <input type="text" />
                     </div>
                     <div className="onlyKibutz">
-                        <input type="checkbox" value="onlyKibutz" onChange={changeSort} />
+                        <CheckBox onClick={() => console.log('great')} />
                         <label htmlFor="onlyKibutz">הצגת מושבים וקיבוצים בלבד</label>
                     </div>
                 </div>

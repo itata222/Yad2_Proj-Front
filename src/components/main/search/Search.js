@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import CheckBox from "../../CheckBox";
 import SelectDropDown from "../SelectDropDown";
 import AdvancedSearchForm from "./AdvancedSearchForm";
 import DropDownCheckBox from "./DropDownCheckBox";
+import { updateRoomsValues } from '../../../services/dropDownService'
 
 const Search = () => {
     const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
@@ -16,6 +18,12 @@ const Search = () => {
     const housesArray = [" בית פרטי/קוטג'", ' דו משפחתי', ' משק חקלאי/נחלה', ' משק עזר']
     const othersArray = [' מגרשים', ' דיור מוגן', ' בניין מגורים', ' מחסן', ' חניה', " קב' רכישה/ זכות לנכס", ' כללי']
 
+    const setRoomsFromValFunc = (e) => {
+        setRoomsFromVal(e.target.value)
+    }
+    const setRoomsToValFunc = (e) => {
+        setRoomsToVal(e.target.value)
+    }
 
     useEffect(() => {
         let text;
@@ -72,7 +80,7 @@ const Search = () => {
                             <div className="dropdown ddTypes">
                                 <div className="all">
                                     <label >כל סוגי הנכסים</label>
-                                    <input type="checkbox" />
+                                    <CheckBox onClick={() => console.log('great')} />
                                 </div>
                                 <DropDownCheckBox className="aparts" label='דירות' array={appartsArray} />
                                 <DropDownCheckBox className="houses" label='בתים' array={housesArray} />
@@ -91,10 +99,10 @@ const Search = () => {
                             showDDrooms &&
                             <div className="dropdown ddRooms">
                                 <div className="roomsFrom">
-                                    <SelectDropDown setRoomsFromVal={setRoomsFromVal} array={roomsFromArray} className='roomsFromSelect' hideFirst={true} />
+                                    <SelectDropDown onChange={setRoomsFromValFunc} array={roomsFromArray} className='roomsFromSelect' hideFirst={true} />
                                 </div>
                                 <div className="roomsTo">
-                                    <SelectDropDown setRoomsToVal={setRoomsToVal} array={roomsToArray} className='roomsToSelect' hideFirst={true} />
+                                    <SelectDropDown onChange={setRoomsToValFunc} array={roomsToArray} className='roomsToSelect' hideFirst={true} />
                                 </div>
                             </div>
                         }

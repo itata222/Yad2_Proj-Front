@@ -17,20 +17,31 @@
         align-items: flex-start;
         justify-content: center;
 
+        .lowerOpacity{
+            opacity: .5;
+        }
+
         label{
             font-size: .85rem;
             margin-bottom: .3rem;
         }
 
-        select,input{
+        select,input,.neightValue,.areaValue{
             width: 100%;
-            cursor: pointer;
             height: 40px;
             border: 1px solid #ccc;
             border-radius: 4px;
             background-color: #fff;
             font-size: 14px;
             text-indent: 8px;
+
+            &[disabled]{
+                cursor: not-allowed;
+
+            }
+        }
+        select{
+            cursor: pointer;
         }
 
         &>div{

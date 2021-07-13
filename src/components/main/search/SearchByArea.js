@@ -20,7 +20,7 @@ const SearchByArea = () => {
                 }
             </select>
             <div>
-                <input type="checkbox" value="onlyKibutzs" onChange={onlyKibutzsChange} />
+                <CheckBox onClick={() => console.log('great')} />
                 <label htmlFor="onlyKibutzs">הצגת מושבים וקיבוצים בלבד</label>
             </div>
         </div>

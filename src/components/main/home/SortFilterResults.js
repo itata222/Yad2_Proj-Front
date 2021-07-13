@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import CheckBox from '../../CheckBox';
 
 const SortFilterResults = ({ setFilterResults }) => {
     let menuRef = useRef();
@@ -18,11 +19,11 @@ const SortFilterResults = ({ setFilterResults }) => {
         <div className="sortFilterResult">
             <div ref={menuRef} className="sortFilterResultContent">
                 <div>
-                    <input type="checkbox" value="withPrice" checked onChange={changeSort} />
+                    <CheckBox checked={true} onClick={() => console.log('great')} />
                     <label htmlFor="byDate">רק עם מחיר</label>
                 </div>
                 <div>
-                    <input type="checkbox" value="withPhoto" onChange={changeSort} />
+                    <CheckBox checked={true} onClick={() => console.log('great')} />
                     <label htmlFor="byPriceLH">רק עם תמונה</label>
                 </div>
 

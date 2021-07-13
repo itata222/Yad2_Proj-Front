@@ -1,15 +1,9 @@
 import React from 'react'
 
-const SelectDropDown = ({ setRoomsFromVal = undefined, setRoomsToVal = undefined, array, className, hideFirst }) => {
-    const updateRoomsvalues = (e) => {
-        if (!!setRoomsFromVal || !!setRoomsToVal)
-            if (array[0] === 'מ-')
-                setRoomsFromVal(e.target.value)
-            else
-                setRoomsToVal(e.target.value)
-    }
+const SelectDropDown = ({ onChange, array, className, hideFirst, currentValue }) => {
+
     return (
-        <select className={className} onChange={updateRoomsvalues}>
+        <select className={className} defaultValue={!!currentValue ? currentValue : ''} onChange={(e) => { onChange(e) }}>
             {array.map((option, i) => (
                 <option hidden={i === 0 && hideFirst === true ? true : false} key={i} value={option}>{option}</option>
             ))}

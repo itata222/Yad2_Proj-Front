@@ -1,6 +1,6 @@
 import React from 'react'
 
-const StepButtons = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
+const StepButtons = ({ isStepInValidToContinue, setActiveStep, activeStep, setStepsDone, stepsDone }) => {
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         const stepsDoneDup = [...stepsDone]
@@ -24,6 +24,7 @@ const StepButtons = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => 
                 חזרה
             </button>
             <button
+                disabled={isStepInValidToContinue()}
                 onClick={handleNext}
                 className='forwardStepButton'
             >

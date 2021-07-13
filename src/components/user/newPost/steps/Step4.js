@@ -1,8 +1,15 @@
 import StepButtons from '../StepButtons'
-import React from 'react';
+import React, { useContext } from 'react';
 import FileUpload from '../FileUpload';
+import { PostContext } from '../../../../contexts/postContext';
 
 const Step4 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
+    const { postData, dispatchPostData } = useContext(PostContext);
+
+    const isStepInValidToContinue = () => {
+        return false
+    }
+
     return (
         <div className="step4">
             <h4>
@@ -34,7 +41,7 @@ const Step4 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                     <FileUpload type='photo' />
                 </div>
             </div>
-            <StepButtons setStepsDone={setStepsDone} setActiveStep={setActiveStep} stepsDone={stepsDone} activeStep={activeStep} />
+            <StepButtons isStepInValidToContinue={isStepInValidToContinue} setStepsDone={setStepsDone} setActiveStep={setActiveStep} stepsDone={stepsDone} activeStep={activeStep} />
         </div>
     )
 }

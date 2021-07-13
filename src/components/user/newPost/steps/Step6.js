@@ -1,7 +1,9 @@
 import StepButtons from '../StepButtons'
-import React from 'react'
+import React, { useContext } from 'react'
+import { PostContext } from '../../../../contexts/postContext';
 
 const Step6 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
+    const { postData, dispatchPostData } = useContext(PostContext);
     return (
         <div className="step6">
             <div className="conclusionText">
@@ -17,11 +19,11 @@ const Step6 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                 </div>
                 <div className="pathContent">
                     <div>
-                        <i class="fas fa-check"></i>
+                        <i className="fas fa-check"></i>
                         <div>מודעה רגילה בצבע אפור</div>
                     </div>
                     <div>
-                        <i class="fas fa-times"></i>
+                        <i className="fas fa-times"></i>
                         <div>הקפצה אוטומטית לחיסכון בזמן</div>
                     </div>
                 </div>

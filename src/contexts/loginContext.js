@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from 'react';
 import loginReducer, { userDataInitialState } from '../reducers/loginReducer';
-import { getUserFromCookie } from '../cookies/cookies'
+import { getUserFromCookie } from '../cookies/userCookie'
 
 export const LoginContext = createContext();
 

@@ -17,7 +17,6 @@
 
         select,input{
             width: 100%;
-            cursor: pointer;
             height: 40px;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -26,7 +25,9 @@
             text-indent: 8px;
 
         }
-
+        select{
+            cursor: pointer;
+        }
         &>div{
             display: flex;
             flex-direction: column;
@@ -45,10 +46,11 @@
                 align-items: center;
                  &>input:first-of-type{
                     margin-left: .5rem;
+                    cursor: pointer;
                 }
-                &>input:last-of-type{
-                    width: 1rem;
-                }
+                // &>input:last-of-type{
+                //     width: 1rem;
+                // }
             }
         }
     }

@@ -39,7 +39,6 @@
 
                 select,input{
                     width: 100%;
-                    cursor: pointer;
                     height: 40px;
                     border: 1px solid #ccc;
                     border-radius: 4px;
@@ -56,8 +55,11 @@
                     }
                 }
 
-              
+                select{
+                    cursor: pointer;
+                }
             }
+         
             .trash{
                 display: flex;
                 flex-direction: row;
@@ -91,7 +93,9 @@
             justify-content: center;
 
         }
-
+        .emailInput{
+            cursor:auto !important;
+        }
         &>div{
             display: flex;
             align-self: flex-start;

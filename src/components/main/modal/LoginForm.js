@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { loginAction } from '../../../actions/userActions';
 import { LoginContext } from '../../../contexts/loginContext';
-import { saveUserOnCookie } from '../../../cookies/cookies';
+import { saveUserOnCookie } from '../../../cookies/userCookie';
 import { loginToDB } from '../../../services/userService';
 import Spinner from '../Spinner';
 
@@ -25,7 +25,7 @@ const LoginForm = (props) => {
         event.preventDefault();
         setShowSpinner(true)
         loginToDB(email, password).then((response) => {
-            console.log(response)
+            console.log(response.data.user)
             setShowSpinner(false)
             if (response.data) {
                 const userData = response.data;
