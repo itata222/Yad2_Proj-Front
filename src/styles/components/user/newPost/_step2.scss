@@ -1,3 +1,31 @@
+@media (max-width:1000px) {
+    .step2{
+        .rooms{
+            padding-top: 0 !important;
+            padding-bottom: 1rem;
+
+            select{
+                padding: 0 !important;
+            }
+        }
+        .property-buttons{
+            width: 100% !important;
+            
+            button{
+                width: 100px !important;
+            }
+        }
+        
+        .description{
+            .descriptionContainer{
+                textarea,&> div{
+                    width: 90% !important;
+                }
+            } 
+        } 
+    }
+}
+
 .step2{
     width: 90%;
     margin: 2rem auto;
@@ -159,3 +187,4 @@
     }
     
 }
+

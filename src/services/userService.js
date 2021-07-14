@@ -23,7 +23,7 @@ export const registerToDB = async (email, password) => {
 export const logoutFromDB = async (token) => {
     try {
         console.log(token)
-        const res = await Axios.post(developmentDB + "/logout-user", { token }, {
+        const res = await Axios.post(developmentDB + "/user/logout-user", { token }, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -35,7 +35,7 @@ export const logoutFromDB = async (token) => {
 }
 export const updateUserInfoDB = async (token, newUser) => {
     try {
-        const res = await Axios.patch(developmentDB + "/update-user", { token, newUser }, {
+        const res = await Axios.patch(developmentDB + "/user/update-user", { token, newUser }, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

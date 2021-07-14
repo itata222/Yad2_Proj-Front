@@ -1,5 +1,6 @@
 import React from 'react'
-import reactDom from 'react-dom'
+import reactDom from 'react-dom';
+import CheckBox from '../../CheckBox'
 
 const AdvancedSearchPhone = () => {
     const changeSort = () => {
@@ -8,7 +9,7 @@ const AdvancedSearchPhone = () => {
 
     return (
         <div className="advancedSearchPhone">
-            <div className="checkbox">
+            <div className="checkboxSection">
                 <div>
                     <CheckBox onClick={() => console.log('great')} />
                     <label htmlFor="pandor">דלתות פנדור</label>

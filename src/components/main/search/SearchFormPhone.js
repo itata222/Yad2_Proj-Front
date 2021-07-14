@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import AdvancedSearchPhone from './AdvancedSearchPhone';
 import SearchByArea from './SearchByArea';
 import SearchByCityAndNeigh from './SearchByCityAndNeigh';
+import Header from '../Header/Header'
 
 const SearchFormPhone = (props) => {
     const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
@@ -30,6 +31,8 @@ const SearchFormPhone = (props) => {
     }
 
     return (
+        <>
+        <Header />
         <div className="searchFormPhone">
             <form className="searchForm" onSubmit={submitSearch}>
                 <button className="clean" disabled={isFormModified()}>
@@ -163,6 +166,7 @@ const SearchFormPhone = (props) => {
                 {showAdvancedSearch && <AdvancedSearchPhone />}
             </form>
         </div>
+        </>
     )
 }
 

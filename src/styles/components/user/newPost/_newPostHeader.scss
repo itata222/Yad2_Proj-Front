@@ -71,3 +71,28 @@
     }
     
 }
+@media (max-width:1000px) {
+    .newPostHeader{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 1rem;
+        .left{
+            
+            .exit{
+                display: flex;
+            align-items: center;
+            span{
+                display: none;
+            }
+            }
+            .me,&>span{
+                display: none;
+            }
+        }
+    }
+
+    .newPostContainer{
+        margin-top: 20px !important;
+    }
+}

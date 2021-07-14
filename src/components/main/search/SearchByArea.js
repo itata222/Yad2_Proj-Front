@@ -1,4 +1,5 @@
 import React from 'react'
+import CheckBox from '../../CheckBox'
 
 const SearchByArea = () => {
     const areas = [];

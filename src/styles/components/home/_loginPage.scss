@@ -6,10 +6,14 @@
         align-items: flex-end;
         width: 100%;
 
-        &>img{
-            display: none;
+        // &>img{
+        //     display: none;
+        // }
+        .exitButton {
+            z-index: 13;
+            left: 10px;
+            right: auto;
         }
-
         .welcome{
             width: 100%;
             display: flex;

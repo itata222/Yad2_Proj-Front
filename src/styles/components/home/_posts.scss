@@ -1,6 +1,145 @@
 .post{
     width: 100%;
 }
+.itemsInMerged{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+.itemsMerged{
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 40%;
+
+    &>div{
+        margin: 1rem auto;
+    }
+}
+.priceAndDateExpanded{
+    width: 25% !important;
+    span:first-of-type{
+        font-size: 1.2rem !important;
+    }
+}
+.itemDetailsExpanded,.areaDetailsExpanded{
+    border: none !important;
+    align-self: center !important;
+    width: 100% !important;
+    height: 50% !important;
+}
+.itemDetailsExpanded{
+    width: 75% !important;
+    padding-top: 1rem !important;
+    margin-right: -1rem !important;
+}
+.imageExpanded{
+    width: 35%; 
+}
+
+.post-desktopExpanded{
+    justify-content: space-between !important;
+    flex-direction: column !important;
+    padding: 0 !important;
+
+    .minInfo{
+        padding-right: 1.5rem;
+    }
+    
+}
+.postExpand{
+    border-top: 1px solid #ccc;
+    position: relative;
+    top: 0%;
+    width: 100%;
+    min-height: 10rem;
+    background-color: white;
+    display: flex;
+
+
+    .advertise{
+        width: 25%;
+        background-color: #eee;
+    }
+    .propertyData{
+        width: 75%;
+        padding: .5rem;
+    }
+    
+    .propertyDescription{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+
+        h4{
+            font-weight: 500;
+            margin: 5px 0;
+            font-size: .875rem;
+            line-height: 1.0625rem;
+        }
+
+        .propertyDescText{
+            line-height: 1.5em;
+            margin: 0;
+            padding: 0;
+            font-weight: 400;
+        }
+
+        .propertiesSmall{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: center;
+            margin-top: .4rem;
+
+            div{
+                width: 50%;
+                font-size: .75rem;
+                line-height: 1.25rem;
+                color: #363636;
+                display: flex;
+                align-items: center;
+                padding: 5px 0 0 5px;
+                &>span:last-of-type{
+                    font-weight: 500;
+                }
+
+                .space{
+                    width: 5px;
+                }
+            }
+        }
+
+        
+    }
+    .propertyIcons{
+            h4{
+                margin-bottom: .2rem;
+            }
+            .icons{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+
+                .iconExist,.iconNotExist{
+                    width: 21%;
+                    margin: .5rem;
+                    display: flex;
+                    align-items: center;
+
+                    &>span{
+                        margin-right: .5rem;
+                    }
+                }
+                .iconNotExist{
+                    opacity: .6;
+                }
+            }
+        }
+}
 @media (min-width:1000px) {
     .posts{
         width: 75%;
@@ -19,144 +158,7 @@
     .post-phone{
         display: none;
     }
-    .itemsInMerged{
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        width: 100%;
-    }
-    .itemsMerged{
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        width: 40%;
-
-        &>div{
-            margin: 1rem auto;
-        }
-    }
-    .priceAndDateExpanded{
-        width: 25% !important;
-        span:first-of-type{
-            font-size: 1.2rem !important;
-        }
-    }
-    .itemDetailsExpanded,.areaDetailsExpanded{
-        border: none !important;
-        align-self: center !important;
-        width: 100% !important;
-        height: 50% !important;
-    }
-    .itemDetailsExpanded{
-        width: 75% !important;
-        padding-top: 1rem !important;
-        margin-right: -1rem !important;
-    }
-    .imageExpanded{
-        width: 35%; 
-    }
-
-    .post-desktopExpanded{
-        justify-content: space-between !important;
-        flex-direction: column !important;
-        padding: 0 !important;
-
-        .minInfo{
-
-            padding-right: 1.5rem;
-        }
-        
-    }
-    .postExpand{
-        border-top: 1px solid #ccc;
-        position: relative;
-        top: 0%;
-        width: 100%;
-        min-height: 10rem;
-        background-color: white;
-        display: flex;
-
-
-        .advertise{
-            width: 25%;
-            background-color: #eee;
-        }
-        .propertyData{
-            width: 75%;
-            padding: .5rem;
-        }
-        
-        .propertyDescription{
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-
-            h4{
-                font-weight: 500;
-                margin: 5px 0;
-                font-size: .875rem;
-                line-height: 1.0625rem;
-            }
-
-            .propertyDescText{
-                line-height: 1.5em;
-                margin: 0;
-                padding: 0;
-                font-weight: 400;
-            }
-
-            .propertiesSmall{
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: flex-start;
-                align-items: center;
-                margin-top: .4rem;
-
-                div{
-                    width: 50%;
-                    font-size: .75rem;
-                    line-height: 1.25rem;
-                    color: #363636;
-                    display: flex;
-                    align-items: center;
-                    padding: 5px 0 0 5px;
-                    &>span:last-of-type{
-                        font-weight: 500;
-                    }
-
-                    .space{
-                        width: 5px;
-                    }
-                }
-            }
-
-            
-        }
-        .propertyIcons{
-
-                .icons{
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    align-items: center;
-
-                    .iconExist,.iconNotExist{
-                        width: 21%;
-                        margin: .5rem;
-                        display: flex;
-                        align-items: center;
-
-                        &>span{
-                            margin-right: .5rem;
-                        }
-                    }
-                    .iconNotExist{
-                        opacity: .6;
-                    }
-                }
-            }
-    }
+    
     .post-desktop{
         font-size: .9rem;
         padding: 0.35rem;
@@ -256,7 +258,48 @@
     }
 }
 @media (max-width:1000px){
+    .post-phoneExpanded{
+        // display: ;
+    }
+    .postExpand{
+        border-top: 1px solid #ccc;
+        position: relative;
+        top: 5%;
+        width: 154%;
+        margin-left: -.5rem;
+        @media (max-width:530px ){
+            margin-left: -.3rem;
+        }
+        min-height: 10rem;
+        background-color: white;
+        display: flex;
+    
+        .itemDetails{
+            padding-top: 0.5rem;
+        }
 
+        .propertyDescription{
+            padding: 0.5rem;
+            padding-bottom: 0;
+            display: inherit;
+        }
+        .propertyIcons{
+            background-color: white;
+            border-top: 1px solid #ccc;
+            padding-bottom: .5rem;
+
+            h4{
+                margin-bottom: 0;
+            }
+        }
+        .advertise{
+            display: none;
+        }
+        .propertyData{
+            width: 100%;
+            padding: 0 ;
+        }
+    }
     .posts{
         width: 90%;
         margin: 0 auto;

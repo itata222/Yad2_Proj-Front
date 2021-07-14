@@ -1,3 +1,17 @@
+@media (max-width:1000px) {
+    .step3{
+        .step3-form{
+            &>div{
+                width: 60% !important;
+                min-width: 10rem;
+            }
+            .price{
+                margin-right: inherit;
+                margin-top: 0;
+            }
+        }
+    }
+}
 .step3{
     width: 90%;
     margin: 2rem auto;

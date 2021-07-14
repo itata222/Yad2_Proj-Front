@@ -6,14 +6,16 @@
         padding-top: 1.5rem;
         border-bottom: 1px solid #eee;
 
-    .checkbox{
+    .checkboxSection{
+        width: 100%;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         padding-bottom: 1rem;
         justify-content: space-around;
          border-bottom: 1px solid #eee;
-        div{
+
+        &>div{
             width: 40%;
             margin: .5rem;
             font-size: 1rem;
