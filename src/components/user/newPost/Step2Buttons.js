@@ -1,42 +1,62 @@
 import React, { useState } from 'react'
 
-const Step2Buttons = ({ className, label, onClick }) => {
-    const [button1Selected, setButton1Selected] = useState(false);
-    const [button2Selected, setButton2Selected] = useState(false);
-    const [button3Selected, setButton3Selected] = useState(false);
-    const [button4Selected, setButton4Selected] = useState(false);
+const Step2Buttons = ({ value, className, label, onClick }) => {
+    console.log(value);
+
+    const [buttons, setButtons] = useState([false, false, false, false]);
+
+    const button1Clicked = () => {
+        setButtons([true, false, false, false])
+    }
+    const button2Clicked = () => {
+        setButtons([false, true, false, false])
+    }
+    const button3Clicked = () => {
+        setButtons([false, false, true, false])
+    }
+    const button4Clicked = () => {
+        setButtons([false, false, false, true])
+    }
+    switch (buttons) {
+        case [true, false, false, false]:
+            button1Clicked();
+            break;
+        case [false, true, false, false]:
+            button2Clicked();
+            break;
+        case [false, false, true, false]:
+            button3Clicked();
+            break;
+        case [false, false, false, true]:
+            button4Clicked();
+            break;
+        default:
+            break;
+    }
 
     return (
         <div className={className}>
             <label>{label}</label>
             <div>
-                <button className={button1Selected ? 'buttonSelected' : ''} onClick={() => {
-                    setButton1Selected(!button1Selected);
-                    setButton2Selected(false)
-                    setButton3Selected(false)
-                    setButton4Selected(false)
-                    onClick(0)
+                <button className={[true, false, false, false] ? 'buttonSelected' : ''} onClick={(e) => {
+                    e.preventDefault()
+                    button1Clicked();
+                    onClick(0);
                 }}>ללא</button>
-                <button className={button2Selected ? 'buttonSelected' : ''} onClick={() => {
-                    setButton2Selected(!button2Selected);
-                    setButton1Selected(false)
-                    setButton3Selected(false)
-                    setButton4Selected(false)
-                    onClick(1)
+                <button className={[false, true, false, false] ? 'buttonSelected' : ''} onClick={(e) => {
+                    e.preventDefault()
+                    button2Clicked();
+                    onClick(1);
                 }}>1</button>
-                <button className={button3Selected ? 'buttonSelected' : ''} onClick={() => {
-                    setButton3Selected(!button3Selected)
-                    setButton2Selected(false)
-                    setButton1Selected(false)
-                    setButton4Selected(false)
-                    onClick(2)
+                <button className={[false, false, true, false] ? 'buttonSelected' : ''} onClick={(e) => {
+                    e.preventDefault()
+                    button3Clicked();
+                    onClick(2);
                 }}>2</button>
-                <button className={button4Selected ? 'buttonSelected' : ''} onClick={() => {
-                    setButton4Selected(!button4Selected)
-                    setButton2Selected(false)
-                    setButton3Selected(false)
-                    setButton1Selected(false)
-                    onClick(3)
+                <button className={[false, false, false, true] ? 'buttonSelected' : ''} onClick={(e) => {
+                    e.preventDefault()
+                    button4Clicked();
+                    onClick(3);
                 }}>3</button>
             </div>
         </div>

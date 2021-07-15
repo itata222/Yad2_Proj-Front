@@ -77,6 +77,12 @@
         .numHouse{
             width: 20%;
         }
+
+        .floorInfo{
+            &>div:nth-of-type(1){
+                min-width: 10rem;
+            }
+        }
         .floorInfo,.noti{
             flex-direction: row;
             width: 57%;

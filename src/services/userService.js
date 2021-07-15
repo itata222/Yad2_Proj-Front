@@ -1,4 +1,6 @@
 import Axios from 'axios';
+import citiesStreets from "../components/main/search/dropdowns/streetsGraph"
+import cities from "../components/main/search/dropdowns/citiesArray"
 
 const developmentDB = process.env.REACT_APP_DB;
 
@@ -22,7 +24,6 @@ export const registerToDB = async (email, password) => {
 
 export const logoutFromDB = async (token) => {
     try {
-        console.log(token)
         const res = await Axios.post(developmentDB + "/user/logout-user", { token }, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -44,4 +45,25 @@ export const updateUserInfoDB = async (token, newUser) => {
     } catch (err) {
         console.log(err);
     }
+}
+
+
+export const getCitiesResults = (searchValue) => {
+    const citiesFiltered = cities.filter((city) => city.includes(searchValue))
+    return citiesFiltered;
+}
+
+export const getStreetsOfCity = (city, searchValue) => {
+    const streets = [];
+    for (let i = 0; i < Object.keys(citiesStreets).length; i++) {
+        if (Object.keys(citiesStreets)[i].includes(city)) {
+            console.log(Object.values(citiesStreets)[i])
+            for (let street of Object.values(citiesStreets)[i]) {
+                if (street.includes(searchValue))
+                    streets.push(street)
+            }
+        }
+    }
+    console.log(streets)
+    return streets;
 }

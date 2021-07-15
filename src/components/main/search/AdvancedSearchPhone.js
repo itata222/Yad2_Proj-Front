@@ -3,6 +3,7 @@ import reactDom from 'react-dom';
 import CheckBox from '../../CheckBox'
 
 const AdvancedSearchPhone = () => {
+
     const changeSort = () => {
         console.log(1)
     }

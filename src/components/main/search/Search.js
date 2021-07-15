@@ -3,7 +3,7 @@ import CheckBox from "../../CheckBox";
 import SelectDropDown from "../SelectDropDown";
 import AdvancedSearchForm from "./AdvancedSearchForm";
 import DropDownCheckBox from "./DropDownCheckBox";
-import { updateRoomsValues } from '../../../services/dropDownService'
+import { getCitiesResults } from "../../../services/userService";
 
 const Search = () => {
     const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
@@ -16,14 +16,10 @@ const Search = () => {
     const [roomsToVal, setRoomsToVal] = useState('');
     const appartsArray = ['דירה', "דירת גן", " גג/פנטהאוז", " דופלקס", " דירת נופש", ' דו משפחתי', ' מרתף/פרטר', ' טריפלקס', ' יחידת דיור', ' סטודיו/לופט']
     const housesArray = [" בית פרטי/קוטג'", ' דו משפחתי', ' משק חקלאי/נחלה', ' משק עזר']
-    const othersArray = [' מגרשים', ' דיור מוגן', ' בניין מגורים', ' מחסן', ' חניה', " קב' רכישה/ זכות לנכס", ' כללי']
+    const othersArray = [' מגרשים', ' דיור מוגן', ' בניין מגורים', ' מחסן', ' חניה', " קב' רכישה/ זכות לנכס", ' כללי'];
+    const [searchResults, setSearchResults] = useState([]);
+    const [anyAreaValue, setAnyAreaValue] = useState('');
 
-    const setRoomsFromValFunc = (e) => {
-        setRoomsFromVal(e.target.value)
-    }
-    const setRoomsToValFunc = (e) => {
-        setRoomsToVal(e.target.value)
-    }
 
     useEffect(() => {
         let text;
@@ -36,17 +32,31 @@ const Search = () => {
         else
             text = `חדרים`;
         setRoomsText(text || roomsText);
-
-
     }, [roomsFromVal, roomsToVal]);
 
-    const openAdvancedSearch = () => {
-        setShowAdvancedSearch(!showAdvancedSearch)
-    }
+    useEffect(() => {
+        if (anyAreaValue.length > 2)
+            SearchAnyThing()
+    }, [anyAreaValue]);
+
 
     const submitSearch = (e) => {
         e.preventDefault();
     }
+
+    const SearchAnyThing = () => {
+        getCitiesResults(anyAreaValue).then((res) => {
+            try {
+                console.log(res)
+                setSearchResults(res.records)
+            } catch (e) {
+                console.log(e)
+            }
+        })
+    }
+
+
+
     return (
         <div className="search">
             <div className="search-desktop">
@@ -64,10 +74,24 @@ const Search = () => {
                 <form className="searchForm" onSubmit={submitSearch}>
                     <div className="area">
                         <span>חפשו אזור,עיר,שכונה או רחוב</span>
-                        <input type="text" placeholder="לדוגמא: פארק הים" />
-                        <div className="dropdown none">
-
-                        </div>
+                        <input type="text" placeholder="לדוגמא: פארק הים" onInput={(e) => setAnyAreaValue(e.target.value.trim())} />
+                        {
+                            (searchResults.length > 0 && anyAreaValue.length > 0) &&
+                            <div className="dropdown resultsDD">
+                                {
+                                    <>
+                                        <div className="searchResult searchResultHeader">חפשו אזור, עיר, שכונה או רחוב</div>
+                                        <div className="searchResult searchResultLabel">ישוב</div>
+                                        {searchResults.map((result, i) => (
+                                            <div key={i} className="result">
+                                                <span>{result.שם_ישוב}</span>
+                                                <span>{result.שם_רחוב}</span>
+                                            </div>
+                                        ))}
+                                    </>
+                                }
+                            </div>
+                        }
                     </div>
                     <div className="type">
                         <span>סוג נכס</span>
@@ -99,10 +123,10 @@ const Search = () => {
                             showDDrooms &&
                             <div className="dropdown ddRooms">
                                 <div className="roomsFrom">
-                                    <SelectDropDown onChange={setRoomsFromValFunc} array={roomsFromArray} className='roomsFromSelect' hideFirst={true} />
+                                    <SelectDropDown onChange={() => setRoomsFromVal} array={roomsFromArray} className='roomsFromSelect' hideFirst={true} />
                                 </div>
                                 <div className="roomsTo">
-                                    <SelectDropDown onChange={setRoomsToValFunc} array={roomsToArray} className='roomsToSelect' hideFirst={true} />
+                                    <SelectDropDown onChange={() => setRoomsToVal(e.target.value)} array={roomsToArray} className='roomsToSelect' hideFirst={true} />
                                 </div>
                             </div>
                         }
@@ -127,7 +151,7 @@ const Search = () => {
                         </button>
                     </div>
                     <div className="advancedSearchButton">
-                        <button onClick={openAdvancedSearch}>
+                        <button onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}>
                             <img src="https://img.icons8.com/material-outlined/24/000000/plus--v1.png" alt="plus" />
                             <span>חיפוש מתקדם</span>
                         </button>

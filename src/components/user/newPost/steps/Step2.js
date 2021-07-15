@@ -1,5 +1,5 @@
 import StepButtons from '../StepButtons'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import PropertyButton from '../PropertyButton';
 import SelectDropDown from '../../../main/SelectDropDown';
 import Step2Buttons from '../Step2Buttons';
@@ -10,6 +10,9 @@ import { updateBalconyAction, updateParkingAction, updateRoomsAction } from '../
 const Step2 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
     const { postData, dispatchPostData } = useContext(PostContext);
     const [descriptionLength, setDescriptionLength] = useState(0);
+    const [rooms, setRooms] = useState(-1);
+    const [parking, setParking] = useState(-1);
+    const [balcony, setBalcony] = useState(-1);
     const propertiesText = ['מיזוג', 'ממ"ד', 'מחסן', 'דלתות פנדור', "ריהוט", 'גישה לנכים', "מעלית", "מזגן תדיראן", "משופצת", "מטבח כשר", "דוד שמש", "סורגים"];
     const roomsArray = ['בחירת מספר חדרים', '0', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '8', '9', '10', '11', '12']
 
@@ -27,11 +30,24 @@ const Step2 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
         <div className='step2'>
             <div className="rooms">
                 <label>מספר חדרים*</label>
-                <SelectDropDown array={roomsArray} className='roomsSelect' hideFirst={true} onChange={(e) => dispatchPostData(updateRoomsAction(e.target.value))} />
+                <SelectDropDown
+                    value={postData.rooms || rooms}
+                    onChange={(value) => {
+                        setRooms(value)
+                        dispatchPostData(updateRoomsAction(value))
+                    }}
+                    array={roomsArray}
+                    className='roomsSelect'
+                    hideFirst={true} />
             </div>
-            <Step2Buttons className="parking" label="חניה" onClick={(value) => {
-                dispatchPostData(updateParkingAction(value))
-            }} />
+            <Step2Buttons
+                value={postData.parking || parking}
+                className="parking"
+                label="חניה"
+                onClick={(value) => {
+                    setParking(value)
+                    dispatchPostData(updateParkingAction(value))
+                }} />
             <Step2Buttons className="balcony" label="מרפסת" onClick={(value) => {
                 dispatchPostData(updateBalconyAction(value))
             }} />
