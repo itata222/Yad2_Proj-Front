@@ -57,13 +57,33 @@ export const getStreetsOfCity = (city, searchValue) => {
     const streets = [];
     for (let i = 0; i < Object.keys(citiesStreets).length; i++) {
         if (Object.keys(citiesStreets)[i].includes(city)) {
-            console.log(Object.values(citiesStreets)[i])
             for (let street of Object.values(citiesStreets)[i]) {
                 if (street.includes(searchValue))
                     streets.push(street)
             }
         }
     }
-    console.log(streets)
     return streets;
+}
+
+export const addPostToDB = async (token, postObj) => {
+    try {
+        const res = await Axios.post(developmentDB + '/user/add-post', postObj, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        return res.data
+    } catch (e) {
+        return e
+    }
+}
+
+export const getPosts = async () => {
+    try {
+        const res = await Axios.get(developmentDB + '/get-posts')
+        return res.data
+    } catch (e) {
+        return e
+    }
 }

@@ -1,24 +1,4 @@
-@media (max-width:1000px) {
-    .stepBox .activeText, .stepBox .disactiveText{
-        padding-right: 8.5% !important;
-    }
-    .step1 .step1Form > div{
-        margin-right: inherit;
-        width: 60% !important;
-    }
-    .floorInfo{
-        min-width: min-content;
-        @media (max-width:450px) {
-            min-width: 100%;
-            &>div{
-                min-width: 6.5rem !important;
-            }
-        }
-        &>div{
-            min-width: 10rem;
-        }
-    }
-}
+
 
 .step1{
     width: 90%;
@@ -38,6 +18,11 @@
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
+        
+        .street,.city{
+            max-height: 15rem;
+            overflow: auto;
+        }
 
         .lowerOpacity{
             opacity: .5;
@@ -120,3 +105,24 @@
     }
 }
 
+@media (max-width:1000px) {
+    .stepBox .activeText, .stepBox .disactiveText{
+        padding-right: 8.5% !important;
+    }
+    .step1 .step1Form > div{
+        margin-right: inherit;
+        width: 60% !important;
+    }
+    .floorInfo{
+        min-width: min-content;
+        @media (max-width:450px) {
+            min-width: 100%;
+            &>div{
+                min-width: 6.5rem !important;
+            }
+        }
+        &>div{
+            min-width: 10rem;
+        }
+    }
+}

@@ -6,7 +6,7 @@ import ExpandedPost from './ExpandedPost';
 
 const Post = ({ post }) => {
     const [showPost, setShowPost] = useState(false);
-   
+
     const openPost = (e) => {
         e.preventDefault();
         setShowPost(!showPost)
@@ -15,7 +15,7 @@ const Post = ({ post }) => {
     return (
         <div className="post" >
             <div className={showPost ? 'post-phone post-phoneExpanded' : 'post-phone'} onClick={openPost}>
-                
+
                 <div className="areaDetails">
                     <div className="priceAndDate">
                         <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'₪'} />
@@ -25,8 +25,8 @@ const Post = ({ post }) => {
                         <span>{post.street}</span>
                     </div>
                     <div className="postAreaAndType">
-                        <span>{post.type},</span>
-                        <span>{post.area},</span>
+                        <span>{post.type}</span>
+                        {post.area.length > 0 && <span>,{post.area},</span>}
                         <span>{post.city}</span>
                     </div>
                 </div>
@@ -45,7 +45,7 @@ const Post = ({ post }) => {
                     </div>
                 </div>
                 <div className="image">
-                    <img src={post.images[0]} alt="is" />
+                    <img src={'https://img.yad2.co.il/Pic/202107/11/2_1/o/y2_1_09621_20210711090737.jpeg?l=7&c=3&w=195&h=117'} alt="is" />
                 </div>
                 {
                     showPost &&
@@ -55,7 +55,7 @@ const Post = ({ post }) => {
             <div className={showPost ? 'post-desktop post-desktopExpanded' : 'post-desktop'} onClick={openPost}>
                 <div className="minInfo">
                     <div className={showPost ? 'image imageExpanded' : 'image'}>
-                        <img src={post.images[0]} alt="is" />
+                        <img src={'https://img.yad2.co.il/Pic/202107/11/2_1/o/y2_1_09621_20210711090737.jpeg?l=7&c=3&w=195&h=117'} alt="is" />
                     </div>
                     <div className={showPost ? 'itemsMerged' : 'itemsInMerged'}>
                         <div className={showPost ? 'areaDetails areaDetailsExpanded' : 'areaDetails'}>
@@ -63,8 +63,8 @@ const Post = ({ post }) => {
                                 <span>{post.street}</span>
                             </div>
                             <div className="postAreaAndType">
-                                <span>{post.type},</span>
-                                <span>{post.area},</span>
+                                <span>{post.type}</span>
+                                {post.area.length > 0 && <span>,{post.area},</span>}
                                 <span>{post.city}</span>
                             </div>
                         </div>
