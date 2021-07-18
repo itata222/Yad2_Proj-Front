@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
 import SortFilterResults from './SortFilterResults';
 import SortResults from './SortResults';
+import SortResultsDesktop from './SortResultsDesktop';
 
 const Sort = () => {
     const [sortResults, setSortResults] = useState(false);
+    const [sortResultsDesktop, setSortResultsDesktop] = useState(false);
     const [filterResults, setFilterResults] = useState(false);
+    const [sortBy, setSortBy] = useState('לפי תאריך');
 
     const sortResultsFunc = () => {
         setSortResults(!sortResults)
+    }
+    const sortResultsDesktopFunc = () => {
+        setSortResultsDesktop(!sortResultsDesktop)
     }
     const filterResultsFunc = () => {
         setFilterResults(true)
@@ -27,11 +33,12 @@ const Sort = () => {
                     <span >סנן תוצאות</span>
                 </div>
             </div>
-            <div className="sort-desktop">
-                <div className="sort-results">
+            <div className="sort-desktop" >
+                {sortResultsDesktop && <SortResultsDesktop setSortResults={setSortResultsDesktop} setSortBy={setSortBy} />}
+                <div className="sort-results" onClick={sortResultsDesktopFunc}>
                     <span >מיין לפי</span>
                     <button>
-                        <span>לפי תאריך</span>
+                        <span>{sortBy}</span>
                         <img src="https://img.icons8.com/material-outlined/24/000000/expand-arrow--v1.png" alt="arrow down" />
                     </button>
                 </div>

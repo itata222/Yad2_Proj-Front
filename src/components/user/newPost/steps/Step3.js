@@ -3,14 +3,16 @@ import React, { useContext, useState } from 'react'
 import CheckBox from '../../../CheckBox';
 import { PostContext } from '../../../../contexts/postContext';
 import { updateBuildMrAction, updateEntryDateAction, updateImmidiateAction, updatePriceAction, updateTotalMrAction } from '../../../../actions/postActions';
-import NumberFormat from 'react-number-format';
 
 const Step3 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
-
+    const [totalMrInvalid, setTotalMrInvalid] = useState(false);
+    const [entryDateInvalid, setEntryDateInvalid] = useState(false);
     const { postData, dispatchPostData } = useContext(PostContext);
     const isStepInValidToContinue = () => {
-        return postData.totalMr === -1 || postData.entryDate == null;
+        return (postData.totalMr === -1 || postData.totalMr === '') || (postData.entryDate === -1 && postData.immidiate === false);
     }
+
+    const inputsSetStates = [setTotalMrInvalid, setEntryDateInvalid]
 
     return (
         <div className="step3">
@@ -22,15 +24,23 @@ const Step3 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                         onChange={e => dispatchPostData(updateBuildMrAction(e.target.value))}
                         type="number"
                         placeholder='כמה מ"ר יש בנכס'
-                        onBlur={(e) => dispatchPostData(updateBuildMrAction(e.target.value))} />
+                    />
                 </div>
                 <div className="mrTotal">
                     <label>גודל במ"ר סך הכל*</label>
                     <input
                         value={postData.totalMr === -1 ? '' : postData.totalMr}
-                        onChange={e => dispatchPostData(updateTotalMrAction(e.target.value))}
+                        onChange={e => {
+                            if (e.target.value.length > 0) {
+                                dispatchPostData(updateTotalMrAction(e.target.value))
+                                setTotalMrInvalid(false)
+                            } else
+                                dispatchPostData(updateTotalMrAction(''))
+                        }}
+                        className={totalMrInvalid ? 'invalidInput' : ''}
                         type="number"
-                        onBlur={(e) => dispatchPostData(updateTotalMrAction(e.target.value))} />
+                    />
+                    {totalMrInvalid && <div className="invalidMessage">שדה חובה</div>}
                 </div>
                 <div className="price">
                     <label>מחיר</label>
@@ -40,7 +50,7 @@ const Step3 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                         maxLength="12"
                         type="number"
                         placeholder="סכום מינימלי 100,000"
-                        onBlur={(e) => dispatchPostData(updatePriceAction(e.target.value))} />
+                    />
                 </div>
                 <div className="city">
                     <label>תאריך כניסה*</label>
@@ -48,19 +58,32 @@ const Step3 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                         <input
                             value={postData.entryDate === -1 ? "" : postData.entryDate}
                             type="date"
-                            className='entryDateInput'
-                            onChange={(e) => dispatchPostData(updateEntryDateAction(e.target.value))}
+                            className={!entryDateInvalid ? 'entryDateInput' : 'entryDateInput invalidInput'}
+                            onChange={(e) => {
+                                dispatchPostData(updateEntryDateAction(e.target.value))
+                                setEntryDateInvalid(false)
+                            }}
                             disabled={postData.immidiate} />
                         <label>מיידי</label>
+                        {/* {entryDateInvalid && <div className="invalidMessage block">שדה חובה</div>} */}
                         <CheckBox
                             value={postData.immidiate}
                             onClick={(isActive) => {
                                 dispatchPostData(updateImmidiateAction(!isActive))
+                                if (isActive === false)
+                                    setEntryDateInvalid(false)
                             }} />
                     </div>
                 </div>
             </div>
-            <StepButtons isStepInValidToContinue={isStepInValidToContinue} setStepsDone={setStepsDone} setActiveStep={setActiveStep} stepsDone={stepsDone} activeStep={activeStep} />
+            <StepButtons
+                step={3}
+                inputsSetStates={inputsSetStates}
+                isStepInValidToContinue={isStepInValidToContinue}
+                setStepsDone={setStepsDone}
+                setActiveStep={setActiveStep}
+                stepsDone={stepsDone}
+                activeStep={activeStep} />
         </div>
     )
 }

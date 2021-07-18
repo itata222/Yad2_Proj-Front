@@ -126,3 +126,15 @@
         }
     }
 }
+
+.invalidInput,.invalidSelect{
+    border: 1px solid red !important;
+}
+.invalidMessage{
+    color: red;
+    font-size: .9rem;
+    margin-top: .1rem;
+}
+.block{
+    display: block;
+}

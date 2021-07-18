@@ -2,29 +2,30 @@ import React, { useContext, useState } from 'react'
 import { LoginContext } from '../../../../contexts/loginContext';
 import { PostContext } from '../../../../contexts/postContext';
 import { addPostToDB } from '../../../../services/userService';
+import ModalWithMessage from '../../../main/modal/ModalWithMessage';
 import Spinner from '../../../main/Spinner'
 
 const Step6 = () => {
     const { postData } = useContext(PostContext);
     const { userData } = useContext(LoginContext);
     const [showSpinner, setShowSpinner] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     console.log(postData)
 
     const addPostFunc = () => {
         setShowSpinner(true)
         addPostToDB(userData.token, postData).then((res) => {
             setShowSpinner(false);
-            // alert('post added successfully');
-            console.log(res)
+            setShowModal(true)
         }).catch((e) => console.log(e))
     }
 
     return (
         <div className="step6">
             {showSpinner && <Spinner />}
+            {showModal && <ModalWithMessage setShowModal={setShowModal} text="Post Successfully Uploaded" history="/home" />}
             <div className="conclusionText">
                 <h4>זהו, אנחנו בסוף. לנו נשאר לשמור את המודעה שלך, לך נשאר לבחור את מסלול הפרסום.</h4>
-
             </div>
             <div className="path">
                 <div className="pathHeader">

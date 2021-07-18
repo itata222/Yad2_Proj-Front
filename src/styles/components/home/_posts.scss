@@ -1,3 +1,16 @@
+  .infinite-scroll-component__outerdiv{
+    width: 100% !important;
+  }
+  .infinite-scroll-component {
+    overflow: hidden !important;
+  }
+  .endMessage{
+    text-align: center;
+    margin: 1.5rem auto;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: rgb(143, 143, 143);
+  }
 .post{
     width: 100%;
 }
@@ -372,4 +385,10 @@
             }
         }
     }
+}
+
+.priceNotMentioned{
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
 }

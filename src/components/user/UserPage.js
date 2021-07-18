@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { logoutAction } from '../../actions/userActions';
 import { LoginContext } from '../../contexts/loginContext';
 import { deleteUserFromCookie } from '../../cookies/userCookie';
-import { logoutFromDB } from '../../services/userService';
+import { getUserPosts, logoutFromDB } from '../../services/userService';
 import Header from '../main/Header/Header';
 import Spinner from '../main/Spinner'
 import UpdateInfo from './UpdateInfo';
@@ -15,9 +15,8 @@ const UserPage = (props) => {
     const [showSpinner, setShowSpinner] = useState(false);
     const [updatePostsComponent, setUpdatePostsComponent] = useState(true);
     const [UpdateInfoComponent, setUpdateInfoComponent] = useState(false);
+    const [userPosts, setUserPosts] = useState([]);
     const history = useHistory();
-
-    const userPosts = [];
 
     const logoutClick = () => {
         setShowSpinner(true);
@@ -41,6 +40,12 @@ const UserPage = (props) => {
         }
     }, [props.location.hash]);
 
+    useEffect(() => {
+        getUserPosts(userData.token, userData.user._id).then((res) => {
+            setUserPosts(res)
+        }).catch(e => console.log(e))
+    }, []);
+
     return (
         <div className="userPage">
             {showSpinner && <Spinner />}
@@ -56,7 +61,7 @@ const UserPage = (props) => {
                 </div>
                 <div className="personalInformation">
                     <div className="helloInfo">
-                        <span>שלום, יש לך ({userData.user.posts.length}) מודעות </span>
+                        <span>שלום, יש לך ({userPosts.length}) מודעות </span>
                         <span>|</span>
                     </div>
                     <div>
@@ -69,7 +74,7 @@ const UserPage = (props) => {
                 <div className="profileBodyHeader">
                     <div className="buttons">
                         <div>
-                            <NavLink to='#updatePost' activeClassName="selected" isActive={() => updatePostsComponent}  > עדכון ועריכת מודעות</NavLink>
+                            <NavLink to='#updatePost' activeClassName="selected" isActive={() => updatePostsComponent}  > המודעות שלי</NavLink>
                         </div>
                         <div>
                             <NavLink to='/user/create-Post' >פרסום מודעה חדשה</NavLink>

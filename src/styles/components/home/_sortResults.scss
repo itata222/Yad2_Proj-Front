@@ -34,3 +34,35 @@
     }
 
 }
+
+@media (min-width:1000px) {
+    .sortResultsDesktop{
+        position: absolute;  
+        display: block;
+        left: 72.5%;
+        top: 55px;
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        background-color: #fff;
+        z-index: 100;
+        min-width: 200px;
+        padding: 12px 17px;
+        box-shadow: 0 3px 5px 0 rgba(0, 0 ,0 ,.2), 0 1px 18px 0 rgba(0 ,0 ,0, .12), 0 6px 10px 0 rgba(0 ,0, 0 ,.14);
+
+        &>div{
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #dadada;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            &:last-of-type{
+                border-bottom: none;
+            }
+        }
+    }
+}

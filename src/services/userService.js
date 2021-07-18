@@ -79,9 +79,30 @@ export const addPostToDB = async (token, postObj) => {
     }
 }
 
-export const getPosts = async () => {
+export const getPosts = async (limit, page) => {
     try {
-        const res = await Axios.get(developmentDB + '/get-posts')
+        const res = await Axios.get(developmentDB + '/get-posts', {
+            params: {
+                limit,
+                page
+            }
+        })
+        return res.data
+    } catch (e) {
+        return e
+    }
+}
+
+export const getUserPosts = async (token, id) => {
+    try {
+        const res = await Axios.get(developmentDB + '/user/my-posts', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            params: {
+                id
+            }
+        })
         return res.data
     } catch (e) {
         return e

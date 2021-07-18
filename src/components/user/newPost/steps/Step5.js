@@ -12,11 +12,13 @@ const Step5 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
     const [addOtherPerson, setAddOtherPerson] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState('');
     const [prePhoneNumber, setPrePhoneNumber] = useState('');
+    const [contactNameInvalid, setContactNameInvalid] = useState(false);
+    const [contactPhoneInvalid, setContactPhoneInvalid] = useState(false);
     const [readContract, setReadContract] = useState(false);
+    const [readContractFlash, setReadContractFlash] = useState(false);
     const [virtualNumber, setVirtualNumber] = useState(false);
     const [weekend, setWeekend] = useState(false);
     const [mailNotification, setMailNotification] = useState(false);
-    console.log(postData)
 
     useEffect(() => {
         if (prePhoneNumber.length > 0 && phoneNumber.length > 0) {
@@ -28,6 +30,8 @@ const Step5 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
         return postData.contactName === '' || postData.contactPhone === "" || !readContract;
     }
 
+    const inputsSetStates = [setContactNameInvalid, setContactPhoneInvalid, setReadContractFlash]
+
     return (
         <div className="step5">
             <h4>רגע לפני שמפרסמים את המודעה, נבדוק שפרטי הקשר נכונים</h4>
@@ -37,17 +41,33 @@ const Step5 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                         <label>שם איש קשר*</label>
                         <input
                             value={postData.contactName}
-                            onChange={(e) => dispatchPostData(updateContactNameAction(e.target.value))}
-                            type="text"
-                            onBlur={(e) => dispatchPostData(updateContactNameAction(e.target.value))} />
+                            className={contactNameInvalid ? 'invalidInput' : ''}
+                            onChange={(e) => {
+                                if (e.target.value.length > 0) {
+                                    dispatchPostData(updateContactNameAction(e.target.value))
+                                    setContactNameInvalid(false)
+                                } else
+                                    dispatchPostData(updateContactNameAction(''))
+                            }}
+                        />
+                        {contactNameInvalid && <div className="invalidMessage">שדה חובה</div>}
                     </div>
                     <div>
                         <label>טלפון ראשי*</label>
                         <input
                             value={postData.contactPhone !== '' ? postData.contactPhone.substr(3) : phoneNumber}
-                            onChange={(e) => setPhoneNumber(e.target.value)}
+                            className={contactPhoneInvalid ? 'invalidInput' : ''}
+                            onChange={(e) => {
+                                setPhoneNumber(e.target.value);
+                                if (e.target.value.length > 0) {
+                                    dispatchPostData(updateContactPhoneAction(e.target.value))
+                                    setContactPhoneInvalid(false)
+                                } else
+                                    dispatchPostData(updateContactPhoneAction(''))
+                            }}
                             type="number"
-                            onBlur={(e) => setPhoneNumber(e.target.value)} />
+                        />
+                        {contactPhoneInvalid && <div className="invalidMessage">שדה חובה</div>}
                     </div>
                     <div>
                         <label></label>
@@ -109,11 +129,13 @@ const Step5 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                         className='emailInput'
                         onBlur={(e) => dispatchPostData(updateContactEmailAction(e.target.value.trim()))} />
                 </div>
-                <div className="readContract">
+                <div className={!readContractFlash ? "readContract" : "readContract animate__animated animate__flash"}>
                     <CheckBox
                         value={readContract}
+                        className={readContract === false ? 'invalidInput' : ''}
                         onClick={(isActive) => {
                             setReadContract(!isActive)
+                            setReadContractFlash(false)
                         }} />
                     <label>קראתי ואישרתי את התקנון, זה חשוב*</label>
                 </div>
@@ -124,7 +146,15 @@ const Step5 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                     <label>אני רוצה שתשלחו לי עדכונים למייל</label>
                 </div>
             </div>
-            <StepButtons isStepInValidToContinue={isStepInValidToContinue} setStepsDone={setStepsDone} setActiveStep={setActiveStep} stepsDone={stepsDone} activeStep={activeStep} />
+            <StepButtons
+                step={5}
+                readContract={readContract}
+                inputsSetStates={inputsSetStates}
+                isStepInValidToContinue={isStepInValidToContinue}
+                setStepsDone={setStepsDone}
+                setActiveStep={setActiveStep}
+                stepsDone={stepsDone}
+                activeStep={activeStep} />
         </div>
     )
 }

@@ -7,28 +7,12 @@ import Search from "../search/Search";
 import Spinner from "../Spinner";
 import LocationDiv from "./LocationDiv";
 import LocationHeadline from "./LocationHeadline";
-import NumberOfResults from "./NumberOfResults";
 import Sort from "./Sort";
 
 
 const Home = () => {
   const location = ["ראשי", 'נדל"ן למכירה'];
   const [showSpinner, setShowSpinner] = useState(false);
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    let isComponentExist = true;
-    setShowSpinner(true)
-    if (isComponentExist) {
-      getPosts().then((res) => {
-        setShowSpinner(false);
-        setPosts(res)
-      })
-    }
-    return () => {
-      isComponentExist = false;
-    };
-  }, []);
 
 
   return (
@@ -41,8 +25,7 @@ const Home = () => {
         <Search />
         <LocationHeadline headline={location[location.length - 1]} />
         <Sort />
-        <NumberOfResults resultsLength={posts.length} />
-        <Posts posts={posts} setPosts={setPosts} />
+        <Posts setShowSpinner={setShowSpinner} />
       </div>
     </>
   );

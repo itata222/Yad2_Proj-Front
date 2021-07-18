@@ -78,13 +78,17 @@ const Post = ({ post }) => {
                                 <span>קומה</span>
                             </div>
                             <div className="item-space">
-                                <span>{post.space}</span>
+                                <span>{post.totalMr}</span>
                                 <span>מ"ר</span>
                             </div>
                         </div>
                     </div>
                     <div className={showPost ? 'priceAndDate priceAndDateExpanded' : 'priceAndDate'}>
-                        <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'₪'} />
+                        {post.price === -1 ?
+                            <div className="priceNotMentioned">לא צוין מחיר</div>
+                            :
+                            <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'₪'} />
+                        }
                         <span className="date">{moment(post.updatedAt).isSame(new Date(), "day") ? 'עודכן היום' : ''}</span>
                     </div>
                 </div>

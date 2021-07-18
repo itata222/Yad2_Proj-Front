@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { LoginContext } from '../../../contexts/loginContext';
 import LoginModal from '../modal/LoginModal';
 import NavSideBar from '../sidebar/NavSideBar';
-
+import { deleteUserFromCookie } from '../../../cookies/userCookie'
 const HeaderContent = () => {
     const { userData } = useContext(LoginContext);
     const [showLoginModal, setShowLoginModal] = useState(false);

@@ -1,5 +1,5 @@
 import StepButtons from '../StepButtons'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import PropertyButton from '../PropertyButton';
 import SelectDropDown from '../../../main/SelectDropDown';
 import Step2Buttons from '../Step2Buttons';
@@ -11,7 +11,8 @@ const Step2 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
     const { postData, dispatchPostData } = useContext(PostContext);
     const [descriptionLength, setDescriptionLength] = useState(0);
     const [rooms, setRooms] = useState(-1);
-
+    const [roomsInvalid, setRoomsInvalid] = useState(false);
+    const inputsSetStates = [setRoomsInvalid]
     const propertiesText = ['מיזוג', 'ממ"ד', 'מחסן', 'דלתות פנדור', "ריהוט", 'גישה לנכים', "מעלית", "מזגן תדיראן", "משופצת", "מטבח כשר", "דוד שמש", "סורגים"];
     const roomsArray = ['בחירת מספר חדרים', '0', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '8', '9', '10', '11', '12']
 
@@ -31,7 +32,10 @@ const Step2 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                     }}
                     array={roomsArray}
                     className='roomsSelect'
-                    hideFirst={true} />
+                    hideFirst={true}
+                    isInValid={roomsInvalid}
+                    setState={setRoomsInvalid}
+                    step={2} />
             </div>
             <Step2Buttons
                 className="parking"
@@ -78,7 +82,14 @@ const Step2 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                     </div>
                 </div>
             </div>
-            <StepButtons isStepInValidToContinue={isStepInValidToContinue} setStepsDone={setStepsDone} setActiveStep={setActiveStep} stepsDone={stepsDone} activeStep={activeStep} />
+            <StepButtons
+                step={2}
+                inputsSetStates={inputsSetStates}
+                isStepInValidToContinue={isStepInValidToContinue}
+                setStepsDone={setStepsDone}
+                setActiveStep={setActiveStep}
+                stepsDone={stepsDone}
+                activeStep={activeStep} />
         </div>
     )
 }

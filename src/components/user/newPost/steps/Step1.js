@@ -12,10 +12,17 @@ import StreetDD from '../../../main/search/dropdowns/StreetDD'
 const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
     const { postData, dispatchPostData } = useContext(PostContext);
     const [CityValue, setCityValue] = useState('');
+    const [typeInvalid, setTypeInvalid] = useState(false);
+    const [conditionInvalid, setConditionInvalid] = useState(false);
+    const [cityInvalid, setCityInvalid] = useState(false);
+    const [floorInvalid, setFloorInvalid] = useState(false);
+    const [totalFloorsInvalid, setTotalFloorsInvalid] = useState(false);
     const [showCityDD, setShowCityDD] = useState(false);
     const [StreetValue, setStreetValue] = useState('');
     const [showStreetDD, setShowStreetDD] = useState(false);
     const [notification, setNotification] = useState(false);
+
+    const inputsSetStates = [setCityInvalid, setFloorInvalid, setTotalFloorsInvalid, setTypeInvalid, setConditionInvalid]
 
     const conditionArray = ['משופץ? חדש מקבלן?', ' חדש מקבלן (לא גרו בו בכלל)', ' חדש (נכס בן עד 5 שנים)', ' משופץ (שופץ ב5 השנים האחרונות)', ' במצב שמור (במצב טוב, לא שופץ)']
     const typeArray = ['דירה או פנטהאוז?', 'דירה', "דירת גן", " בית פרטי/קוטג'", " גג/פנטהאוז", ' מגרשים', " דופלקס", " דירת נופש",
@@ -41,8 +48,8 @@ const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
     }, [StreetValue])
 
     const isTypeInFilled = () => postData.propType === '';
-    const isCityInFilled = () => postData.city === '';
     const isConditionInFilled = () => postData.condition === '';
+    const isCityInFilled = () => postData.city === '';
     const isFloorInFilled = () => postData.floor === -1;
     const isFloorInBuildingInFilled = () => postData.floorsInBuilding === -1;
     const isStepInValidToContinue = () => isFloorInBuildingInFilled() || isFloorInFilled() || isConditionInFilled() || isCityInFilled() || isTypeInFilled();
@@ -53,26 +60,43 @@ const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
             <div className="step1Form">
                 <div className="type">
                     <label>סוג הנכס*</label>
-                    <SelectDropDown value={postData.propType} onChange={(value) => {
-                        dispatchPostData(updateTypeAction(value))
-                    }} array={typeArray} className='typeSelect' hideFirst={true} />
+                    <SelectDropDown
+                        value={postData.propType}
+                        onChange={(value) => {
+                            dispatchPostData(updateTypeAction(value))
+                        }}
+                        array={typeArray}
+                        className='typeSelect'
+                        hideFirst={true}
+                        isInValid={typeInvalid}
+                        setState={inputsSetStates[3]}
+                        step={1} />
                 </div>
                 <div className="condition">
                     <label>מצב הנכס*</label>
-                    <SelectDropDown value={postData.condition} onChange={(value) => {
-                        dispatchPostData(updateConditionAction(value))
-                    }} array={conditionArray} className='conditionSelect' hideFirst={true} />
+                    <SelectDropDown
+                        value={postData.condition}
+                        onChange={(value) => {
+                            dispatchPostData(updateConditionAction(value))
+                        }}
+                        array={conditionArray}
+                        className='conditionSelect'
+                        hideFirst={true}
+                        isInValid={conditionInvalid}
+                        setState={inputsSetStates[4]}
+                        step={1} />
                 </div>
                 <div className="city">
                     <label>ישוב*</label>
                     <input
                         value={postData.city || CityValue}
                         onChange={(e) => setCityValue(e.target.value)}
-                        className='cityInput'
+                        className={!cityInvalid ? 'cityInput' : 'cityInput invalidInput'}
                         placeholder='איפה נמצא הנכס'
                         disabled={isTypeInFilled()}
                         onInput={(e) => setCityValue(e.target.value)} />
-                    {showCityDD && <CityDD setCityValue={setCityValue} setShowCityDD={setShowCityDD} searchValue={CityValue} />}
+                    {cityInvalid && <div className="invalidMessage">שדה חובה</div>}
+                    {showCityDD && <CityDD setIsInValid={setCityInvalid} setCityValue={setCityValue} setShowCityDD={setShowCityDD} searchValue={CityValue} />}
                 </div>
                 <div className={!isCityInFilled() ? "street" : "street lowerOpacity"}>
                     <label>רחוב</label>
@@ -99,23 +123,40 @@ const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                         <label>קומה*</label>
                         <input
                             value={postData.floor === -1 ? '' : postData.floor}
-                            onChange={e => dispatchPostData(updateFloorAction(e.target.value))}
+                            onChange={e => {
+                                if (e.target.value.length > 0) {
+                                    dispatchPostData(updateFloorAction((e.target.value)))
+                                    setFloorInvalid(false)
+                                } else
+                                    dispatchPostData(updateFloorAction(-1))
+                            }}
                             type="number"
                             min='0'
                             max='100'
+                            className={floorInvalid ? 'invalidInput' : ''}
                             placeholder="הכנסת מספר קומה"
                             disabled={isTypeInFilled()}
-                            onBlur={e => dispatchPostData(updateFloorAction(e.target.value))} />
+                        />
+                        {floorInvalid && <div className="invalidMessage">שדה חובה</div>}
                     </div>
                     <div>
                         <label>סה"כ קומות בבניין*</label>
                         <input
                             value={postData.floorsInBuilding === -1 ? '' : postData.floorsInBuilding}
-                            onChange={e => dispatchPostData(updateFloorsInBuildingAction(e.target.value))}
+                            onChange={e => {
+                                if (e.target.value.length > 0) {
+                                    dispatchPostData(updateFloorsInBuildingAction(e.target.value))
+                                    setTotalFloorsInvalid(false)
+                                } else
+                                    dispatchPostData(updateFloorsInBuildingAction(-1))
+                            }}
                             type="number"
+                            className={totalFloorsInvalid ? 'invalidInput' : ''}
                             placeholder='הכנסת סה"כ קומות'
                             disabled={isTypeInFilled()}
-                            onBlur={(e) => dispatchPostData(updateFloorsInBuildingAction(e.target.value.trim()))} />
+                        />
+                        {totalFloorsInvalid && <div className="invalidMessage">שדה חובה</div>}
+
                     </div>
                     <div>
                         <CheckBox
@@ -144,9 +185,13 @@ const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                 </div>
             </div>
             <StepButtons
-                // isStepInValidToContinue={isStepInValidToContinue}
-                isStepInValidToContinue={() => false}
-                setStepsDone={setStepsDone} setActiveStep={setActiveStep} stepsDone={stepsDone} activeStep={activeStep}
+                step={1}
+                inputsSetStates={inputsSetStates}
+                isStepInValidToContinue={isStepInValidToContinue}
+                setStepsDone={setStepsDone}
+                setActiveStep={setActiveStep}
+                stepsDone={stepsDone}
+                activeStep={activeStep}
             />
         </div>
     )

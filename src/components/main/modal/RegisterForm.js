@@ -25,9 +25,7 @@ const RegisterForm = (props) => {
     const onSubmitform = (event) => {
         event.preventDefault();
         setShowSpinner(true)
-        console.log(email, password)
         registerToDB(email, password).then((response) => {
-            console.log(response.data)
             if (response.data) {
                 const userData = response.data;
                 setShowSpinner(false)

@@ -1,11 +1,37 @@
 import React from 'react'
+import { useContext } from 'react';
+import { PostContext } from '../../../contexts/postContext';
 
-const StepButtons = ({ isStepInValidToContinue, setActiveStep, activeStep, setStepsDone, stepsDone }) => {
+const StepButtons = ({ readContract, step, inputsSetStates, isStepInValidToContinue, setActiveStep, activeStep, setStepsDone, stepsDone }) => {
+    const { postData } = useContext(PostContext)
+    console.log(postData)
     const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        const stepsDoneDup = [...stepsDone]
-        stepsDoneDup[activeStep] = true;
-        setStepsDone(stepsDoneDup)
+        if (isStepInValidToContinue()) {
+            if (step === 1) {
+                if (postData.city === "") inputsSetStates[0](true)
+                if (postData.floor === -1) inputsSetStates[1](true)
+                if (postData.floorsInBuilding === -1) inputsSetStates[2](true)
+                if (postData.propType === '') inputsSetStates[3](true)
+                if (postData.condition === '') inputsSetStates[4](true)
+            }
+            else if (step === 2) {
+                if (postData.rooms === -1) inputsSetStates[0](true)
+            }
+            else if (step === 3) {
+                if (postData.totalMr === -1 || postData.totalMr === '') inputsSetStates[0](true)
+                if (postData.entryDate === -1 && postData.immidiate === false) inputsSetStates[1](true)
+            }
+            else if (step === 5) {
+                if (postData.contactName === "") inputsSetStates[0](true)
+                if (postData.contactPhone === "") inputsSetStates[1](true)
+                if (!readContract) inputsSetStates[2](true)
+            }
+        } else {
+            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+            const stepsDoneDup = [...stepsDone]
+            stepsDoneDup[activeStep] = true;
+            setStepsDone(stepsDoneDup)
+        }
     };
 
     const handleBack = () => {
@@ -24,7 +50,7 @@ const StepButtons = ({ isStepInValidToContinue, setActiveStep, activeStep, setSt
                 חזרה
             </button>
             <button
-                disabled={isStepInValidToContinue()}
+                // disabled={isStepInValidToContinue()}
                 onClick={handleNext}
                 className='forwardStepButton'
             >

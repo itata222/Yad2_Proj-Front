@@ -17,11 +17,16 @@ const StreetDD = ({ CityValue, setShowStreetDD, searchValue }) => {
         dispatchPostData(updateStreetAction(street.trim()));
     }
 
+    function boldString(str, substr) {
+        var strRegExp = new RegExp(substr, 'g');
+        return str.replace(strRegExp, substr.bold());
+    }
+
     return (
         <div className={StreetsResults.length > 0 ? "dropdown StreetsDD" : 'none'}>
             {
                 StreetsResults.map((street, i) => (
-                    <div onClick={() => streetClicked(street)} key={i} className="searchResult">{street}</div>
+                    <div onClick={() => streetClicked(street)} key={i} className="searchResult" dangerouslySetInnerHTML={{ __html: boldString(street, searchValue) }}></div>
                 ))
             }
         </div>
