@@ -11,6 +11,7 @@ const Posts = ({ setShowSpinner, posts, setPosts }) => {
     const { filtersData } = useContext(FiltersContext)
     const [currentPage, setCurrentPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
+    const [lastLengthOfPosts, setLastLengthOfPosts] = useState(0);
     const limit = 5;
 
     console.log(filtersData)
@@ -23,6 +24,7 @@ const Posts = ({ setShowSpinner, posts, setPosts }) => {
             getPosts(limit, currentPage, filtersData).then((res) => {
                 setCurrentPage(currentPage + 1)
                 setShowSpinner(false);
+                setLastLengthOfPosts(res.length)
                 setPosts(res);
             })
         }
@@ -38,20 +40,36 @@ const Posts = ({ setShowSpinner, posts, setPosts }) => {
                 setCurrentPage(currentPage + 1)
                 setShowSpinner(false);
                 setPosts([...currentPosts, ...res])
+                setLastLengthOfPosts([...currentPosts, ...res].length)
                 if (res.length < limit)
                     setHasMore(false)
             }).catch(e => console.log(e))
         }, 1000);
     }
 
-
     useEffect(() => {
-        if (posts.length > 0)
+        if (posts.length > 0) {
             getPosts(posts.length, 1, filtersData).then((res) => {
-                console.log(res)
                 setPosts(res);
             }).catch(e => console.log(e))
+        }
     }, [filtersData.sort]);
+
+    useEffect(() => {
+        if (filtersData.fromPrice === 1) {
+            getPosts(posts.length, 1, filtersData).then((res) => {
+                setPosts(res);
+            }).catch(e => console.log(e))
+        }
+        else if (lastLengthOfPosts > posts.length) {
+            getPosts(lastLengthOfPosts, 1, filtersData).then((res) => {
+                setPosts(res);
+            }).catch(e => console.log(e))
+        }
+
+    }, [filtersData.fromPrice]);
+
+
 
     return (
         <>

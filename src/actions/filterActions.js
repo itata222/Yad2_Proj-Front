@@ -2,7 +2,7 @@ export const setSortAction = (sort) => ({
     type: 'SET_SORT',
     sort
 })
-export const setFilterBAction = (dataB) => ({
-    type: 'SET_FILTER_B',
-    dataB
+export const setPriceFrom = (price) => ({
+    type: 'SET_WITH_PRICE',
+    fromPrice: price
 })
