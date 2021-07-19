@@ -18,8 +18,16 @@ const Post = ({ post }) => {
 
                 <div className="areaDetails">
                     <div className="priceAndDate">
-                        <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'₪'} />
+                        {post.price === -1 ?
+                            <div className="priceNotMentioned">לא צוין מחיר</div>
+                            :
+                            <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'₪'} />
+                        }
                         <span className="date">{moment(post.updatedAt).isSame(new Date(), "day") ? 'עודכן היום' : ''}</span>
+                        <span className="clickForDetails">לחצו לפרטים</span>
+                        <div className="contactPhone">
+                            <span>{post.contactPhone}</span>
+                        </div>
                     </div>
                     <div className="postStreet">
                         <span>{post.street}</span>
@@ -90,6 +98,10 @@ const Post = ({ post }) => {
                             <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'₪'} />
                         }
                         <span className="date">{moment(post.updatedAt).isSame(new Date(), "day") ? 'עודכן היום' : ''}</span>
+                        <span className="clickForDetails">לחצו לפרטים</span>
+                        <div className="contactPhone">
+                            <span>{post.contactPhone}</span>
+                        </div>
                     </div>
                 </div>
                 {

@@ -3,7 +3,7 @@ import SortFilterResults from './SortFilterResults';
 import SortResults from './SortResults';
 import SortResultsDesktop from './SortResultsDesktop';
 
-const Sort = () => {
+const Sort = ({ setPosts, posts }) => {
     const [sortResults, setSortResults] = useState(false);
     const [sortResultsDesktop, setSortResultsDesktop] = useState(false);
     const [filterResults, setFilterResults] = useState(false);
@@ -22,7 +22,7 @@ const Sort = () => {
     return (
         <div className="sort">
             <div className="sort-phone">
-                {sortResults && <SortResults setSortResults={setSortResults} />}
+                {sortResults && <SortResults setSortResults={setSortResults} sortBy={sortBy} setSortBy={setSortBy} />}
                 {filterResults && <SortFilterResults setFilterResults={setFilterResults} />}
                 <div className="sort-results" onClick={sortResultsFunc}>
                     <img src="https://img.icons8.com/pastel-glyph/32/000000/sorting-arrows--v1.png" alt="arrows" />
@@ -34,7 +34,7 @@ const Sort = () => {
                 </div>
             </div>
             <div className="sort-desktop" >
-                {sortResultsDesktop && <SortResultsDesktop setSortResults={setSortResultsDesktop} setSortBy={setSortBy} />}
+                {sortResultsDesktop && <SortResultsDesktop sortBy={sortBy} setSortBy={setSortBy} />}
                 <div className="sort-results" onClick={sortResultsDesktopFunc}>
                     <span >מיין לפי</span>
                     <button>

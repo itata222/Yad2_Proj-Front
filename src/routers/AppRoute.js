@@ -11,24 +11,27 @@ import UserRoute from './UserRoute'
 import LoginPhone from '../components/main/LoginPhone';
 import NonUserRoute from './NonUserRoute'
 import NewPost from '../components/user/newPost/NewPost';
+import FiltersContextProvider from '../contexts/filtersContext';
 
 const AppRoute = () => {
     return (
         <BrowserRouter>
             <LoginContextProvider>
-                <PostContextProvider>
-                    <Switch>
-                        <Route path="/" exact>
-                            <Redirect to="/home" />
-                        </Route>
-                        <Route path="/home" component={Home} />
-                        <Route path="/search-form" component={SearchFormPhone} />
-                        <NonUserRoute path='/login-page' component={LoginPhone} />
-                        <UserRoute path='/user/profile' component={UserPage} />
-                        <UserRoute path='/user/create-post' component={NewPost} />
-                        <Route path='*' component={PageNotFound} />
-                    </Switch>
-                </PostContextProvider>
+                <FiltersContextProvider>
+                    <PostContextProvider>
+                        <Switch>
+                            <Route path="/" exact>
+                                <Redirect to="/home" />
+                            </Route>
+                            <Route path="/home" component={Home} />
+                            <Route path="/search-form" component={SearchFormPhone} />
+                            <NonUserRoute path='/login-page' component={LoginPhone} />
+                            <UserRoute path='/user/profile' component={UserPage} />
+                            <UserRoute path='/user/create-post' component={NewPost} />
+                            <Route path='*' component={PageNotFound} />
+                        </Switch>
+                    </PostContextProvider>
+                </FiltersContextProvider>
             </LoginContextProvider>
         </BrowserRouter>
     )

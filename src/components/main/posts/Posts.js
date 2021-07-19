@@ -4,22 +4,26 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { getPosts } from '../../../services/userService';
 import NumberOfResults from '../home/NumberOfResults';
 import SpinnerInfiniteScroll from '../SpinnerInfiniteScroll';
+import { useContext } from 'react';
+import { FiltersContext } from '../../../contexts/filtersContext';
 
-const Posts = ({ setShowSpinner }) => {
-    const [posts, setPosts] = useState([]);
+const Posts = ({ setShowSpinner, posts, setPosts }) => {
+    const { filtersData } = useContext(FiltersContext)
     const [currentPage, setCurrentPage] = useState(1);
-    const [hasMore, setHasMore] = useState(true)
+    const [hasMore, setHasMore] = useState(true);
     const limit = 5;
 
+    console.log(filtersData)
 
     useEffect(() => {
         let isComponentExist = true;
         setShowSpinner(true)
         if (isComponentExist) {
-            getPosts(limit, currentPage).then((res) => {
+            console.log(2)
+            getPosts(limit, currentPage, filtersData).then((res) => {
                 setCurrentPage(currentPage + 1)
                 setShowSpinner(false);
-                setPosts(res)
+                setPosts(res);
             })
         }
         return () => {
@@ -30,16 +34,24 @@ const Posts = ({ setShowSpinner }) => {
     const fetchMoreData = () => {
         setTimeout(() => {
             const currentPosts = [...posts];
-            getPosts(limit, currentPage).then((res) => {
+            getPosts(limit, currentPage, filtersData).then((res) => {
                 setCurrentPage(currentPage + 1)
                 setShowSpinner(false);
                 setPosts([...currentPosts, ...res])
                 if (res.length < limit)
                     setHasMore(false)
-                console.log(res)
             }).catch(e => console.log(e))
         }, 1000);
     }
+
+
+    useEffect(() => {
+        if (posts.length > 0)
+            getPosts(posts.length, 1, filtersData).then((res) => {
+                console.log(res)
+                setPosts(res);
+            }).catch(e => console.log(e))
+    }, [filtersData.sort]);
 
     return (
         <>

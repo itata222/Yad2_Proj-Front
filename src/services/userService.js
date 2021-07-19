@@ -79,16 +79,13 @@ export const addPostToDB = async (token, postObj) => {
     }
 }
 
-export const getPosts = async (limit, page) => {
+export const getPosts = async (limit, page, queryObj) => {
+    const params = { limit, page, queryObj };
     try {
-        const res = await Axios.get(developmentDB + '/get-posts', {
-            params: {
-                limit,
-                page
-            }
-        })
+        const res = await Axios.get(developmentDB + '/get-posts', { params })
         return res.data
     } catch (e) {
+        console.log(e)
         return e
     }
 }

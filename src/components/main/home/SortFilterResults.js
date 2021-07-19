@@ -5,7 +5,7 @@ const SortFilterResults = ({ setFilterResults }) => {
     let menuRef = useRef();
 
     useEffect(() => {
-        document.addEventListener('mouseup', (e) => {
+        document.addEventListener('mousedown', (e) => {
             if (!menuRef.current?.contains(e.target))
                 setFilterResults(false)
         })
@@ -19,11 +19,11 @@ const SortFilterResults = ({ setFilterResults }) => {
         <div className="sortFilterResult">
             <div ref={menuRef} className="sortFilterResultContent">
                 <div>
-                    <CheckBox checked={true} onClick={() => console.log('great')} />
+                    <CheckBox checked={true} onClick={(e) => e.stopPropagation()} />
                     <label htmlFor="byDate">רק עם מחיר</label>
                 </div>
                 <div>
-                    <CheckBox checked={true} onClick={() => console.log('great')} />
+                    <CheckBox checked={true} onClick={(e) => e.stopPropagation()} />
                     <label htmlFor="byPriceLH">רק עם תמונה</label>
                 </div>
 

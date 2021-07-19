@@ -1,14 +1,47 @@
 export const filtersInitialState = {
-    cinema: 'יס פלאנט ראשון לציון',
-    day: 0
+    sort: null,
+    propType: '',
+    condition: '',
+    city: '',
+    street: '',
+    houseNumber: -1,
+    floor: -1,
+    floorsInBuilding: -1,
+    onBars: false,
+    neighborhood: '',
+    area: '',
+    rooms: -1,
+    parking: -1,
+    balcony: -1,
+    airCondition: false,
+    mamad: false,
+    warehouse: false,
+    pandor: false,
+    furnished: false,
+    accessible: false,
+    elevator: false,
+    tadiran: false,
+    remaked: false,
+    kasher: false,
+    sunEnergy: false,
+    bars: false,
+    description: '',
+    buildMr: -1,
+    totalMr: -1,
+    price: -1,
+    entryDate: -1,
+    immidiate: false,
+    photos: [],
+    video: -1,
+    contactName: '',
+    contactPhone: '',
+    contactEmail: ''
 };
 
 const filtersReducer = (filters, action) => {
     switch (action.type) {
-        case 'SET_CINEMA_FILTER':
-            return { ...filters, cinema: action.cinema };
-        case 'SET_DAY_FILTER':
-            return { ...filters, day: action.day };
+        case 'SET_SORT':
+            return { ...filters, sort: action.sort };
         default:
             return { ...filters };
     }
