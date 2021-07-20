@@ -52,6 +52,19 @@ export const getCitiesResults = (searchValue) => {
     const citiesFiltered = cities.filter((city) => city.includes(searchValue))
     return citiesFiltered;
 }
+export const getAnyAreaResults = (searchValue) => {
+    const anyCities = Array.from(Object.keys(citiesStreets)).filter((area) => area.includes(searchValue));
+    let streets = new Set();
+    for (let i = 0; i < Object.keys(citiesStreets).length; i++) {
+        for (let street of Object.values(citiesStreets)[i]) {
+            if (street.includes(searchValue))
+                streets.add(street)
+        }
+    }
+    const anyStreets = Array.from(streets)
+    const anyArea = [...anyCities, ...anyStreets]
+    return anyArea;
+}
 
 export const getStreetsOfCity = (city, searchValue) => {
     const streets = [];

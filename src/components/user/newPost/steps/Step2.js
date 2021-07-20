@@ -5,6 +5,7 @@ import SelectDropDown from '../../../main/SelectDropDown';
 import Step2Buttons from '../Step2Buttons';
 import { PostContext } from '../../../../contexts/postContext';
 import { updateBalconyAction, updateDescriptionAction, updateParkingAction, updateRoomsAction } from '../../../../actions/postActions';
+import { propertiesNamesArray } from '../../../../utils/arrays';
 
 
 const Step2 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
@@ -13,7 +14,6 @@ const Step2 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
     const [rooms, setRooms] = useState(-1);
     const [roomsInvalid, setRoomsInvalid] = useState(false);
     const inputsSetStates = [setRoomsInvalid]
-    const propertiesText = ['מיזוג', 'ממ"ד', 'מחסן', 'דלתות פנדור', "ריהוט", 'גישה לנכים', "מעלית", "מזגן תדיראן", "משופצת", "מטבח כשר", "דוד שמש", "סורגים"];
     const roomsArray = ['בחירת מספר חדרים', '0', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '8', '9', '10', '11', '12']
 
     const isStepInValidToContinue = () => {
@@ -56,7 +56,7 @@ const Step2 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                 <div className="header">מאפייני הנכס</div>
                 <div className="property-buttons">
                     {
-                        propertiesText.map((property, i) => (
+                        propertiesNamesArray.map((property, i) => (
                             <PropertyButton key={i} text={property} index={i} />
                         ))
                     }

@@ -56,9 +56,28 @@
 
         .floor-boxs{
             display: flex;
+            cursor: pointer;
 
-            .floor-from{
+            .floor-from,.floor-to{
                 margin-left: 0.5rem;
+                cursor: pointer;
+                position: relative;
+            }
+            .floorsFromValues{
+                width: 100%;
+                height: 10rem;
+                overflow: auto;
+                border: 1px solid #dadada;
+                border-top: none;
+                position: absolute;
+                background-color: #fff;
+                &>div{
+                    display: block;
+                    text-align: center;
+                    padding-bottom: .5rem;
+                    padding-top: .5rem;
+                    border-bottom: 1px solid #dadada;
+                }
             }
         }
 

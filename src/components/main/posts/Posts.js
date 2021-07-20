@@ -14,13 +14,10 @@ const Posts = ({ setShowSpinner, posts, setPosts }) => {
     const [lastLengthOfPosts, setLastLengthOfPosts] = useState(0);
     const limit = 5;
 
-    console.log(filtersData)
-
     useEffect(() => {
         let isComponentExist = true;
         setShowSpinner(true)
         if (isComponentExist) {
-            console.log(2)
             getPosts(limit, currentPage, filtersData).then((res) => {
                 setCurrentPage(currentPage + 1)
                 setShowSpinner(false);
@@ -61,7 +58,7 @@ const Posts = ({ setShowSpinner, posts, setPosts }) => {
                 setPosts(res);
             }).catch(e => console.log(e))
         }
-        else if (lastLengthOfPosts > posts.length) {
+        else if (lastLengthOfPosts >= posts.length && currentPage !== 1) {
             getPosts(lastLengthOfPosts, 1, filtersData).then((res) => {
                 setPosts(res);
             }).catch(e => console.log(e))

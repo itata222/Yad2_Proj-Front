@@ -14,12 +14,12 @@ import {
     faBars
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { propertiesNamesArray } from '../../../utils/arrays';
 
 const ExpandedPost = ({ post }) => {
 
     const icons = [faSnowflake, faHouseDamage, faBoxOpen, faDoorClosed, faChair,
         faWheelchair, faDungeon, faHome, faPaintRoller, faFaucet, faSolarPanel, faBars]
-    const propertiesText = ['מיזוג', 'ממ"ד', 'מחסן', 'דלתות פנדור', "ריהוט", 'גישה לנכים', "מעלית", "מזגן תדיראן", "משופצת", "מטבח כשר", "דוד שמש", "סורגים"];
     const propertiesNames = [post.airCondition, post.mamad, post.warehouse, post.pandor, post.furnished,
     post.accessible, post.elevator, post.tadiran, post.remaked, post.kasher, post.sunEnergy, post.bars]
 
@@ -69,7 +69,7 @@ const ExpandedPost = ({ post }) => {
                             icons.map((icon, i) => (
                                 <div key={i} className={propertiesNames[i] ? 'iconExist' : 'iconNotExist'}>
                                     <FontAwesomeIcon icon={icon} />
-                                    <span>{propertiesText[i]}</span>
+                                    <span>{propertiesNamesArray[i]}</span>
                                 </div>
                             ))
                         }

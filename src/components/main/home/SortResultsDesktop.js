@@ -2,14 +2,16 @@ import React, { useRef, useState } from 'react'
 import { useContext } from 'react';
 import { setSortAction } from '../../../actions/filterActions';
 import { FiltersContext } from '../../../contexts/filtersContext';
+import { useClose } from '../../../utils/useClose';
 
-const SortResultsDesktop = ({ setSortBy, sortBy }) => {
+const SortResultsDesktop = ({ setSortResultsDesktop, setSortBy, sortBy }) => {
     const { dispatchFiltersData } = useContext(FiltersContext)
     const [sortByDate, setSortByDate] = useState(sortBy === 'לפי תאריך');
     const [sortByPriceLH, setSortByPriceLH] = useState(sortBy === 'מחיר - מהזול ליקר');
     const [sortByPriceHL, setSortByPriceHL] = useState(sortBy === 'מחיר - מהיקר לזול');
 
     let menuRef = useRef();
+    useClose(menuRef, () => setSortResultsDesktop(false))
 
     const changeSort = (e) => {
         switch (e.target.value) {

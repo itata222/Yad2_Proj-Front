@@ -30,7 +30,7 @@ const Sort = () => {
                 </div>
             </div>
             <div className="sort-desktop" >
-                {sortResultsDesktop && <SortResultsDesktop sortBy={sortBy} setSortBy={setSortBy} />}
+                {sortResultsDesktop && <SortResultsDesktop setSortResultsDesktop={setSortResultsDesktop} sortBy={sortBy} setSortBy={setSortBy} />}
                 <div className="sort-results" onClick={() => setSortResultsDesktop(!sortResultsDesktop)}>
                     <span >מיין לפי</span>
                     <button>

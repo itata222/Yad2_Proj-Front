@@ -13,8 +13,9 @@ const CityDD = ({ setShowCityDD, searchValue, setIsInValid }) => {
     }, [searchValue]);
 
     const cityClicked = (city) => {
-        setShowCityDD(false)
-        setIsInValid(false)
+        setShowCityDD(false);
+        if (setIsInValid != undefined)
+            setIsInValid(false)
         dispatchPostData(updateCityAction(city.trim()));
     }
 

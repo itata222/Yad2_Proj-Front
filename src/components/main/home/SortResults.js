@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useRef } from 'react';
 import { setSortAction } from '../../../actions/filterActions';
 import { FiltersContext } from '../../../contexts/filtersContext';
+import { useClose } from '../../../utils/useClose';
 
 const SortResults = ({ setSortResults, setSortBy, sortBy }) => {
     let menuRef = useRef();
@@ -10,13 +11,7 @@ const SortResults = ({ setSortResults, setSortBy, sortBy }) => {
     const [sortByPriceLH, setSortByPriceLH] = useState(sortBy === 'מחיר - מהזול ליקר');
     const [sortByPriceHL, setSortByPriceHL] = useState(sortBy === 'מחיר - מהיקר לזול');
 
-    useEffect(() => {
-        document.addEventListener('mousedown', (e) => {
-            if (!menuRef.current?.contains(e.target)) {
-                setSortResults(false)
-            }
-        })
-    });
+    useClose(menuRef, () => setSortResults(false))
 
     const changeSort = (e) => {
         switch (e.target.value) {

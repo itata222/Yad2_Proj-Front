@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from "react";
-import CheckBox from "../../CheckBox";
+import React, { useEffect, useRef, useState } from "react";
 import SelectDropDown from "../SelectDropDown";
 import AdvancedSearchForm from "./AdvancedSearchForm";
-import DropDownCheckBox from "./DropDownCheckBox";
-import { getCitiesResults } from "../../../services/userService";
+import { useContext } from "react";
+import { FiltersContext } from '../../../contexts/filtersContext'
+import AnyAreaDD from "./dropdowns/AnyAreaDD";
+import { setAreaText, setPriceFrom, setPriceTo, setRoomsFromAction, setRoomsToAction } from "../../../actions/filterActions";
+import { roomsFromArray, roomsToArray } from '../../../utils/arrays'
+import CheckBoxDDcontainer from "./dropdowns/CheckBoxDDcontainer";
 
 const Search = () => {
+    const { filtersData, dispatchFiltersData } = useContext(FiltersContext)
     const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
     const [showDDrooms, setShowDDrooms] = useState(false);
     const [showDDtypes, setShowDDtypes] = useState(false);
-    const roomsFromArray = ['מ-', '0', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '8', '9', '10', '11', '12']
-    const roomsToArray = ['עד-', '0', '1', '1.5', '2', '2.5', '3', '3.5', '4', '4.5', '5', '5.5', '6', '6.5', '7', '8', '9', '10', '11', '12']
     const [roomsText, setRoomsText] = useState('חדרים');
     const [roomsFromVal, setRoomsFromVal] = useState('')
     const [roomsToVal, setRoomsToVal] = useState('');
-    const appartsArray = ['דירה', "דירת גן", " גג/פנטהאוז", " דופלקס", " דירת נופש", ' דו משפחתי', ' מרתף/פרטר', ' טריפלקס', ' יחידת דיור', ' סטודיו/לופט']
-    const housesArray = [" בית פרטי/קוטג'", ' דו משפחתי', ' משק חקלאי/נחלה', ' משק עזר']
-    const othersArray = [' מגרשים', ' דיור מוגן', ' בניין מגורים', ' מחסן', ' חניה', " קב' רכישה/ זכות לנכס", ' כללי'];
-    const [searchResults, setSearchResults] = useState([]);
     const [anyAreaValue, setAnyAreaValue] = useState('');
+    const [showAnyAreaDD, setShowAnyAreaDD] = useState(false);
 
 
     useEffect(() => {
@@ -35,27 +34,16 @@ const Search = () => {
     }, [roomsFromVal, roomsToVal]);
 
     useEffect(() => {
-        if (anyAreaValue.length > 2)
-            SearchAnyThing()
+        if (anyAreaValue.length > 2) {
+            setShowAnyAreaDD(true)
+            dispatchFiltersData(setAreaText(''))
+        }
+        else {
+            setShowAnyAreaDD(false)
+        }
     }, [anyAreaValue]);
 
-
-    const submitSearch = (e) => {
-        e.preventDefault();
-    }
-
-    const SearchAnyThing = () => {
-        getCitiesResults(anyAreaValue).then((res) => {
-            try {
-                console.log(res)
-                setSearchResults(res.records)
-            } catch (e) {
-                console.log(e)
-            }
-        })
-    }
-
-
+    console.log(filtersData)
 
     return (
         <div className="search">
@@ -71,49 +59,35 @@ const Search = () => {
                         <span>קבלו התראות במייל על החיפוש</span>
                     </div>
                 </div>
-                <form className="searchForm" onSubmit={submitSearch}>
+                <form className="searchForm" onSubmit={(e) => e.preventDefault()}>
                     <div className="area">
                         <span>חפשו אזור,עיר,שכונה או רחוב</span>
-                        <input type="text" placeholder="לדוגמא: פארק הים" onInput={(e) => setAnyAreaValue(e.target.value.trim())} />
-                        {
-                            (searchResults.length > 0 && anyAreaValue.length > 0) &&
-                            <div className="dropdown resultsDD">
-                                {
-                                    <>
-                                        <div className="searchResult searchResultHeader">חפשו אזור, עיר, שכונה או רחוב</div>
-                                        <div className="searchResult searchResultLabel">ישוב</div>
-                                        {searchResults.map((result, i) => (
-                                            <div key={i} className="result">
-                                                <span>{result.שם_ישוב}</span>
-                                                <span>{result.שם_רחוב}</span>
-                                            </div>
-                                        ))}
-                                    </>
-                                }
-                            </div>
-                        }
+                        <input
+                            type="text"
+                            placeholder="לדוגמא: פארק הים"
+                            onInput={(e) => setAnyAreaValue(e.target.value)}
+                            value={filtersData.text || anyAreaValue}
+                            onChange={(e) => setAnyAreaValue(e.target.value)}
+                        />
+                        {showAnyAreaDD &&
+                            <AnyAreaDD
+                                setShowAnyAreaDD={setShowAnyAreaDD}
+                                searchValue={anyAreaValue}
+                            />}
+
                     </div>
-                    <div className="type">
+                    <div className="type" >
                         <span>סוג נכס</span>
                         <button onClick={() => setShowDDtypes(!showDDtypes)}>
-                            <span>בחרו סוגי נכסים</span>
+                            <span>{filtersData.types.length > 0 ? `${filtersData.types.length} סוגים נבחרו` : "בחרו סוגי נכסים"}</span>
                             <img src="https://img.icons8.com/material-outlined/24/000000/expand-arrow--v1.png" alt="arrow down" />
                         </button>
                         {
                             showDDtypes &&
-                            <div className="dropdown ddTypes">
-                                <div className="all">
-                                    <label >כל סוגי הנכסים</label>
-                                    <CheckBox onClick={() => console.log('great')} />
-                                </div>
-                                <DropDownCheckBox className="aparts" label='דירות' array={appartsArray} />
-                                <DropDownCheckBox className="houses" label='בתים' array={housesArray} />
-                                <DropDownCheckBox className="others" label='סוגים נוספים' array={othersArray} />
-                                <div> <span>בחירה</span>  </div>
-                            </div>
+                            <CheckBoxDDcontainer />
                         }
                     </div>
-                    <div className="rooms">
+                    <div className="rooms" >
                         <span>חדרים</span>
                         <button onClick={() => setShowDDrooms(!showDDrooms)}>
                             <span className={roomsText !== 'חדרים' ? 'roomsSelected' : ''}>{roomsText}</span>
@@ -123,10 +97,26 @@ const Search = () => {
                             showDDrooms &&
                             <div className="dropdown ddRooms">
                                 <div className="roomsFrom">
-                                    <SelectDropDown onChange={() => setRoomsFromVal} array={roomsFromArray} className='roomsFromSelect' hideFirst={true} />
+                                    <SelectDropDown
+                                        onChange={(e) => {
+                                            console.log(e)
+                                            setRoomsFromVal(e)
+                                            dispatchFiltersData(setRoomsFromAction(parseFloat(e)))
+                                        }}
+                                        array={roomsFromArray}
+                                        className='roomsFromSelect'
+                                        hideFirst={true} />
                                 </div>
+
                                 <div className="roomsTo">
-                                    <SelectDropDown onChange={() => setRoomsToVal(e.target.value)} array={roomsToArray} className='roomsToSelect' hideFirst={true} />
+                                    <SelectDropDown
+                                        onChange={(e) => {
+                                            setRoomsToVal(e)
+                                            dispatchFiltersData(setRoomsToAction(parseFloat(e)))
+                                        }}
+                                        array={roomsToArray}
+                                        className='roomsToSelect'
+                                        hideFirst={true} />
                                 </div>
                             </div>
                         }
@@ -135,8 +125,8 @@ const Search = () => {
                     <div className="price">
                         <span>מחיר</span>
                         <div className="pricesBoxes">
-                            <input type="number" placeholder="ממחיר" />
-                            <input type="number" placeholder="עד מחיר" />
+                            <input type="number" placeholder="ממחיר" onBlur={(e) => dispatchFiltersData(setPriceFrom(parseInt(e.target.value)))} />
+                            <input type="number" placeholder="עד מחיר" onBlur={(e) => dispatchFiltersData(setPriceTo(parseInt(e.target.value)))} />
                         </div>
                     </div>
                     <div className="searchButton">

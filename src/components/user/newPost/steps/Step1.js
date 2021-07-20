@@ -7,7 +7,7 @@ import { PostContext } from '../../../../contexts/postContext'
 import { updateCityAction, updateConditionAction, updateFloorAction, updateFloorsInBuildingAction, updateHouseNumberAction, updateOnBarsAction, updateStreetAction, updateTypeAction } from '../../../../actions/postActions'
 import CityDD from '../../../main/search/dropdowns/CityDD'
 import StreetDD from '../../../main/search/dropdowns/StreetDD'
-// import { getPostFromCookie, savePostOnCookie } from '../../../../cookies/postCookie'
+import { allTypesArray, conditionArray } from '../../../../utils/arrays'
 
 const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
     const { postData, dispatchPostData } = useContext(PostContext);
@@ -24,9 +24,6 @@ const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
 
     const inputsSetStates = [setCityInvalid, setFloorInvalid, setTotalFloorsInvalid, setTypeInvalid, setConditionInvalid]
 
-    const conditionArray = ['משופץ? חדש מקבלן?', ' חדש מקבלן (לא גרו בו בכלל)', ' חדש (נכס בן עד 5 שנים)', ' משופץ (שופץ ב5 השנים האחרונות)', ' במצב שמור (במצב טוב, לא שופץ)']
-    const typeArray = ['דירה או פנטהאוז?', 'דירה', "דירת גן", " בית פרטי/קוטג'", " גג/פנטהאוז", ' מגרשים', " דופלקס", " דירת נופש",
-        ' דו משפחתי', ' מרתף/פרטר', ' טריפלקס', ' יחידת דיור', ' משק חקלאי/נחלה', ' משק עזר', ' דיור מוגן', ' בניין מגורים', ' סטודיו/לופט', ' מחסן', " קב' רכישה/ זכות לנכס", ' חניה', ' כללי']
 
 
     useEffect(() => {
@@ -65,7 +62,7 @@ const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                         onChange={(value) => {
                             dispatchPostData(updateTypeAction(value))
                         }}
-                        array={typeArray}
+                        array={allTypesArray}
                         className='typeSelect'
                         hideFirst={true}
                         isInValid={typeInvalid}
