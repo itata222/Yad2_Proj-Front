@@ -1,18 +1,18 @@
 import React, { useContext, useState } from 'react'
-import { setAccessibleAction, setAirConditionAction, setBarsAction, setElevatorAction, setEntryDate, setFloorsFromAction, setFloorsToAction, setFurnishedAction, setImmidiateAction, setKasherAction, setMamadAction, setPandorAction, setRemakedAction, setSizeMrFrom, setSizeMrTo, setSunEnergyAction, setTadiranAction, setWarehouseAction } from '../../../actions/filterActions';
+import { setAccessibleAction, setAirConditionAction, setBarsAction, setElevatorAction, setEntryDate, setFloorsFromAction, setFloorsToAction, setFreeText, setFurnishedAction, setImmidiateAction, setKasherAction, setMamadAction, setPandorAction, setRemakedAction, setSizeMrFrom, setSizeMrTo, setSunEnergyAction, setTadiranAction, setWarehouseAction } from '../../../actions/filterActions';
 import { FiltersContext } from '../../../contexts/filtersContext'
 import { floors, propertiesNamesArray } from '../../../utils/arrays';
 import CheckBox from '../../CheckBox'
-import SelectDropDown from '../SelectDropDown';
 
-const AdvancedSearchForm = () => {
+const AdvancedSearchForm = ({ searchButtonClicked }) => {
     const { filtersData, dispatchFiltersData } = useContext(FiltersContext);
     const actions = [setAirConditionAction, setMamadAction, setWarehouseAction, setPandorAction, setFurnishedAction, setAccessibleAction,
         setElevatorAction, setTadiranAction, setRemakedAction, setKasherAction, setSunEnergyAction, setBarsAction];
     const values = [filtersData.airCondition, filtersData.mamad, filtersData.warehouse, filtersData.pandor, filtersData.furnished,
     filtersData.accessible, filtersData.elevator, filtersData.tadiran, filtersData.remaked, filtersData.kasher, filtersData.sunEnergy, filtersData.bars]
     const [showFloorsFrom, setShowFloorsFrom] = useState(false);
-    const [showFloorsTo, setShowFloorsTo] = useState(false)
+    const [showFloorsTo, setShowFloorsTo] = useState(false);
+    const [onlyKibutzActive, setOnlyKibutzActive] = useState(false);
 
     const propertyClicked = (i) => {
         console.log(i)
@@ -107,16 +107,17 @@ const AdvancedSearchForm = () => {
                 <div className="freeTextSearch">
                     <div className="freeSearch">
                         <span>חיפוש חופשי</span>
-                        <input type="text" />
+                        <input type="text" onBlur={(e) => dispatchFiltersData(setFreeText(e.target.value))} />
                     </div>
                     <div className="onlyKibutz">
-                        <CheckBox onClick={() => console.log('great')} />
+                        <CheckBox value={onlyKibutzActive}
+                            onClick={() => setOnlyKibutzActive(!onlyKibutzActive)} />
                         <label htmlFor="onlyKibutz">הצגת מושבים וקיבוצים בלבד</label>
                     </div>
                 </div>
                 <div className="buttons">
                     <div></div>
-                    <button>חיפוש</button>
+                    <button onClick={searchButtonClicked}>חיפוש</button>
                     <span>נקה</span>
                 </div>
             </div>

@@ -7,7 +7,6 @@ const DropDownCheckBox = ({ className, label, array }) => {
     const [ddOpened, setDdOpened] = useState(false);
     const { filtersData, dispatchFiltersData } = useContext(FiltersContext);
     const [selections, setSelections] = useState([]);
-    console.log(filtersData.types, selections)
 
     const optionClicked = (option) => {
         const selectionDup = [...selections]

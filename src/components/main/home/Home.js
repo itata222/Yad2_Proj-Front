@@ -22,7 +22,7 @@ const Home = () => {
       {showSpinner && <Spinner />}
       <div className="home-page">
         <LocationDiv location={location} />
-        <Search />
+        <Search posts={posts} setPosts={setPosts} />
         <LocationHeadline headline={location[location.length - 1]} />
         <Sort posts={posts} setPosts={setPosts} />
         <Posts setShowSpinner={setShowSpinner} posts={posts} setPosts={setPosts} />

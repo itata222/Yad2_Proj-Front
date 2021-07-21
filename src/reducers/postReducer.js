@@ -103,7 +103,7 @@ const postReducer = (post, action) => {
         case "UPDATE_ENTRY_DATE":
             return { ...post, entryDate: action.entryDate };
         case "UPDATE_IMMIDIATE":
-            return { ...post, immidiate: action.immidiate };
+            return { ...post, entryDate: action.immidiate === true ? new Date() : action.entryDate, immidiate: action.immidiate };
         case "UPDATE_PHOTOS":
             return { ...post, photos: action.photos };
         case "UPDATE_VIDEO":

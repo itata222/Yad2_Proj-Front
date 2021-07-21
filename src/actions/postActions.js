@@ -121,9 +121,10 @@ export const updateEntryDateAction = (entryDate) => ({
     type: "UPDATE_ENTRY_DATE",
     entryDate
 });
-export const updateImmidiateAction = (immidiate) => ({
+export const updateImmidiateAction = (immidiate, entryDate) => ({
     type: "UPDATE_IMMIDIATE",
-    immidiate
+    immidiate,
+    entryDate
 });
 export const updatePhotosAction = (photos) => ({
     type: "UPDATE_PHOTOS",

@@ -69,7 +69,7 @@ const Step3 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                         <CheckBox
                             value={postData.immidiate}
                             onClick={(isActive) => {
-                                dispatchPostData(updateImmidiateAction(!isActive))
+                                dispatchPostData(updateImmidiateAction(!isActive, postData.entryDate === -1 ? "" : postData.entryDate))
                                 if (isActive === false)
                                     setEntryDateInvalid(false)
                             }} />

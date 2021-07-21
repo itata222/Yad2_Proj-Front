@@ -7,8 +7,10 @@ import AnyAreaDD from "./dropdowns/AnyAreaDD";
 import { setAreaText, setPriceFrom, setPriceTo, setRoomsFromAction, setRoomsToAction } from "../../../actions/filterActions";
 import { roomsFromArray, roomsToArray } from '../../../utils/arrays'
 import CheckBoxDDcontainer from "./dropdowns/CheckBoxDDcontainer";
+import { getPosts } from "../../../services/userService";
+import Spinner from "../Spinner";
 
-const Search = () => {
+const Search = ({ posts, setPosts }) => {
     const { filtersData, dispatchFiltersData } = useContext(FiltersContext)
     const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
     const [showDDrooms, setShowDDrooms] = useState(false);
@@ -18,6 +20,7 @@ const Search = () => {
     const [roomsToVal, setRoomsToVal] = useState('');
     const [anyAreaValue, setAnyAreaValue] = useState('');
     const [showAnyAreaDD, setShowAnyAreaDD] = useState(false);
+    const [showSpinner, setShowSpinner] = useState(false);
 
 
     useEffect(() => {
@@ -43,10 +46,21 @@ const Search = () => {
         }
     }, [anyAreaValue]);
 
-    console.log(filtersData)
+    const searchButtonClicked = (e) => {
+        e.preventDefault();
+        setShowSpinner(true)
+        getPosts(posts.length, 1, filtersData).then((res) => {
+            setShowSpinner(false);
+            console.log(res.posts)
+            setPosts(res.posts)
+        }).catch((e) => console.log(e))
+    }
 
+
+    console.log(filtersData)
     return (
         <div className="search">
+            {showSpinner && <Spinner />}
             <div className="search-desktop">
                 <div className="searchHeadline">
                     <div className="searchHeadlineText">
@@ -130,7 +144,7 @@ const Search = () => {
                         </div>
                     </div>
                     <div className="searchButton">
-                        <button>
+                        <button onClick={searchButtonClicked}>
                             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                                 width="24" height="24"
                                 viewBox="0 0 172 172"
@@ -147,7 +161,7 @@ const Search = () => {
                         </button>
                     </div>
                 </form>
-                {showAdvancedSearch && <AdvancedSearchForm />}
+                {showAdvancedSearch && <AdvancedSearchForm searchButtonClicked={searchButtonClicked} />}
             </div>
         </div>
     );

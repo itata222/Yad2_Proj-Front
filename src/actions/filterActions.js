@@ -98,3 +98,7 @@ export const setImmidiateAction = (immidiate) => ({
     type: 'SET_IMMIDIATE',
     immidiate
 })
+export const setFreeText = (freeText) => ({
+    type: 'SET_FREE_TEXT',
+    freeText
+})

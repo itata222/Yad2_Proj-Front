@@ -21,8 +21,8 @@ const Posts = ({ setShowSpinner, posts, setPosts }) => {
             getPosts(limit, currentPage, filtersData).then((res) => {
                 setCurrentPage(currentPage + 1)
                 setShowSpinner(false);
-                setLastLengthOfPosts(res.length)
-                setPosts(res);
+                setLastLengthOfPosts(res.posts.length)
+                setPosts(res.posts);
             })
         }
         return () => {
@@ -36,18 +36,17 @@ const Posts = ({ setShowSpinner, posts, setPosts }) => {
             getPosts(limit, currentPage, filtersData).then((res) => {
                 setCurrentPage(currentPage + 1)
                 setShowSpinner(false);
-                setPosts([...currentPosts, ...res])
-                setLastLengthOfPosts([...currentPosts, ...res].length)
-                if (res.length < limit)
-                    setHasMore(false)
+                setPosts([...currentPosts, ...res.posts])
+                setLastLengthOfPosts([...currentPosts, ...res.posts].length)
+                setHasMore(res.hasMore)
             }).catch(e => console.log(e))
-        }, 1000);
+        }, 500);
     }
 
     useEffect(() => {
         if (posts.length > 0) {
             getPosts(posts.length, 1, filtersData).then((res) => {
-                setPosts(res);
+                setPosts(res.posts);
             }).catch(e => console.log(e))
         }
     }, [filtersData.sort]);
@@ -55,22 +54,38 @@ const Posts = ({ setShowSpinner, posts, setPosts }) => {
     useEffect(() => {
         if (filtersData.fromPrice === 1) {
             getPosts(posts.length, 1, filtersData).then((res) => {
-                setPosts(res);
+                setPosts(res.posts);
             }).catch(e => console.log(e))
         }
         else if (lastLengthOfPosts >= posts.length && currentPage !== 1) {
             getPosts(lastLengthOfPosts, 1, filtersData).then((res) => {
-                setPosts(res);
+                setPosts(res.posts);
             }).catch(e => console.log(e))
         }
 
     }, [filtersData.fromPrice]);
 
 
+    const handleScroll = () => {
+        const bottom = Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight
+        if (bottom && hasMore) {
+            fetchMoreData()
+        }
+    };
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, {
+            passive: true
+        });
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    });
+
 
     return (
         <>
-            <NumberOfResults resultsLength={posts.length} />
+            {console.log(posts)}
+            <NumberOfResults resultsLength={posts?.length || 0} />
             <div className="posts">
                 <InfiniteScroll
                     dataLength={limit}
@@ -80,8 +95,8 @@ const Posts = ({ setShowSpinner, posts, setPosts }) => {
                     endMessage={<div className="endMessage">No More Posts</div>}
                 >
                     {
-                        posts.map((post, i) => (
-                            <Post key={i} post={post} />
+                        posts.map((post) => (
+                            <Post key={post._id} post={post} />
                         ))
                     }
                 </InfiniteScroll>

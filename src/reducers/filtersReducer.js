@@ -55,6 +55,8 @@ const filtersReducer = (filters, action) => {
             return { ...filters, entryDate: action.entryDate }
         case 'SET_IMMIDIATE':
             return { ...filters, immidiate: action.immidiate }
+        case 'SET_FREE_TEXT':
+            return { ...filters, freeText: action.freeText }
         default:
             return { ...filters };
     }
