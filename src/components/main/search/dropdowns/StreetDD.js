@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { setStreetText } from '../../../../actions/filterActions';
 import { updateStreetAction } from '../../../../actions/postActions';
+import { FiltersContext } from '../../../../contexts/filtersContext';
 import { PostContext } from '../../../../contexts/postContext';
 import { getStreetsOfCity } from '../../../../services/userService'
 
-const StreetDD = ({ CityValue, setShowStreetDD, searchValue }) => {
+const StreetDD = ({ CityValue, setShowStreetDD, searchValue, searchForm }) => {
     const [StreetsResults, setStreetsResults] = useState([]);
     const { dispatchPostData } = useContext(PostContext);
+    const { dispatchFiltersData } = useContext(FiltersContext)
 
     useEffect(() => {
         const res = getStreetsOfCity(CityValue, searchValue)
@@ -13,8 +16,11 @@ const StreetDD = ({ CityValue, setShowStreetDD, searchValue }) => {
     }, [searchValue]);
 
     const streetClicked = (street) => {
-        setShowStreetDD(false)
-        dispatchPostData(updateStreetAction(street.trim()));
+        setShowStreetDD(false);
+        if (searchForm == undefined)
+            dispatchPostData(updateStreetAction(street.trim()));
+        else
+            dispatchFiltersData(setStreetText(street.trim()))
     }
 
     function boldString(str, substr) {

@@ -15,6 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { propertiesNamesArray } from '../../../utils/arrays';
+import moment from 'moment';
 
 const ExpandedPost = ({ post }) => {
 
@@ -42,7 +43,7 @@ const ExpandedPost = ({ post }) => {
                         <div className="propertyDate">
                             <span> תאריך כניסה </span>
                             <span className="space">  </span>
-                            <span> {post.date || '21.6.2021'} </span>
+                            <span>  {moment(post.entryDate).format('DD.M.YYYY') || '21.6.2021'} </span>
                         </div>
                         <div className="propertyFloorsIn">
                             <span> קומות בבניין </span>

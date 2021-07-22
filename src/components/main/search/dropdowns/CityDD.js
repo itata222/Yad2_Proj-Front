@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { setCityText } from '../../../../actions/filterActions';
 import { updateCityAction } from '../../../../actions/postActions';
+import { FiltersContext } from '../../../../contexts/filtersContext';
 import { PostContext } from '../../../../contexts/postContext';
 import { getCitiesResults } from '../../../../services/userService';
 
-const CityDD = ({ setShowCityDD, searchValue, setIsInValid }) => {
+const CityDD = ({ setShowCityDD, searchValue, setIsInValid, searchForm }) => {
     const [citiesResults, setCitiesResults] = useState([]);
     const { dispatchPostData } = useContext(PostContext);
+    const { dispatchFiltersData } = useContext(FiltersContext);
 
     useEffect(() => {
         const res = getCitiesResults(searchValue)
@@ -16,7 +19,10 @@ const CityDD = ({ setShowCityDD, searchValue, setIsInValid }) => {
         setShowCityDD(false);
         if (setIsInValid != undefined)
             setIsInValid(false)
-        dispatchPostData(updateCityAction(city.trim()));
+        if (searchForm == undefined)
+            dispatchPostData(updateCityAction(city.trim()));
+        else
+            dispatchFiltersData(setCityText(city.trim()))
     }
 
     function boldString(str, substr) {

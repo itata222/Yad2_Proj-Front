@@ -6,6 +6,14 @@ export const setAreaText = (text) => ({
     type: 'SET_AREA_TEXT',
     text
 })
+export const setCityText = (city) => ({
+    type: 'SET_CITY_TEXT',
+    city
+})
+export const setStreetText = (street) => ({
+    type: 'SET_STREET_TEXT',
+    street
+})
 export const setTypesAction = (types) => ({
     type: 'SET_TYPES',
     types
@@ -101,4 +109,7 @@ export const setImmidiateAction = (immidiate) => ({
 export const setFreeText = (freeText) => ({
     type: 'SET_FREE_TEXT',
     freeText
+})
+export const clearAllFilter = () => ({
+    type: 'CLEAR_ALL_FILTERS'
 })

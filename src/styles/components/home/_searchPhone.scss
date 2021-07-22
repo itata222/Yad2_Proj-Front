@@ -27,6 +27,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        z-index: 2;
         background-color: white;
     
         button{
@@ -44,7 +45,6 @@
         border: 1px solid #eee;
         padding: .3em .7em;
         color: black;
-        pointer-events: none;
         background-color: #eee;
         font-size: 1rem;
         line-height: 1.1875rem;
@@ -153,6 +153,7 @@
              color: #ccc ;
         }
     }
+
     .type{
         width: 100%;
         margin: 0 auto;
@@ -237,6 +238,7 @@
             justify-content: space-around;
             align-items: center;
             padding-top: 0.5rem;
+        
         }
         .seperator{
             width: 20px;
@@ -274,6 +276,9 @@
                 color: #363636;
             }
         }
+    }
+    .entryDate{
+        width: 50%;
     }
     .advancedSearchButton{
         width: 100%;

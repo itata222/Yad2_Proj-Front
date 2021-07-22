@@ -5,6 +5,8 @@ export const filtersInitialState = {
 
 const filtersReducer = (filters, action) => {
     switch (action.type) {
+        case 'CLEAR_ALL_FILTERS':
+            return filtersInitialState;
         case 'SET_SORT':
             return { ...filters, sort: action.sort };
         case 'SET_PRICE_FROM':
@@ -13,6 +15,10 @@ const filtersReducer = (filters, action) => {
             return { ...filters, toPrice: action.toPrice };
         case 'SET_AREA_TEXT':
             return { ...filters, text: action.text };
+        case 'SET_CITY_TEXT':
+            return { ...filters, city: action.city }
+        case 'SET_STREET_TEXT':
+            return { ...filters, street: action.street }
         case 'SET_TYPES':
             return { ...filters, types: action.types };
         case 'SET_ROOMS_FROM':

@@ -9,6 +9,7 @@ const Step3 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
     const [entryDateInvalid, setEntryDateInvalid] = useState(false);
     const { postData, dispatchPostData } = useContext(PostContext);
     const isStepInValidToContinue = () => {
+        return false;
         return (postData.totalMr === -1 || postData.totalMr === '') || (postData.entryDate === -1 && postData.immidiate === false);
     }
 

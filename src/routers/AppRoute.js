@@ -12,6 +12,7 @@ import LoginPhone from '../components/main/LoginPhone';
 import NonUserRoute from './NonUserRoute'
 import NewPost from '../components/user/newPost/NewPost';
 import FiltersContextProvider from '../contexts/filtersContext';
+import PostsContextProvider from '../contexts/postsContext';
 
 const AppRoute = () => {
     return (
@@ -19,17 +20,19 @@ const AppRoute = () => {
             <LoginContextProvider>
                 <FiltersContextProvider>
                     <PostContextProvider>
-                        <Switch>
-                            <Route path="/" exact>
-                                <Redirect to="/home" />
-                            </Route>
-                            <Route path="/home" component={Home} />
-                            <Route path="/search-form" component={SearchFormPhone} />
-                            <NonUserRoute path='/login-page' component={LoginPhone} />
-                            <UserRoute path='/user/profile' component={UserPage} />
-                            <UserRoute path='/user/create-post' component={NewPost} />
-                            <Route path='*' component={PageNotFound} />
-                        </Switch>
+                        <PostsContextProvider>
+                            <Switch>
+                                <Route path="/" exact>
+                                    <Redirect to="/home" />
+                                </Route>
+                                <Route path="/home" component={Home} />
+                                <Route path="/search-form" component={SearchFormPhone} />
+                                <NonUserRoute path='/login-page' component={LoginPhone} />
+                                <UserRoute path='/user/profile' component={UserPage} />
+                                <UserRoute path='/user/create-post' component={NewPost} />
+                                <Route path='*' component={PageNotFound} />
+                            </Switch>
+                        </PostsContextProvider>
                     </PostContextProvider>
                 </FiltersContextProvider>
             </LoginContextProvider>

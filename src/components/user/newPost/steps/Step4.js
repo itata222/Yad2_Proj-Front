@@ -22,23 +22,23 @@ const Step4 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                     <FileUpload type='video' />
                     <div className="mainImageInput">
                         <div>תמונה ראשית</div>
-                        <FileUpload type='photo' />
+                        <FileUpload type='image' />
                     </div>
                 </div>
 
             </div>
-            <div className="photos">
+            <div className="images">
                 <h1>תמונות שיופיעו בגוף המודעה</h1>
                 <div>
-                    <FileUpload type='photo' />
-                    <FileUpload type='photo' />
-                    <FileUpload type='photo' />
-                    <FileUpload type='photo' />
-                    <FileUpload type='photo' />
-                    <FileUpload type='photo' />
-                    <FileUpload type='photo' />
-                    <FileUpload type='photo' />
-                    <FileUpload type='photo' />
+                    <FileUpload type='image' />
+                    <FileUpload type='image' />
+                    <FileUpload type='image' />
+                    <FileUpload type='image' />
+                    <FileUpload type='image' />
+                    <FileUpload type='image' />
+                    <FileUpload type='image' />
+                    <FileUpload type='image' />
+                    <FileUpload type='image' />
                 </div>
             </div>
             <StepButtons isStepInValidToContinue={isStepInValidToContinue} setStepsDone={setStepsDone} setActiveStep={setActiveStep} stepsDone={stepsDone} activeStep={activeStep} />

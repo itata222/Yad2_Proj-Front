@@ -9,9 +9,12 @@ import { roomsFromArray, roomsToArray } from '../../../utils/arrays'
 import CheckBoxDDcontainer from "./dropdowns/CheckBoxDDcontainer";
 import { getPosts } from "../../../services/userService";
 import Spinner from "../Spinner";
+import { PostsContext } from "../../../contexts/postsContext";
+import { setPostsAction } from "../../../actions/postsActions";
 
-const Search = ({ posts, setPosts }) => {
-    const { filtersData, dispatchFiltersData } = useContext(FiltersContext)
+const Search = () => {
+    const { filtersData, dispatchFiltersData } = useContext(FiltersContext);
+    const { postsData, dispatchPostsData } = useContext(PostsContext)
     const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
     const [showDDrooms, setShowDDrooms] = useState(false);
     const [showDDtypes, setShowDDtypes] = useState(false);
@@ -49,15 +52,14 @@ const Search = ({ posts, setPosts }) => {
     const searchButtonClicked = (e) => {
         e.preventDefault();
         setShowSpinner(true)
-        getPosts(posts.length, 1, filtersData).then((res) => {
+        getPosts(postsData.length, 1, filtersData).then((res) => {
             setShowSpinner(false);
             console.log(res.posts)
-            setPosts(res.posts)
+            dispatchPostsData(setPostsAction(res.posts))
         }).catch((e) => console.log(e))
     }
 
 
-    console.log(filtersData)
     return (
         <div className="search">
             {showSpinner && <Spinner />}

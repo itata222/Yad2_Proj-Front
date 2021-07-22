@@ -13,7 +13,6 @@ import Sort from "./Sort";
 const Home = () => {
   const location = ["ראשי", 'נדל"ן למכירה'];
   const [showSpinner, setShowSpinner] = useState(false);
-  const [posts, setPosts] = useState([]);
 
   return (
     <>
@@ -22,10 +21,10 @@ const Home = () => {
       {showSpinner && <Spinner />}
       <div className="home-page">
         <LocationDiv location={location} />
-        <Search posts={posts} setPosts={setPosts} />
+        <Search />
         <LocationHeadline headline={location[location.length - 1]} />
-        <Sort posts={posts} setPosts={setPosts} />
-        <Posts setShowSpinner={setShowSpinner} posts={posts} setPosts={setPosts} />
+        <Sort />
+        <Posts setShowSpinner={setShowSpinner} />
       </div>
     </>
   );

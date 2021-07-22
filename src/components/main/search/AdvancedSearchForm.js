@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { setAccessibleAction, setAirConditionAction, setBarsAction, setElevatorAction, setEntryDate, setFloorsFromAction, setFloorsToAction, setFreeText, setFurnishedAction, setImmidiateAction, setKasherAction, setMamadAction, setPandorAction, setRemakedAction, setSizeMrFrom, setSizeMrTo, setSunEnergyAction, setTadiranAction, setWarehouseAction } from '../../../actions/filterActions';
+import { clearAllFilter, setAccessibleAction, setAirConditionAction, setBarsAction, setElevatorAction, setEntryDate, setFloorsFromAction, setFloorsToAction, setFreeText, setFurnishedAction, setImmidiateAction, setKasherAction, setMamadAction, setPandorAction, setRemakedAction, setSizeMrFrom, setSizeMrTo, setSunEnergyAction, setTadiranAction, setWarehouseAction } from '../../../actions/filterActions';
 import { FiltersContext } from '../../../contexts/filtersContext'
 import { floors, propertiesNamesArray } from '../../../utils/arrays';
 import CheckBox from '../../CheckBox'
@@ -118,7 +118,9 @@ const AdvancedSearchForm = ({ searchButtonClicked }) => {
                 <div className="buttons">
                     <div></div>
                     <button onClick={searchButtonClicked}>חיפוש</button>
-                    <span>נקה</span>
+                    <span onClick={() => {
+                        dispatchFiltersData(clearAllFilter())
+                    }}>נקה</span>
                 </div>
             </div>
         </div >

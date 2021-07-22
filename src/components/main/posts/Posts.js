@@ -6,13 +6,18 @@ import NumberOfResults from '../home/NumberOfResults';
 import SpinnerInfiniteScroll from '../SpinnerInfiniteScroll';
 import { useContext } from 'react';
 import { FiltersContext } from '../../../contexts/filtersContext';
+import { PostsContext } from '../../../contexts/postsContext';
+import { setPostsAction } from '../../../actions/postsActions';
 
-const Posts = ({ setShowSpinner, posts, setPosts }) => {
-    const { filtersData } = useContext(FiltersContext)
+const Posts = ({ setShowSpinner }) => {
+    const { filtersData } = useContext(FiltersContext);
+    const { postsData, dispatchPostsData } = useContext(PostsContext)
     const [currentPage, setCurrentPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [lastLengthOfPosts, setLastLengthOfPosts] = useState(0);
     const limit = 5;
+
+    console.log(filtersData)
 
     useEffect(() => {
         let isComponentExist = true;
@@ -22,7 +27,7 @@ const Posts = ({ setShowSpinner, posts, setPosts }) => {
                 setCurrentPage(currentPage + 1)
                 setShowSpinner(false);
                 setLastLengthOfPosts(res.posts.length)
-                setPosts(res.posts);
+                dispatchPostsData(setPostsAction(res.posts));
             })
         }
         return () => {
@@ -32,11 +37,11 @@ const Posts = ({ setShowSpinner, posts, setPosts }) => {
 
     const fetchMoreData = () => {
         setTimeout(() => {
-            const currentPosts = [...posts];
+            const currentPosts = [...postsData];
             getPosts(limit, currentPage, filtersData).then((res) => {
                 setCurrentPage(currentPage + 1)
                 setShowSpinner(false);
-                setPosts([...currentPosts, ...res.posts])
+                dispatchPostsData(setPostsAction([...currentPosts, ...res.posts]))
                 setLastLengthOfPosts([...currentPosts, ...res.posts].length)
                 setHasMore(res.hasMore)
             }).catch(e => console.log(e))
@@ -44,22 +49,24 @@ const Posts = ({ setShowSpinner, posts, setPosts }) => {
     }
 
     useEffect(() => {
-        if (posts.length > 0) {
-            getPosts(posts.length, 1, filtersData).then((res) => {
-                setPosts(res.posts);
+        setShowSpinner(true)
+        if (postsData.length > 0) {
+            getPosts(postsData.length, 1, filtersData).then((res) => {
+                setShowSpinner(false)
+                dispatchPostsData(setPostsAction(res.posts));
             }).catch(e => console.log(e))
         }
     }, [filtersData.sort]);
 
     useEffect(() => {
         if (filtersData.fromPrice === 1) {
-            getPosts(posts.length, 1, filtersData).then((res) => {
-                setPosts(res.posts);
+            getPosts(postsData.length, 1, filtersData).then((res) => {
+                dispatchPostsData(setPostsAction(res.posts));
             }).catch(e => console.log(e))
         }
-        else if (lastLengthOfPosts >= posts.length && currentPage !== 1) {
+        else if (lastLengthOfPosts >= postsData.length && currentPage !== 1) {
             getPosts(lastLengthOfPosts, 1, filtersData).then((res) => {
-                setPosts(res.posts);
+                dispatchPostsData(setPostsAction(res.posts));
             }).catch(e => console.log(e))
         }
 
@@ -81,11 +88,9 @@ const Posts = ({ setShowSpinner, posts, setPosts }) => {
         };
     });
 
-
     return (
         <>
-            {console.log(posts)}
-            <NumberOfResults resultsLength={posts?.length || 0} />
+            <NumberOfResults resultsLength={postsData.length || 0} />
             <div className="posts">
                 <InfiniteScroll
                     dataLength={limit}
@@ -95,7 +100,7 @@ const Posts = ({ setShowSpinner, posts, setPosts }) => {
                     endMessage={<div className="endMessage">No More Posts</div>}
                 >
                     {
-                        posts.map((post) => (
+                        postsData.map((post) => (
                             <Post key={post._id} post={post} />
                         ))
                     }

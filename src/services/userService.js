@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import citiesStreets from "../components/main/search/dropdowns/streetsGraph"
 import cities from "../components/main/search/dropdowns/citiesArray"
+import axios from 'axios';
 
 const developmentDB = process.env.REACT_APP_DB;
 
@@ -86,6 +87,25 @@ export const addPostToDB = async (token, postObj) => {
                 'Authorization': `Bearer ${token}`
             }
         })
+        return res.data
+    } catch (e) {
+        return e
+    }
+}
+
+export const postFile = async (token, file) => {
+    try {
+        console.log(file)
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const res = await axios.post(developmentDB + '/user/post-file', formData, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+
         return res.data
     } catch (e) {
         return e
