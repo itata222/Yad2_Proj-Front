@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useContext } from 'react';
-import { setPriceFrom } from '../../../actions/filterActions';
+import { setPriceFrom, setWithImage } from '../../../actions/filterActions';
 import { FiltersContext } from '../../../contexts/filtersContext';
 import SortFilterResults from './SortFilterResults';
 import SortResults from './SortResults';
@@ -46,7 +46,7 @@ const Sort = () => {
                         <img src="https://img.icons8.com/material-rounded/24/000000/shekel.png" alt="shekel" />
                         <span>עם מחיר</span>
                     </button>
-                    <button className={sortFilterWithImage ? 'sortFilterButtonActive' : ''} onClick={() => setSortFilterWithImage(!sortFilterWithImage)}>
+                    <button className={filtersData.withImage === true ? 'sortFilterButtonActive' : ''} onClick={() => dispatchFiltersData(setWithImage(filtersData.withImage === true ? false : true))}>
                         <img src="https://img.icons8.com/material-outlined/24/000000/image.png" alt="portrait icon" />
                         <span>עם תמונה</span>
                     </button>

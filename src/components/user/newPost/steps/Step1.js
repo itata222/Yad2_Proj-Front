@@ -15,6 +15,7 @@ const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
     const [typeInvalid, setTypeInvalid] = useState(false);
     const [conditionInvalid, setConditionInvalid] = useState(false);
     const [cityInvalid, setCityInvalid] = useState(false);
+    const [streetInvalid, setStreetInvalid] = useState(false);
     const [floorInvalid, setFloorInvalid] = useState(false);
     const [totalFloorsInvalid, setTotalFloorsInvalid] = useState(false);
     const [showCityDD, setShowCityDD] = useState(false);
@@ -22,7 +23,7 @@ const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
     const [showStreetDD, setShowStreetDD] = useState(false);
     const [notification, setNotification] = useState(false);
 
-    const inputsSetStates = [setCityInvalid, setFloorInvalid, setTotalFloorsInvalid, setTypeInvalid, setConditionInvalid]
+    const inputsSetStates = [setCityInvalid, setFloorInvalid, setTotalFloorsInvalid, setTypeInvalid, setConditionInvalid, setStreetInvalid]
 
 
 
@@ -47,9 +48,10 @@ const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
     const isTypeInFilled = () => postData.propType === '';
     const isConditionInFilled = () => postData.condition === '';
     const isCityInFilled = () => postData.city === '';
+    const isStreetInFilled = () => postData.street === '';
     const isFloorInFilled = () => postData.floor === -1;
     const isFloorInBuildingInFilled = () => postData.floorsInBuilding === -1;
-    const isStepInValidToContinue = () => isFloorInBuildingInFilled() || isFloorInFilled() || isConditionInFilled() || isCityInFilled() || isTypeInFilled();
+    const isStepInValidToContinue = () => isFloorInBuildingInFilled() || isFloorInFilled() || isConditionInFilled() || isCityInFilled() || isTypeInFilled() || isStreetInFilled();
 
     return (
         <div className="step1">
@@ -96,15 +98,16 @@ const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                     {showCityDD && <CityDD setIsInValid={setCityInvalid} setCityValue={setCityValue} setShowCityDD={setShowCityDD} searchValue={CityValue} />}
                 </div>
                 <div className={!isCityInFilled() ? "street" : "street lowerOpacity"}>
-                    <label>רחוב</label>
+                    <label>רחוב*</label>
                     <input
                         value={postData.street || StreetValue}
                         onChange={e => setStreetValue(e.target.value)}
-                        className='streetInput'
+                        className={!streetInvalid ? 'streetInput' : 'streetInput invalidInput'}
                         placeholder='הכנסת שם רחוב'
                         disabled={isCityInFilled()}
                         onInput={(e) => setStreetValue(e.target.value)} />
-                    {showStreetDD && <StreetDD CityValue={postData.city || CityValue} setStreetValue={setStreetValue} setShowStreetDD={setShowStreetDD} searchValue={StreetValue} />}
+                    {streetInvalid && <div className="invalidMessage">שדה חובה</div>}
+                    {showStreetDD && <StreetDD setIsInValid={setStreetInvalid} CityValue={postData.city || CityValue} setStreetValue={setStreetValue} setShowStreetDD={setShowStreetDD} searchValue={StreetValue} />}
                 </div>
                 <div className={!isCityInFilled() ? "numHouse" : "numHouse lowerOpacity"}>
                     <label>מס' בית</label>

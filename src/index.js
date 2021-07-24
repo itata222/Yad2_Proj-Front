@@ -5,9 +5,7 @@ import './styles/styles.scss'
 import AppRoute from './routers/AppRoute';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <AppRoute />
-  </React.StrictMode>,
+  <AppRoute />,
   document.getElementById('root')
 );
 

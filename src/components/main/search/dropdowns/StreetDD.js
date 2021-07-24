@@ -5,7 +5,7 @@ import { FiltersContext } from '../../../../contexts/filtersContext';
 import { PostContext } from '../../../../contexts/postContext';
 import { getStreetsOfCity } from '../../../../services/userService'
 
-const StreetDD = ({ CityValue, setShowStreetDD, searchValue, searchForm }) => {
+const StreetDD = ({ setIsInValid, CityValue, setShowStreetDD, searchValue, searchForm }) => {
     const [StreetsResults, setStreetsResults] = useState([]);
     const { dispatchPostData } = useContext(PostContext);
     const { dispatchFiltersData } = useContext(FiltersContext)
@@ -17,6 +17,8 @@ const StreetDD = ({ CityValue, setShowStreetDD, searchValue, searchForm }) => {
 
     const streetClicked = (street) => {
         setShowStreetDD(false);
+        if (setIsInValid != undefined)
+            setIsInValid(false)
         if (searchForm == undefined)
             dispatchPostData(updateStreetAction(street.trim()));
         else

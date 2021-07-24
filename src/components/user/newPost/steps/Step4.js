@@ -1,10 +1,10 @@
 import StepButtons from '../StepButtons'
-import React, { useContext } from 'react';
+import React from 'react';
 import FileUpload from '../FileUpload';
-import { PostContext } from '../../../../contexts/postContext';
 
 const Step4 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
-    const { postData, dispatchPostData } = useContext(PostContext);
+    const filesUploadArray = ['file1', 'file2', 'file3', 'file4', 'file5',
+        'file6', 'file7', 'file8', 'file9']
 
     const isStepInValidToContinue = () => {
         return false
@@ -19,10 +19,10 @@ const Step4 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
             <div className="mainFilesCon">
 
                 <div className="mainFiles">
-                    <FileUpload type='video' />
+                    <FileUpload type='video' index={0} />
                     <div className="mainImageInput">
                         <div>תמונה ראשית</div>
-                        <FileUpload type='image' />
+                        <FileUpload index={0} type='image' />
                     </div>
                 </div>
 
@@ -30,15 +30,11 @@ const Step4 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
             <div className="images">
                 <h1>תמונות שיופיעו בגוף המודעה</h1>
                 <div>
-                    <FileUpload type='image' />
-                    <FileUpload type='image' />
-                    <FileUpload type='image' />
-                    <FileUpload type='image' />
-                    <FileUpload type='image' />
-                    <FileUpload type='image' />
-                    <FileUpload type='image' />
-                    <FileUpload type='image' />
-                    <FileUpload type='image' />
+                    {
+                        filesUploadArray.map((file, i) => (
+                            <FileUpload index={i + 1} key={file} type='image' />
+                        ))
+                    }
                 </div>
             </div>
             <StepButtons isStepInValidToContinue={isStepInValidToContinue} setStepsDone={setStepsDone} setActiveStep={setActiveStep} stepsDone={stepsDone} activeStep={activeStep} />

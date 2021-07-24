@@ -1,19 +1,30 @@
 import moment from 'moment'
 import React, { useState } from 'react'
 import NumberFormat from 'react-number-format';
+import ImagesModal from '../modal/ImagesModal';
 import ExpandedPost from './ExpandedPost';
 
 
 const Post = ({ post }) => {
     const [showPost, setShowPost] = useState(false);
+    const [showImagesModal, setShowImagesModal] = useState(false);
 
     const openPost = (e) => {
         e.preventDefault();
         setShowPost(!showPost)
     }
 
+    const displayImages = (e) => {
+        if (post.photos.length > 1 || post.video !== '') {
+            e.stopPropagation()
+            setShowImagesModal(true)
+
+        }
+    }
+
     return (
         <div className="post" >
+            {showImagesModal && <ImagesModal post={post} setShowImagesModal={setShowImagesModal} />}
             <div className={showPost ? 'post-phone post-phoneExpanded' : 'post-phone'} onClick={openPost}>
 
                 <div className="areaDetails">
@@ -52,8 +63,21 @@ const Post = ({ post }) => {
                         <span>מ"ר</span>
                     </div>
                 </div>
-                <div className="image">
-                    <img src={'https://img.yad2.co.il/Pic/202107/11/2_1/o/y2_1_09621_20210711090737.jpeg?l=7&c=3&w=195&h=117'} alt="is" />
+                <div className={showPost ? 'image imageExpanded' : 'image'} onClick={(e) => {
+                    if (showPost)
+                        displayImages(e)
+                }}>
+                    <div className="postFilesDisplay">
+                        {post.video !== "" && <i className="fas fa-play"></i>}
+                        {post.photos.length > 1 &&
+                            <div className="numbersOfphotos">
+                                <i className="far fa-clone">
+                                    <span>+{post.photos.length - 1}</span>
+                                </i>
+                            </div>
+                        }
+                    </div>
+                    <img src={post.photos[0] || 'https://assets.yad2.co.il/yad2site/y2assets/images/pages/feed/feed_re_placeholder_small.png'} alt="" />
                 </div>
                 {
                     showPost &&
@@ -62,8 +86,21 @@ const Post = ({ post }) => {
             </div>
             <div className={showPost ? 'post-desktop post-desktopExpanded' : 'post-desktop'} onClick={openPost}>
                 <div className="minInfo">
-                    <div className={showPost ? 'image imageExpanded' : 'image'}>
-                        <img src={'https://img.yad2.co.il/Pic/202107/11/2_1/o/y2_1_09621_20210711090737.jpeg?l=7&c=3&w=195&h=117'} alt="is" />
+                    <div className={showPost ? 'image imageExpanded' : 'image'} onClick={(e) => {
+                        if (showPost)
+                            displayImages(e)
+                    }}>
+                        <div className="postFilesDisplay">
+                            {post.video !== "" && <i className="fas fa-play"></i>}
+                            {post.photos.length > 1 &&
+                                <div className="numbersOfphotos">
+                                    <i className="far fa-clone">
+                                        <span>+{post.photos.length - 1}</span>
+                                    </i>
+                                </div>
+                            }
+                        </div>
+                        <img src={post.photos[0] || 'https://assets.yad2.co.il/yad2site/y2assets/images/pages/feed/feed_re_placeholder_small.png'} alt="" />
                     </div>
                     <div className={showPost ? 'itemsMerged' : 'itemsInMerged'}>
                         <div className={showPost ? 'areaDetails areaDetailsExpanded' : 'areaDetails'}>

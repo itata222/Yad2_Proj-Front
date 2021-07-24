@@ -13,6 +13,7 @@ const StepButtons = ({ readContract, step, inputsSetStates, isStepInValidToConti
                 if (postData.floorsInBuilding === -1) inputsSetStates[2](true)
                 if (postData.propType === '') inputsSetStates[3](true)
                 if (postData.condition === '') inputsSetStates[4](true)
+                if (postData.street === '') inputsSetStates[5](true)
             }
             else if (step === 2) {
                 if (postData.rooms === -1) inputsSetStates[0](true)

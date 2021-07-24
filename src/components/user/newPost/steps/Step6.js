@@ -23,7 +23,7 @@ const Step6 = () => {
     return (
         <div className="step6">
             {showSpinner && <Spinner />}
-            {showModal && <ModalWithMessage setShowModal={setShowModal} text="Post Successfully Uploaded" history="/home" />}
+            {showModal && <ModalWithMessage setShowModal={setShowModal} text="פוסט הועלה בהצלחה" history="/home" />}
             <div className="conclusionText">
                 <h4>זהו, אנחנו בסוף. לנו נשאר לשמור את המודעה שלך, לך נשאר לבחור את מסלול הפרסום.</h4>
             </div>

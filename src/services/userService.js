@@ -82,6 +82,7 @@ export const getStreetsOfCity = (city, searchValue) => {
 
 export const addPostToDB = async (token, postObj) => {
     try {
+        console.log(typeof postObj.photos[0])
         const res = await Axios.post(developmentDB + '/user/add-post', postObj, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -95,7 +96,6 @@ export const addPostToDB = async (token, postObj) => {
 
 export const postFile = async (token, file) => {
     try {
-        console.log(file)
         const formData = new FormData();
         formData.append("file", file);
 
@@ -105,7 +105,6 @@ export const postFile = async (token, file) => {
                 'Content-Type': 'multipart/form-data'
             }
         })
-
         return res.data
     } catch (e) {
         return e

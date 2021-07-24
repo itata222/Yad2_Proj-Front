@@ -92,8 +92,14 @@
             opacity: 0;
             cursor: pointer;
         }
+
+        .fileDisplayed{
+            width: 95%;
+            height: 95%;
+            margin: auto;
+        }
     }
-    .photoInput{
+    .imageInput{
         background-color: white;
         border-radius: 5px;
         border: 2px dashed rgb(136, 136, 136);
@@ -109,9 +115,14 @@
                 margin-top: 70px;
             font-size: 1.6rem;
         }
+          .fileDisplayed{
+            width: 95%;
+            height: 95%;
+            margin: auto;
+        }
     }
     
-    .photos{
+    .images{
         margin-top: 1rem;
         display: flex;
         flex-direction: column;
@@ -134,7 +145,7 @@
             font-weight: 500;
         }
 
-        .photoInput{
+        .imageInput{
             width: 30%;
 
             input{

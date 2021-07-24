@@ -19,6 +19,7 @@ const Posts = ({ setShowSpinner }) => {
 
     console.log(filtersData)
 
+
     useEffect(() => {
         let isComponentExist = true;
         setShowSpinner(true)
@@ -71,6 +72,20 @@ const Posts = ({ setShowSpinner }) => {
         }
 
     }, [filtersData.fromPrice]);
+
+    useEffect(() => {
+        if (filtersData.withImage === true) {
+            getPosts(postsData.length, 1, filtersData).then((res) => {
+                dispatchPostsData(setPostsAction(res.posts));
+            }).catch(e => console.log(e))
+        }
+        else if (lastLengthOfPosts >= postsData.length && currentPage !== 1) {
+            getPosts(lastLengthOfPosts, 1, filtersData).then((res) => {
+                dispatchPostsData(setPostsAction(res.posts));
+            }).catch(e => console.log(e))
+        }
+
+    }, [filtersData.withImage]);
 
 
     const handleScroll = () => {

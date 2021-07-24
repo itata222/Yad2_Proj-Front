@@ -31,7 +31,7 @@ export const postInitialState = {
     entryDate: -1,
     immidiate: false,
     photos: [],
-    video: -1,
+    video: '',
     contactName: '',
     contactPhone: '',
     contactEmail: ''

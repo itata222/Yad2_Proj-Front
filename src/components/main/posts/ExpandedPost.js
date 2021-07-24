@@ -38,27 +38,27 @@ const ExpandedPost = ({ post }) => {
                         <div className="propertyCondition">
                             <span> מצב הנכס </span>
                             <span className="space"> </span>
-                            <span>{post.condition || 'שמור'}</span>
+                            <span>{post.condition}</span>
                         </div>
                         <div className="propertyDate">
                             <span> תאריך כניסה </span>
                             <span className="space">  </span>
-                            <span>  {moment(post.entryDate).format('DD.M.YYYY') || '21.6.2021'} </span>
+                            <span>  {moment(post.entryDate).format('DD.M.YYYY')} </span>
                         </div>
                         <div className="propertyFloorsIn">
                             <span> קומות בבניין </span>
                             <span className="space"> </span>
-                            <span>{post.floorsIn || '4'}</span>
+                            <span>{post.floorsIn}</span>
                         </div>
                         <div className="propertyBalconies">
                             <span> מרפסות </span>
                             <span className="space"> </span>
-                            <span>{post.balcony || '1'}</span>
+                            <span>{post.balcony}</span>
                         </div>
                         <div className="propertyParking">
                             <span> חניות </span>
                             <span className="space"> </span>
-                            <span>{post.parking || '1'}</span>
+                            <span>{post.parking}</span>
                         </div>
                     </div>
 

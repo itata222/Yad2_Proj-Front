@@ -6,6 +6,13 @@ export const setAreaText = (text) => ({
     type: 'SET_AREA_TEXT',
     text
 })
+export const setWithImage = (withImage) => {
+    console.log(withImage)
+    return ({
+        type: 'SET_WITH_IMAGE',
+        withImage
+    })
+}
 export const setCityText = (city) => ({
     type: 'SET_CITY_TEXT',
     city

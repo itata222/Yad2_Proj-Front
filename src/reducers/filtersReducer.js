@@ -9,6 +9,8 @@ const filtersReducer = (filters, action) => {
             return filtersInitialState;
         case 'SET_SORT':
             return { ...filters, sort: action.sort };
+        case 'SET_WITH_IMAGE':
+            return { ...filters, withImage: action.withImage }
         case 'SET_PRICE_FROM':
             return { ...filters, fromPrice: action.fromPrice };
         case 'SET_PRICE_TO':

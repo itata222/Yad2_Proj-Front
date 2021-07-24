@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { setPriceFrom } from '../../../actions/filterActions';
+import { setPriceFrom, setWithImage } from '../../../actions/filterActions';
 import { FiltersContext } from '../../../contexts/filtersContext';
 import { useClose } from '../../../utils/useClose';
 import CheckBox from '../../CheckBox';
@@ -11,24 +11,21 @@ const SortFilterResults = ({ setFilterResults }) => {
 
     const { filtersData, dispatchFiltersData } = useContext(FiltersContext)
 
-    const changeSort = (isActive) => {
-        console.log(isActive);
-        dispatchFiltersData(setPriceFrom(filtersData.fromPrice === 1 ? undefined : 1))
-    }
-
     return (
         <div className="sortFilterResult" >
             <div className="sortFilterResultContent" ref={menuRef}>
                 <div>
                     <CheckBox
                         value={filtersData.fromPrice === 1}
-                        onChange={changeSort}
-                        onClick={changeSort} />
+                        onChange={() => dispatchFiltersData(setPriceFrom(filtersData.fromPrice === 1 ? undefined : 1))}
+                        onClick={() => dispatchFiltersData(setPriceFrom(filtersData.fromPrice === 1 ? undefined : 1))} />
                     <label>רק עם מחיר</label>
                 </div>
                 <div>
                     <CheckBox
-                        onClick={(isActive) => console.log(isActive)} />
+                        value={filtersData.withImage === true}
+                        onChange={() => dispatchFiltersData(setWithImage(filtersData.withImage === true ? false : true))}
+                        onClick={() => dispatchFiltersData(setWithImage(filtersData.withImage === true ? false : true))} />
                     <label >רק עם תמונה</label>
                 </div>
 
