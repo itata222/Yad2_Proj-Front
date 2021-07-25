@@ -17,8 +17,8 @@ const SortFilterResults = ({ setFilterResults }) => {
                 <div>
                     <CheckBox
                         value={filtersData.fromPrice === 1}
-                        onChange={() => dispatchFiltersData(setPriceFrom(filtersData.fromPrice === 1 ? undefined : 1))}
-                        onClick={() => dispatchFiltersData(setPriceFrom(filtersData.fromPrice === 1 ? undefined : 1))} />
+                        onChange={() => dispatchFiltersData(setPriceFrom(filtersData.fromPrice === 1 ? -1 : 1))}
+                        onClick={() => dispatchFiltersData(setPriceFrom(filtersData.fromPrice === 1 ? -1 : 1))} />
                     <label>רק עם מחיר</label>
                 </div>
                 <div>

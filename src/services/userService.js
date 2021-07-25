@@ -111,8 +111,8 @@ export const postFile = async (token, file) => {
     }
 }
 
-export const getPosts = async (limit, page, queryObj) => {
-    const params = { limit, page, queryObj };
+export const getPosts = async (limit, page, queryObj, postsCurrentLength) => {
+    const params = { limit, page, queryObj, postsCurrentLength };
     try {
         const res = await Axios.get(developmentDB + '/get-posts', { params })
         return res.data

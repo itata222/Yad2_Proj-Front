@@ -9,7 +9,6 @@ const Step3 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
     const [entryDateInvalid, setEntryDateInvalid] = useState(false);
     const { postData, dispatchPostData } = useContext(PostContext);
     const isStepInValidToContinue = () => {
-        return false;
         return (postData.totalMr === -1 || postData.totalMr === '') || (postData.entryDate === -1 && postData.immidiate === false);
     }
 
@@ -22,9 +21,10 @@ const Step3 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                     <label>מ"ר בנוי</label>
                     <input
                         value={postData.buildMr === -1 ? '' : postData.buildMr}
-                        onChange={e => dispatchPostData(updateBuildMrAction(e.target.value))}
+                        onChange={e => dispatchPostData(updateBuildMrAction((parseInt(e.target.value.match(/\d+/)) || -1)))}
                         type="number"
                         placeholder='כמה מ"ר יש בנכס'
+                        maxLength="4"
                     />
                 </div>
                 <div className="mrTotal">
@@ -33,13 +33,14 @@ const Step3 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                         value={postData.totalMr === -1 ? '' : postData.totalMr}
                         onChange={e => {
                             if (e.target.value.length > 0) {
-                                dispatchPostData(updateTotalMrAction(e.target.value))
+                                dispatchPostData(updateTotalMrAction(parseInt(e.target.value.match(/\d+/)) || -1))
                                 setTotalMrInvalid(false)
                             } else
                                 dispatchPostData(updateTotalMrAction(''))
                         }}
                         className={totalMrInvalid ? 'invalidInput' : ''}
                         type="number"
+                        maxLength="5"
                     />
                     {totalMrInvalid && <div className="invalidMessage">שדה חובה</div>}
                 </div>
@@ -47,7 +48,7 @@ const Step3 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                     <label>מחיר</label>
                     <input
                         value={postData.price === -1 ? "" : postData.price}
-                        onChange={e => dispatchPostData(updatePriceAction(e.target.value))}
+                        onChange={e => dispatchPostData(updatePriceAction(parseInt(e.target.value.match(/\d+/)) || -1))}
                         maxLength="12"
                         type="number"
                         placeholder="סכום מינימלי 100,000"

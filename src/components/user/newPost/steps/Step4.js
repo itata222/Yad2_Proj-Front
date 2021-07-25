@@ -37,7 +37,12 @@ const Step4 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                     }
                 </div>
             </div>
-            <StepButtons isStepInValidToContinue={isStepInValidToContinue} setStepsDone={setStepsDone} setActiveStep={setActiveStep} stepsDone={stepsDone} activeStep={activeStep} />
+            <StepButtons
+                isStepInValidToContinue={isStepInValidToContinue}
+                setStepsDone={setStepsDone}
+                setActiveStep={setActiveStep}
+                stepsDone={stepsDone}
+                activeStep={activeStep} />
         </div>
     )
 }

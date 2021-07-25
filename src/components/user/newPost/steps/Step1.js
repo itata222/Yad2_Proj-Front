@@ -112,11 +112,12 @@ const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                 <div className={!isCityInFilled() ? "numHouse" : "numHouse lowerOpacity"}>
                     <label>מס' בית</label>
                     <input
+                        maxLength="3"
                         value={postData.houseNumber === -1 ? '' : postData.houseNumber}
-                        onChange={e => dispatchPostData(updateHouseNumberAction(e.target.value))}
+                        onChange={e => dispatchPostData(updateHouseNumberAction(parseInt(e.target.value.match(/\d+/)) || -1))}
                         className='numHouseInput'
                         disabled={isTypeInFilled()}
-                        onBlur={(e) => dispatchPostData(updateHouseNumberAction(e.target.value.trim()))} />
+                    />
                 </div>
                 <div className={!isTypeInFilled() ? "floorInfo" : "floorInfo lowerOpacity"}>
                     <div>
@@ -125,14 +126,13 @@ const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                             value={postData.floor === -1 ? '' : postData.floor}
                             onChange={e => {
                                 if (e.target.value.length > 0) {
-                                    dispatchPostData(updateFloorAction((e.target.value)))
+                                    dispatchPostData(updateFloorAction((parseInt(e.target.value.match(/\d+/)) || -1)))
                                     setFloorInvalid(false)
                                 } else
                                     dispatchPostData(updateFloorAction(-1))
                             }}
                             type="number"
-                            min='0'
-                            max='100'
+                            maxLength="3"
                             className={floorInvalid ? 'invalidInput' : ''}
                             placeholder="הכנסת מספר קומה"
                             disabled={isTypeInFilled()}
@@ -145,11 +145,12 @@ const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                             value={postData.floorsInBuilding === -1 ? '' : postData.floorsInBuilding}
                             onChange={e => {
                                 if (e.target.value.length > 0) {
-                                    dispatchPostData(updateFloorsInBuildingAction(e.target.value))
+                                    dispatchPostData(updateFloorsInBuildingAction(parseInt(e.target.value.match(/\d+/)) || -1))
                                     setTotalFloorsInvalid(false)
                                 } else
                                     dispatchPostData(updateFloorsInBuildingAction(-1))
                             }}
+                            maxLength="3"
                             type="number"
                             className={totalFloorsInvalid ? 'invalidInput' : ''}
                             placeholder='הכנסת סה"כ קומות'
@@ -187,7 +188,7 @@ const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
             <StepButtons
                 step={1}
                 inputsSetStates={inputsSetStates}
-                isStepInValidToContinue={() => false}
+                isStepInValidToContinue={isStepInValidToContinue}
                 setStepsDone={setStepsDone}
                 setActiveStep={setActiveStep}
                 stepsDone={stepsDone}

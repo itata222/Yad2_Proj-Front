@@ -14,10 +14,8 @@ const Posts = ({ setShowSpinner }) => {
     const { postsData, dispatchPostsData } = useContext(PostsContext)
     const [currentPage, setCurrentPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
-    const [lastLengthOfPosts, setLastLengthOfPosts] = useState(0);
     const limit = 5;
 
-    console.log(filtersData)
 
 
     useEffect(() => {
@@ -27,7 +25,6 @@ const Posts = ({ setShowSpinner }) => {
             getPosts(limit, currentPage, filtersData).then((res) => {
                 setCurrentPage(currentPage + 1)
                 setShowSpinner(false);
-                setLastLengthOfPosts(res.posts.length)
                 dispatchPostsData(setPostsAction(res.posts));
             })
         }
@@ -39,53 +36,29 @@ const Posts = ({ setShowSpinner }) => {
     const fetchMoreData = () => {
         setTimeout(() => {
             const currentPosts = [...postsData];
-            getPosts(limit, currentPage, filtersData).then((res) => {
-                setCurrentPage(currentPage + 1)
+            getPosts(limit, currentPage, filtersData, postsData.length).then((res) => {
+                if (res.posts.length > 0) {
+                    setCurrentPage(res.posts.length / 5 + 1)
+                    dispatchPostsData(setPostsAction([...currentPosts, ...res.posts]))
+                }
                 setShowSpinner(false);
-                dispatchPostsData(setPostsAction([...currentPosts, ...res.posts]))
-                setLastLengthOfPosts([...currentPosts, ...res.posts].length)
                 setHasMore(res.hasMore)
             }).catch(e => console.log(e))
         }, 500);
     }
 
     useEffect(() => {
+        console.log(2)
         setShowSpinner(true)
-        if (postsData.length > 0) {
-            getPosts(postsData.length, 1, filtersData).then((res) => {
-                setShowSpinner(false)
-                dispatchPostsData(setPostsAction(res.posts));
-            }).catch(e => console.log(e))
-        }
-    }, [filtersData.sort]);
+        getPosts(limit, 1, filtersData, postsData.length).then((res) => {
+            console.log(1)
+            setCurrentPage(res.posts.length / 5 + 1)
+            setShowSpinner(false)
+            setHasMore(res.hasMore)
+            dispatchPostsData(setPostsAction(res.posts));
+        }).catch(e => console.log(e))
 
-    useEffect(() => {
-        if (filtersData.fromPrice === 1) {
-            getPosts(postsData.length, 1, filtersData).then((res) => {
-                dispatchPostsData(setPostsAction(res.posts));
-            }).catch(e => console.log(e))
-        }
-        else if (lastLengthOfPosts >= postsData.length && currentPage !== 1) {
-            getPosts(lastLengthOfPosts, 1, filtersData).then((res) => {
-                dispatchPostsData(setPostsAction(res.posts));
-            }).catch(e => console.log(e))
-        }
-
-    }, [filtersData.fromPrice]);
-
-    useEffect(() => {
-        if (filtersData.withImage === true) {
-            getPosts(postsData.length, 1, filtersData).then((res) => {
-                dispatchPostsData(setPostsAction(res.posts));
-            }).catch(e => console.log(e))
-        }
-        else if (lastLengthOfPosts >= postsData.length && currentPage !== 1) {
-            getPosts(lastLengthOfPosts, 1, filtersData).then((res) => {
-                dispatchPostsData(setPostsAction(res.posts));
-            }).catch(e => console.log(e))
-        }
-
-    }, [filtersData.withImage]);
+    }, [filtersData.sort, filtersData.fromPrice, filtersData.withImage]);
 
 
     const handleScroll = () => {

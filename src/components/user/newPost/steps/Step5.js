@@ -53,6 +53,7 @@ const Step5 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                         {contactNameInvalid && <div className="invalidMessage">שדה חובה</div>}
                     </div>
                     <div>
+                        {console.log(postData.contactPhone)}
                         <label>טלפון ראשי*</label>
                         <input
                             value={postData.contactPhone !== '' ? postData.contactPhone.substr(3) : phoneNumber}
@@ -60,12 +61,14 @@ const Step5 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                             onChange={(e) => {
                                 setPhoneNumber(e.target.value);
                                 if (e.target.value.length > 0) {
-                                    dispatchPostData(updateContactPhoneAction(e.target.value))
+                                    dispatchPostData(updateContactPhoneAction(e.target.value.match(/\d+/)[0]) || "")
                                     setContactPhoneInvalid(false)
                                 } else
                                     dispatchPostData(updateContactPhoneAction(''))
                             }}
                             type="number"
+                            maxLength="7"
+                            minLength="7"
                         />
                         {contactPhoneInvalid && <div className="invalidMessage">שדה חובה</div>}
                     </div>

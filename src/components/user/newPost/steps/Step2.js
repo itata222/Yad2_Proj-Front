@@ -85,7 +85,7 @@ const Step2 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
             <StepButtons
                 step={2}
                 inputsSetStates={inputsSetStates}
-                isStepInValidToContinue={() => false}
+                isStepInValidToContinue={isStepInValidToContinue}
                 setStepsDone={setStepsDone}
                 setActiveStep={setActiveStep}
                 stepsDone={stepsDone}

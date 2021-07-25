@@ -41,7 +41,7 @@ const Sort = () => {
                 <div className="filter-results">
                     <span >הצג מודעות</span>
                     <button className={filtersData.fromPrice === 1 ? 'sortFilterButtonActive' : ''} onClick={() => {
-                        dispatchFiltersData(setPriceFrom(filtersData.fromPrice === 1 ? undefined : 1))
+                        dispatchFiltersData(setPriceFrom(filtersData.fromPrice === 1 ? -1 : 1))
                     }}>
                         <img src="https://img.icons8.com/material-rounded/24/000000/shekel.png" alt="shekel" />
                         <span>עם מחיר</span>

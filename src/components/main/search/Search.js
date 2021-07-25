@@ -52,13 +52,14 @@ const Search = () => {
     const searchButtonClicked = (e) => {
         e.preventDefault();
         setShowSpinner(true)
-        getPosts(postsData.length, 1, filtersData).then((res) => {
+        getPosts(5, 1, filtersData).then((res) => {
             setShowSpinner(false);
             console.log(res.posts)
             dispatchPostsData(setPostsAction(res.posts))
         }).catch((e) => console.log(e))
     }
 
+    console.log(filtersData)
 
     return (
         <div className="search">
@@ -141,8 +142,14 @@ const Search = () => {
                     <div className="price">
                         <span>מחיר</span>
                         <div className="pricesBoxes">
-                            <input type="number" placeholder="ממחיר" onBlur={(e) => dispatchFiltersData(setPriceFrom(parseInt(e.target.value)))} />
-                            <input type="number" placeholder="עד מחיר" onBlur={(e) => dispatchFiltersData(setPriceTo(parseInt(e.target.value)))} />
+                            <input
+                                type="number"
+                                placeholder="ממחיר"
+                                onBlur={(e) => dispatchFiltersData(setPriceFrom((parseInt(e.target.value.match(/\d+/)) || -1)))} />
+                            <input
+                                type="number"
+                                placeholder="עד מחיר"
+                                onBlur={(e) => dispatchFiltersData(setPriceTo((parseInt(e.target.value.match(/\d+/)) || -1)))} />
                         </div>
                     </div>
                     <div className="searchButton">
