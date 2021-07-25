@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useContext, useState } from 'react'
 import { clearAllFilter, setAccessibleAction, setAirConditionAction, setBarsAction, setElevatorAction, setEntryDate, setFloorsFromAction, setFloorsToAction, setFreeText, setFurnishedAction, setImmidiateAction, setKasherAction, setMamadAction, setPandorAction, setRemakedAction, setSizeMrFrom, setSizeMrTo, setSunEnergyAction, setTadiranAction, setWarehouseAction } from '../../../actions/filterActions';
 import { FiltersContext } from '../../../contexts/filtersContext'
@@ -56,8 +57,8 @@ const AdvancedSearchForm = ({ searchButtonClicked }) => {
                                     showFloorsFrom &&
                                     <div className="floorsFromValues">
                                         {
-                                            floors.map(floor => (
-                                                <div key={floor} onClick={() => dispatchFiltersData(setFloorsFromAction(floor))} className="floor">
+                                            floors.map((floor, i) => (
+                                                <div style={{ display: i <= filtersData.floorsTo || 20 ? 'block' : 'none' }} key={floor} onClick={() => dispatchFiltersData(setFloorsFromAction(floor))} className="floor">
                                                     {floor}
                                                 </div>
                                             ))
@@ -73,8 +74,8 @@ const AdvancedSearchForm = ({ searchButtonClicked }) => {
                                 {showFloorsTo &&
                                     <div className="floorsFromValues">
                                         {
-                                            floors.map(floor => (
-                                                <div key={floor} onClick={() => dispatchFiltersData(setFloorsToAction(floor))} className="floor">
+                                            floors.map((floor, i) => (
+                                                <div style={{ display: i >= filtersData.floorsFrom || 0 ? 'block' : 'none' }} key={floor} onClick={() => dispatchFiltersData(setFloorsToAction(floor))} className="floor">
                                                     {floor}
                                                 </div>
                                             ))
@@ -86,16 +87,19 @@ const AdvancedSearchForm = ({ searchButtonClicked }) => {
                     <div className="size">
                         <span>גודל דירה (במ"ר)</span>
                         <div className="sizes">
-                            <input type="number" placeholder="מ-" onBlur={(e) => dispatchFiltersData(setSizeMrFrom(parseInt(e.target.value)))} />
-                            <input type="number" placeholder="עד-" onBlur={(e) => dispatchFiltersData(setSizeMrTo(parseInt(e.target.value)))} />
+                            <input min="0" type="number" placeholder="מ-" onBlur={(e) => dispatchFiltersData(setSizeMrFrom(parseInt(e.target.value)))} />
+                            <input min="0" type="number" placeholder="עד-" onBlur={(e) => dispatchFiltersData(setSizeMrTo(parseInt(e.target.value)))} />
                         </div>
                     </div>
                     <div className="entryDate">
                         <span>תאריך כניסה</span>
                         <div className="sizes">
                             <input
+                                disabled={filtersData.immidiate === true}
+                                value={filtersData.immidiate === true ? moment().format('yyyy-MM-DD') : filtersData.entryDate || 'mm'}
                                 placeholder="החל מ- הזינו תאריך"
-                                className="textbox-n" type="date" onChange={(e) => dispatchFiltersData(setEntryDate(e.target.value))} />
+                                className="textbox-n" type="date"
+                                onChange={(e) => dispatchFiltersData(setEntryDate(e.target.value))} />
                         </div>
                     </div>
                     <div className="imidiateEntry">

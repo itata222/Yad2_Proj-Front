@@ -115,6 +115,8 @@ const Search = () => {
                             <div className="dropdown ddRooms">
                                 <div className="roomsFrom">
                                     <SelectDropDown
+                                        endAtValue={filtersData.roomsTo * 2 || 20}
+                                        startAtValue={0}
                                         onChange={(e) => {
                                             console.log(e)
                                             setRoomsFromVal(e)
@@ -127,6 +129,8 @@ const Search = () => {
 
                                 <div className="roomsTo">
                                     <SelectDropDown
+                                        startAtValue={filtersData.roomsFrom * 2 || 0}
+                                        endAtValue={20}
                                         onChange={(e) => {
                                             setRoomsToVal(e)
                                             dispatchFiltersData(setRoomsToAction(parseFloat(e)))
@@ -143,13 +147,16 @@ const Search = () => {
                         <span>מחיר</span>
                         <div className="pricesBoxes">
                             <input
+                                min="0"
+                                max={filtersData.toPrice}
                                 type="number"
                                 placeholder="ממחיר"
-                                onBlur={(e) => dispatchFiltersData(setPriceFrom((parseInt(e.target.value.match(/\d+/)) || -1)))} />
+                                onBlur={(e) => dispatchFiltersData(setPriceFrom(parseFloat(e.target.value)))} />
                             <input
+                                min={filtersData.fromPrice || "0"}
                                 type="number"
                                 placeholder="עד מחיר"
-                                onBlur={(e) => dispatchFiltersData(setPriceTo((parseInt(e.target.value.match(/\d+/)) || -1)))} />
+                                onBlur={(e) => dispatchFiltersData(setPriceTo((parseFloat(e.target.value))))} />
                         </div>
                     </div>
                     <div className="searchButton">

@@ -113,6 +113,7 @@ const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                     <label>מס' בית</label>
                     <input
                         maxLength="3"
+                        min={0}
                         value={postData.houseNumber === -1 ? '' : postData.houseNumber}
                         onChange={e => dispatchPostData(updateHouseNumberAction(parseInt(e.target.value.match(/\d+/)) || -1))}
                         className='numHouseInput'
@@ -125,14 +126,16 @@ const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                         <input
                             value={postData.floor === -1 ? '' : postData.floor}
                             onChange={e => {
-                                if (e.target.value.length > 0) {
+                                if (e.target.value.length > 0 && parseInt(e.target.value) <= 20) {
                                     dispatchPostData(updateFloorAction((parseInt(e.target.value.match(/\d+/)) || -1)))
                                     setFloorInvalid(false)
                                 } else
                                     dispatchPostData(updateFloorAction(-1))
                             }}
                             type="number"
-                            maxLength="3"
+                            maxLength={3}
+                            min={0}
+                            max={20}
                             className={floorInvalid ? 'invalidInput' : ''}
                             placeholder="הכנסת מספר קומה"
                             disabled={isTypeInFilled()}
@@ -144,7 +147,7 @@ const Step1 = ({ setActiveStep, activeStep, setStepsDone, stepsDone }) => {
                         <input
                             value={postData.floorsInBuilding === -1 ? '' : postData.floorsInBuilding}
                             onChange={e => {
-                                if (e.target.value.length > 0) {
+                                if (e.target.value.length > 0 && parseInt(e.target.value) <= 200) {
                                     dispatchPostData(updateFloorsInBuildingAction(parseInt(e.target.value.match(/\d+/)) || -1))
                                     setTotalFloorsInvalid(false)
                                 } else
