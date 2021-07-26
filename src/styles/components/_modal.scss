@@ -283,6 +283,11 @@
         div{
             height: 100%;
         }
+        &>div{
+            &>div:last-of-type{
+            direction: ltr;
+            }
+        }
         .CarouselItem{
             height: 93%;
 
@@ -361,6 +366,11 @@
             img{
                 width: 95%;
                 margin: auto;
+            }
+        }
+            &>div{
+            &>div:last-of-type{
+            direction: ltr;
             }
         }
         .imageOrVideo{
