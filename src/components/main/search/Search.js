@@ -59,7 +59,7 @@ const Search = () => {
         }).catch((e) => console.log(e))
     }
 
-    console.log(filtersData)
+    // console.log(filtersData)
 
     return (
         <div className="search">

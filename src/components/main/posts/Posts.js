@@ -11,6 +11,7 @@ import { setPostsAction } from '../../../actions/postsActions';
 
 const Posts = ({ setShowSpinner }) => {
     const { filtersData } = useContext(FiltersContext);
+    console.log(filtersData)
     const { postsData, dispatchPostsData } = useContext(PostsContext)
     const [currentPage, setCurrentPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
@@ -25,6 +26,7 @@ const Posts = ({ setShowSpinner }) => {
             getPosts(limit, currentPage, filtersData).then((res) => {
                 setCurrentPage(currentPage + 1)
                 setShowSpinner(false);
+                console.log(res)
                 dispatchPostsData(setPostsAction(res.posts));
             })
         }
@@ -48,7 +50,6 @@ const Posts = ({ setShowSpinner }) => {
     }
 
     useEffect(() => {
-        console.log(2)
         setShowSpinner(true)
         getPosts(limit, 1, filtersData, postsData.length).then((res) => {
             console.log(1)
@@ -57,6 +58,8 @@ const Posts = ({ setShowSpinner }) => {
             setHasMore(res.hasMore)
             dispatchPostsData(setPostsAction(res.posts));
         }).catch(e => console.log(e))
+
+        // dispatchPostsData(setPostsAction([]));
 
     }, [filtersData.sort, filtersData.fromPrice, filtersData.withImage]);
 
@@ -89,7 +92,7 @@ const Posts = ({ setShowSpinner }) => {
                 >
                     {
                         postsData.map((post) => (
-                            <Post key={post._id} post={post} />
+                            <Post key={post.postID} post={post} />
                         ))
                     }
                 </InfiniteScroll>

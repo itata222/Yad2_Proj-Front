@@ -41,7 +41,8 @@ const UserPage = (props) => {
     }, [props.location.hash]);
 
     useEffect(() => {
-        getUserPosts(userData.token, userData.user._id).then((res) => {
+        getUserPosts(userData.token, userData.user.userID).then((res) => {
+            console.log(res)
             setUserPosts(res)
         }).catch(e => console.log(e))
     }, []);

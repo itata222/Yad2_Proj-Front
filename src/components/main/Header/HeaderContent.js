@@ -4,8 +4,11 @@ import { LoginContext } from '../../../contexts/loginContext';
 import LoginModal from '../modal/LoginModal';
 import NavSideBar from '../sidebar/NavSideBar';
 import { deleteUserFromCookie } from '../../../cookies/userCookie'
+
+
 const HeaderContent = () => {
     const { userData } = useContext(LoginContext);
+    // console.log(userData)
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [showSideBar, setShowSideBar] = useState(false);
     const history = useHistory();

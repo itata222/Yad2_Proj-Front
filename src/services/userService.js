@@ -82,7 +82,6 @@ export const getStreetsOfCity = (city, searchValue) => {
 
 export const addPostToDB = async (token, postObj) => {
     try {
-        console.log(typeof postObj.photos[0])
         const res = await Axios.post(developmentDB + '/user/add-post', postObj, {
             headers: {
                 'Authorization': `Bearer ${token}`
