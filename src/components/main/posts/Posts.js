@@ -11,7 +11,6 @@ import { setPostsAction } from '../../../actions/postsActions';
 
 const Posts = ({ setShowSpinner }) => {
     const { filtersData } = useContext(FiltersContext);
-    console.log(filtersData)
     const { postsData, dispatchPostsData } = useContext(PostsContext)
     const [currentPage, setCurrentPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
@@ -26,7 +25,6 @@ const Posts = ({ setShowSpinner }) => {
             getPosts(limit, currentPage, filtersData).then((res) => {
                 setCurrentPage(currentPage + 1)
                 setShowSpinner(false);
-                console.log(res)
                 dispatchPostsData(setPostsAction(res.posts));
             })
         }
@@ -52,14 +50,11 @@ const Posts = ({ setShowSpinner }) => {
     useEffect(() => {
         setShowSpinner(true)
         getPosts(limit, 1, filtersData, postsData.length).then((res) => {
-            console.log(1)
             setCurrentPage(res.posts.length / 5 + 1)
             setShowSpinner(false)
             setHasMore(res.hasMore)
             dispatchPostsData(setPostsAction(res.posts));
         }).catch(e => console.log(e))
-
-        // dispatchPostsData(setPostsAction([]));
 
     }, [filtersData.sort, filtersData.fromPrice, filtersData.withImage]);
 
@@ -81,18 +76,18 @@ const Posts = ({ setShowSpinner }) => {
 
     return (
         <>
-            <NumberOfResults resultsLength={postsData.length || 0} />
+            <NumberOfResults resultsLength={postsData.length || 0} autoFocus />
             <div className="posts">
                 <InfiniteScroll
                     dataLength={limit}
-                    next={fetchMoreData}
+                    next={() => console.log('next')}
                     hasMore={hasMore}
                     loader={<SpinnerInfiniteScroll />}
                     endMessage={<div className="endMessage">No More Posts</div>}
                 >
                     {
                         postsData.map((post) => (
-                            <Post key={post.postID} post={post} />
+                            <Post key={post._id} post={post} />
                         ))
                     }
                 </InfiniteScroll>
